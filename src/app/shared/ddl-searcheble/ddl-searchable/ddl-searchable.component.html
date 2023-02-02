@@ -1,0 +1,75 @@
+<section class="searchableDdl "    #searchableDdl [ngClass]="{'openMenu':showDDL&&!objData.signUp, 'signupDDL': objData.signUp, 'creatorDdl': objData.creator, 'mealItemFieldDDL': objData.mealItem,'subfieldsDDL': objData.subfieldsDDL,'fieldsDDL': objData.fieldsDDL,'changePhoneDDL': objData.changePhoneDDL}" >
+  <!-- <div #ddl class="searchableDdl-dropToggle"  [ngClass]="{'errorInvalid':borderError}" [ngbTooltip]="borderError ? messageError: ''"
+  triggers="click:blur" tooltipClass="errorToolTip" placement="top">
+    -- <span #label class="noData-selected" [ngClass]="
+    showDDL || oldselectedItems.length>0
+      ? 'Select-btn-lable-after_set_value'
+      : ''
+  "
+  [hidden]="showDDL || oldselectedItems.length>0">{{this.translate.currentLang==='ar' ? objData.placeholder : objData.placeholderEn  }}</span> --
+  <span class="noData-selected" *ngIf="!oldselectedItems.length">{{ this.translate.currentLang==='ar' ? 'أختر ' : 'Select ' }}{{this.translate.currentLang==='ar' ? objData.placeholder : objData.placeholderEn  }}</span>
+
+    <span *ngIf="oldselectedItems.length>0"  class="afterData-selected">
+      <span #valueTextSpan class="valueText" >
+        <span *ngFor="let item of oldselectedItems" >
+          {{this.translate.currentLang==='ar' ? item.name : item.nameEn||item.name   }}
+        <img *ngIf="objData.imgsrc"   width="16" height="16" class="countryImg"
+        [src]="item.imgName | picturepath:'countryCode'"
+        >{{objData.multiSelect? comma:space}}
+        </span>
+      </span>
+    </span>
+    <i #iconToggle class="fas fa-sort-down"></i>
+  </div> -->
+  <div #ddl class="searchableDdl-dropToggle"  [ngClass]="{'errorInvalid':borderError}"  [ngClass]="{'errorInvalid':borderError}" 
+  triggers="click:blur" tooltipClass="errorToolTip" placement="top">
+
+  <span #label class="noData-selected" *ngIf="showDDL"
+[hidden]=" oldselectedItems.length>0"> {{ this.translate.currentLang==='ar' ? 'اختر ' : 'Select ' }}{{ this.translate.currentLang==='ar' ? objData.placeholder : objData.placeholderEn  }}</span>
+  <span #label class="noData-selected" *ngIf="!showDDL"
+[hidden]=" oldselectedItems.length>0"> {{ this.translate.currentLang==='ar' ? objData.placeholder : objData.placeholderEn  }}</span>
+
+    <span *ngIf="oldselectedItems.length>0"  class="afterData-selected">
+      <span #valueTextSpan class="valueText" >
+        <span *ngFor="let item of oldselectedItems" >
+          {{this.translate.currentLang==='ar' ? item.name : item.nameEn||item.name   }}
+        <!-- <img *ngIf="objData.imgsrc"   width="16" height="16" class="countryImg"
+        [src]="item.imgName | picturepath:'countryCode'"
+        > -->
+        {{objData.multiSelect? comma:space}}
+        </span>
+      </span>
+    </span>
+    <i #iconToggle class="fas fa-sort-down"></i>
+  </div>
+  <div class="options-area showOptions" [hidden]="!showDDL">
+    <div class="search-input">
+      <input [hidden]="!objData.searachable" [placeholder]="this.translate.currentLang==='ar' ? 'بحث' : 'Search'  " [(ngModel)]="searchInput"
+        (keyup)="search()" />
+    </div>
+    <form [formGroup]="multiSelectForm" *ngIf="listItems.length">
+      <span class="cursor-pointer d-block mb-2 text-left text-primary" (click)="resetList($event)">{{'Reset' }}</span>
+      <ul class="options-list" (scroll)="paginationScroll($event)">
+        <!-- <i class="fas fa-redo-alt text-primary pb-2" (click)="resetList($event)"></i> -->
+        <ng-container *ngIf="!objData.multiSelect">
+          <li class=" customLiItem" [ngClass]="{'selectedItem': oldselectedItems.length && (item.id == oldselectedItems[0].id) }" *ngFor="let item of listItems" (click)="selectItem($event,item)" >
+            {{this.translate.currentLang==='ar' ? item.name : item.nameEn||item.name   }}
+            <!-- <img *ngIf="objData.imgsrc" [src]="item.imgName | picturepath:'countryCode'" width="16" height="16" class="countryImg" > -->
+          </li>
+        </ng-container>
+        <ng-container *ngIf="objData.multiSelect">
+          <!-- <li class="multiSelectItem customLiItem" *ngFor="let item of listItems ; let i =index" (click)="checkOnClickOnEntireRow(item.id, item, $event)" [id]="item.id+item.nameEn" >
+            <input [formControlName]="item.id+item.nameEn" [name]="item.id+item.nameEn" type="checkbox" [checked]="item.checked" class="checkBox"   [ngModelOptions]=" item.name " (change)="selectItem($event,item)">
+            <label  class="multiSelectItem-text">{{this.translate.currentLang==='ar' ? item.name : item.nameEn||item.name   }} </label>
+          </li> -->
+        </ng-container>
+      </ul>
+
+    </form>
+    <ul *ngIf="listItems.length==0" class="options-list">
+      <li *ngIf="!objData.noDataMessage"> {{this.translate.currentLang==='ar'?'لا يوجد بيانات':'No Data Found'}} </li>
+      <li *ngIf="objData.noDataMessage">{{this.translate.currentLang==='ar'?'لا توجد مجالات فرعية':'No Sub Field Found'}}</li>
+    </ul>
+  </div>
+</section>
+

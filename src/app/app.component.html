@@ -1,4 +1,27 @@
-<button pButton type="button" label="Primary"></button>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6 ">
+      <app-ddl-searchable *ngIf="statusObj" [objData]="statusObj"
+      (ourEvent)="select('status', $event)" #status></app-ddl-searchable>
+
+    </div>
+  </div>
+</div>
+<select class="select" multiple data-mdb-filter="true">
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+  <option value="4">Four</option>
+  <option value="5">Five</option>
+  <option value="6">Six</option>
+  <option value="7">Seven</option>
+  <option value="8">Eight</option>
+  <option value="9">Nine</option>
+  <option value="10">Ten</option>
+</select>
+
+<button pButton type="button" label="Primary" (click)="getiint()"></button>
 <div class="p-4">
     <header class="d-flex justify-content-between align-items-center" >
         <h1 class="m-0">Add New Task</h1>
