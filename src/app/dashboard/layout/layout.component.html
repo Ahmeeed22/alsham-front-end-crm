@@ -1,4 +1,5 @@
-<div class="main-layout">
+
+<!-- <div class="main-layout">
     <div class="side-bar">
         <h1>aside</h1>
         <ul class="navbar-nav ml-auto">
@@ -16,7 +17,78 @@
               </li>
           </ul>
     </div>
+
     <div class="main-content">
         <router-outlet></router-outlet>
     </div>
-</div>
+</div> -->
+
+
+
+
+<mat-drawer-container>
+    <!--start of side bar -->
+        <mat-drawer mode="side" [opened]="sideBarOpen">
+        <mat-nav-list>
+            <div class="logo py-4">
+            <img src="./assets/logo.svg" alt="Company Logo" />
+            </div>
+            <mat-divider></mat-divider>
+            <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+        
+            <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
+            <mat-icon>home</mat-icon> Home
+            </a>
+            <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+            <mat-icon>dashboard</mat-icon> Dashboard
+            </a> -->
+            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <mat-icon>edit</mat-icon> Transactions</a>
+            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <mat-icon>edit</mat-icon> Services </a>
+            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <mat-icon>edit</mat-icon> Customers </a>
+        </mat-nav-list>
+        </mat-drawer>
+    <!-- end of side bar -->
+    <mat-drawer-content>
+      <!-- header -->
+      <mat-toolbar>
+        <mat-toolbar-row class="justify-content-between">
+          <button mat-icon-button
+           (click)="toggleSidebar()"
+           >
+            <mat-icon>menu</mat-icon>
+          </button>
+          <div class="row mr-2 ml-auto">
+            <ul class="row m-0 align-items-center">
+              <li>
+                <button
+                  mat-button
+                  [matMenuTriggerFor]="menu"
+                  class="user mt-2 d-flex align-items-center"
+                >
+                  <img src="./assets/user.jpg" alt="" class="user-image mr-1 p-2" />
+      
+                  User Name
+                  <mat-icon class="user-image-icon ml-1"
+                    >keyboard_arrow_down</mat-icon
+                  >
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>exit_to_app</mat-icon>
+                    Logout
+                  </button>
+                </mat-menu>
+              </li>
+            </ul>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <!-- end of header -->
+
+      <!-- main content  -->
+      <router-outlet></router-outlet>
+      <!-- end of main content  -->
+
+    </mat-drawer-content>
+  </mat-drawer-container>
+  
