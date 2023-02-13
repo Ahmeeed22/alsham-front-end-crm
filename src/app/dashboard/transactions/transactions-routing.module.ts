@@ -6,7 +6,7 @@ import { ListTransactionsComponent } from './components/list-transactions/list-t
 const routes: Routes = [
   {
     path : '' ,
-    redirectTo :'/List',
+    redirectTo :'List',
     pathMatch :'full'
   },
   {

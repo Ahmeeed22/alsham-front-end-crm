@@ -1,6 +1,20 @@
 <div class="main-layout">
     <div class="side-bar">
         <h1>aside</h1>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-3">
+              <a class="nav-link" routerLink="/main/transactions/Add" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction add</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" routerLink="/main/transactions/List" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction List</a>
+            </li>
+            <li class="nav-item mx-3">
+                <a class="nav-link" routerLink="/main/services/List" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Service List</a>
+              </li>
+              <li class="nav-item mx-3">
+                <a class="nav-link" routerLink="/main/services/Add" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Service Add</a>
+              </li>
+          </ul>
     </div>
     <div class="main-content">
         <router-outlet></router-outlet>
