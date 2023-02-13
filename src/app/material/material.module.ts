@@ -13,8 +13,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   imports: [],
@@ -35,6 +37,8 @@ import {MatNativeDateModule, MatRippleModule, MAT_DATE_LOCALE} from '@angular/ma
     MatDatepickerModule,
     MatSortModule,
     MatTableModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
 })
 export class MaterialModule { }

@@ -14,10 +14,14 @@ import { CoreModule } from './core/core.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BackUpComponent } from './back-up/back-up.component';
+import { LayoutComponent } from './dashboard/layout/layout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BackUpComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

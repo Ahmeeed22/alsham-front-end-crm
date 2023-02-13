@@ -1,0 +1,165 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-6 ">
+        <app-ddl-searchable *ngIf="statusObj" [objData]="statusObj"
+        (ourEvent)="select('status', $event)" #status></app-ddl-searchable>
+  
+      </div>
+    </div>    
+  </div>
+  
+  
+  <button pButton type="button" label="Primary" (click)="getiint()"></button>
+  <div class="p-4">
+      <header class="d-flex justify-content-between align-items-center" >
+          <h1 class="m-0">Add New Task</h1>
+          <button mat-flat-button matDialogClose class="text-danger">
+            <mat-icon>close</mat-icon>
+          </button>
+        </header>
+      <form >
+          <div class="row mt-3">
+                  <div class="col-md-12">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Title</mat-label>
+                          <input matInput   placeholder="title">
+                      </mat-form-field>
+                  </div>  
+                  <div class="col-md-12">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>User</mat-label>
+                          <mat-select >
+                              <mat-option *ngFor="let user of users" [value]="user?.id">
+                                {{user?.name}}
+                              </mat-option>
+                            </mat-select>
+                      </mat-form-field>
+                  </div> 
+                  <div class="col-md-12">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Deadline Date</mat-label>
+                          <input matInput [matDatepicker]="picker" >
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                  </div>  
+  
+                  <div class="col-md-12">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <mat-label>Description</mat-label>
+                          <textarea matInput  placeholder="task description ...."></textarea>
+                      </mat-form-field>
+                      
+                  </div>
+          </div>
+      </form>
+  
+      <footer class="tw-p-6">
+          <div class="d-flex justify-content-center align-items-center">
+              <button mat-flat-button class="btn btn-success py-1 px-5 mx-2"  >Create</button>
+           
+              <button mat-flat-button class="btn btn-danger py-1 px-5">Close</button>
+            </div>
+          
+        </footer>
+  </div>
+  <div class="mt-4">
+   
+    <form >
+        <div class="row mt-3">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Search</mat-label>
+                        <input matInput  placeholder="title search">
+                    </mat-form-field>
+                </div>   
+        </div>
+    </form>
+    <div class="listBox">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8  w-100 mt-2">
+  
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element;let index = index"> {{index + 1}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="tasksAssigned">
+                <th mat-header-cell *matHeaderCellDef> Tasks Assigned </th>
+                <td mat-cell *matCellDef="let element"> {{element.tasksAssigned}} </td>
+              </ng-container>
+           
+  
+            <ng-container matColumnDef="actions" >
+                <th mat-header-cell *matHeaderCellDef class="w-20">  </th>
+                <td mat-cell *matCellDef="let element">   
+                    <button  mat-raised-button color="warn">Delete</button>
+                </td>
+              </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          
+    </div>
+  </div>
+  <!-- <ngx-spinner size="medium" type="ball-grid-pulse"><p-progressSpinner></p-progressSpinner></ngx-spinner> -->
+  <!-- <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner> -->
+  <ng-container >
+    <mat-toolbar class="example-header"  >Header</mat-toolbar
+    >
+  
+    <mat-sidenav-container class="example-container">
+      <mat-sidenav
+        #sidenav
+        mode="side"
+        opened
+        class="example-sidenav"
+        [fixedInViewport]="options.value.fixed"
+        [fixedTopGap]="options.value.top"
+        [fixedBottomGap]="options.value.bottom"
+      >
+        {{options.value.fixed ? 'Fixed' : 'Non-fixed'}} Sidenav
+      </mat-sidenav>
+  
+      <mat-sidenav-content [formGroup]="options">
+        <p><mat-checkbox formControlName="fixed">Fixed</mat-checkbox></p>
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Top gap</mat-label>
+            <input matInput type="number" formControlName="top" />
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Bottom gap</mat-label>
+            <input matInput type="number" formControlName="bottom" />
+          </mat-form-field>
+        </p>
+        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  
+    <mat-toolbar class="example-footer">Footer</mat-toolbar>
+  </ng-container>
