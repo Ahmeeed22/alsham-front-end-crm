@@ -1,31 +1,3 @@
-
-<!-- <div class="main-layout">
-    <div class="side-bar">
-        <h1>aside</h1>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item mx-3">
-              <a class="nav-link" routerLink="/main/transactions/Add" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction add</a>
-            </li>
-            <li class="nav-item mx-3">
-              <a class="nav-link" routerLink="/main/transactions/List" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Transaction List</a>
-            </li>
-            <li class="nav-item mx-3">
-                <a class="nav-link" routerLink="/main/services/List" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Service List</a>
-              </li>
-              <li class="nav-item mx-3">
-                <a class="nav-link" routerLink="/main/services/Add" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Service Add</a>
-              </li>
-          </ul>
-    </div>
-
-    <div class="main-content">
-        <router-outlet></router-outlet>
-    </div>
-</div> -->
-
-
-
-
 <mat-drawer-container>
     <!--start of side bar -->
         <mat-drawer mode="side" [opened]="sideBarOpen">
@@ -36,10 +8,10 @@
             <mat-divider></mat-divider>
             <h2 matSubheader class="mt-2">APPLICATIONS</h2>
         
-            <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
-            <mat-icon>home</mat-icon> Home
+            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/home" >
+                <mat-icon>home</mat-icon> Home
             </a>
-            <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+           <!--  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
             <mat-icon>dashboard</mat-icon> Dashboard
             </a> -->
             <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <mat-icon>edit</mat-icon> Transactions</a>
@@ -50,7 +22,7 @@
     <!-- end of side bar -->
     <mat-drawer-content>
       <!-- header -->
-      <mat-toolbar>
+      <mat-toolbar class="navbar">
         <mat-toolbar-row class="justify-content-between">
           <button mat-icon-button
            (click)="toggleSidebar()"
@@ -58,14 +30,14 @@
             <mat-icon>menu</mat-icon>
           </button>
           <div class="row mr-2 ml-auto">
-            <ul class="row m-0 align-items-center">
+            <ul class="row m-0 justify-content-center  align-items-center">
               <li>
                 <button
                   mat-button
                   [matMenuTriggerFor]="menu"
                   class="user mt-2 d-flex align-items-center"
                 >
-                  <img src="./assets/user.jpg" alt="" class="user-image mr-1 p-2" />
+                  <img src="./assets/user.jpg" alt="" class="user-image mx-auto p-2 d-block" />
       
                   User Name
                   <mat-icon class="user-image-icon ml-1"
@@ -73,7 +45,7 @@
                   >
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item>
+                  <button mat-menu-item  (click)="logOut()"> 
                     <mat-icon>exit_to_app</mat-icon>
                     Logout
                   </button>

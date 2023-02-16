@@ -14,14 +14,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class LoaderInterceptor implements HttpInterceptor {
 
   constructor(private spinnerService: NgxSpinnerService) {
-    console.log('loader');
     
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // this.spinnerService.show()
+    this.spinnerService.show()
     return next.handle(request).pipe(finalize(() =>{
-      //  this.spinnerService.hide()
+       this.spinnerService.hide()
       }))
   }
 }
