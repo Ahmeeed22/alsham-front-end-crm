@@ -1,1 +1,61 @@
-<p>add-transaction works!</p>
+
+<div class="p-2">
+    <header class="d-flex justify-content-between align-items-center" >
+        <h1 class="m-0">Add New Transaction</h1>
+        <button mat-flat-button (click)="close()" class="text-danger">
+          <mat-icon>close</mat-icon>
+        </button>
+      </header>
+  <form [formGroup]="newTransactionForm" >
+        <div class="row mt-1">
+                <div class="col-md-12 my-2" >
+                    <app-ddl-searchable *ngIf="customersObj" [objData]="customersObj"
+                     #customers></app-ddl-searchable>
+                </div>  
+                <div class="col-md-12 my-2 " >
+                    <app-ddl-searchable *ngIf="servicesObj" [objData]="servicesObj"
+                     #services></app-ddl-searchable>
+                </div>  
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+                        <mat-label>Price</mat-label>
+                        <input matInput  currencyMask  type="number" formControlName="price"  placeholder="Price">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput  currencyMask  type="number" formControlName="quantity"  placeholder="Quantity">
+                    </mat-form-field>
+                </div>  
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+                        <mat-label>Profite</mat-label>
+                        <input matInput  currencyMask  type="number" formControlName="profite"  placeholder="Profite">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+                        <mat-label>Payment Amount</mat-label>
+                        <input matInput  currencyMask  type="number" formControlName="paymentAmount"  placeholder="Payment Amount">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+                        <mat-label>Balance Due</mat-label>
+                        <input matInput  currencyMask  type="number" formControlName="balanceDue"  placeholder="Balance Due">
+                    </mat-form-field>
+                </div>
+        </div>
+    </form>
+
+    <footer class="tw-p-3">
+        <div class="d-flex justify-content-center align-items-center">
+            <button *ngIf="!data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="createTransaction()"   >Create</button>
+            <button *ngIf="data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="updateTransaction()"   >Update</button>
+         
+            <button mat-flat-button class="btn btn-danger py-1 px-5" (click)="close()">Close</button>
+          </div>
+        
+      </footer>
+</div>

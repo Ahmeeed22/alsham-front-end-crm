@@ -1,7 +1,7 @@
 <mat-drawer-container>
     <!--start of side bar -->
         <mat-drawer mode="side" [opened]="sideBarOpen">
-        <mat-nav-list>
+        <mat-nav-list >
             <div class="logo py-4">
             <img src="./assets/logo.svg" alt="Company Logo" />
             </div>
@@ -14,9 +14,9 @@
            <!--  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
             <mat-icon>dashboard</mat-icon> Dashboard
             </a> -->
-            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <mat-icon>edit</mat-icon> Transactions</a>
-            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <mat-icon>edit</mat-icon> Services </a>
-            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <mat-icon>edit</mat-icon> Customers </a>
+            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <mat-icon>edit</mat-icon> Transactions</a>
+            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <mat-icon>edit</mat-icon> Services </a>
+            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <mat-icon>edit</mat-icon> Customers </a>
         </mat-nav-list>
         </mat-drawer>
     <!-- end of side bar -->

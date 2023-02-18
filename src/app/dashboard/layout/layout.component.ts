@@ -10,7 +10,14 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class LayoutComponent implements OnInit {
   sideBarOpen:boolean=true ;
-  constructor(private authService:AuthService , private router:Router, private toaster:ToastrService) { }
+  isLogged:boolean =false;
+  constructor(private authService:AuthService , private router:Router, private toaster:ToastrService) { 
+   this.authService.currentUser.subscribe(res=> {
+      this.isLogged = this.authService.currentUser.getValue()!==null ? true : false ;
+      console.log(this.authService.currentUser.getValue());
+      
+    }) 
+  }
 
   ngOnInit(): void {
   }
@@ -19,11 +26,10 @@ export class LayoutComponent implements OnInit {
   }
 
   logOut(){
-    console.log("trst");
     
     localStorage.removeItem('token')
+    this.authService.currentUser.next(null)
     this.router.navigate(['/login'])
-    
     this.toaster.success("logout Succesfully" , "Success")
    }
 }

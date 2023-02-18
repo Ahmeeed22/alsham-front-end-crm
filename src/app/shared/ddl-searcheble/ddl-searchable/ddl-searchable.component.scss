@@ -15,7 +15,7 @@
     }
     &-dropToggle {
         background-color: transparent;
-        border-radius: 50px;
+        border-radius: 5px;
         cursor: pointer;
         border: 1px solid rgba(0, 0, 0, 0.2);
         width: 100%;
@@ -139,7 +139,7 @@
       width: 100%;
       padding: 10px;
       border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
+      // border-radius: 5px;
       z-index: 99999991;
       .search-input {
         margin-bottom: 10px;
@@ -215,7 +215,7 @@
     }
     .countryImg {
       object-fit: cover;
-      border-radius: 50px;
+      // border-radius: 50px;
       margin-right:5px;
     }
     .ddlBorderTransition:after {

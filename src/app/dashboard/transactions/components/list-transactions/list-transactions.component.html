@@ -1,2 +1,106 @@
-<p>list-transactions works!</p>
-<h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit, blanditiis.</h1>
+<div class="mt-2 mx-4">
+    <div class="d-flex justify-content-end align-items-center  h-100 my-3">
+        <button class="addTask" mat-raised-button (click)="addTask()" >Add Transaction</button>
+    </div>
+
+    <!-- <form >
+        <div class="row mt-3">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Search</mat-label>
+                        <input matInput (keyup)="search($event.target)" placeholder="title search">
+                    </mat-form-field>
+                </div>  
+                <div class="col-md-3">
+                    
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>By User</mat-label>
+                        <mat-select (selectionChange)="selectUser($event)">
+                          <mat-option>--no select--</mat-option>
+                            <mat-option *ngFor="let user of users" [value]="user?.id">
+                              {{user?.name}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                </div>  
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Status</mat-label>
+                        <mat-select (selectionChange)="selectStatus($event)">
+                            <mat-option>--no select--</mat-option>
+                            <mat-option *ngFor="let item of status" [value]="item?.name">
+                              {{item?.name}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                </div>  
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                          <input matStartDate formControlName="start" placeholder="Start date" (dateChange)="selectData($event , 'fromDate')" #start>
+                          <input matEndDate formControlName="end" placeholder="End date" (dateChange)="selectData($event , 'toDate')" #end>
+                        </mat-date-range-input>
+                        <mat-icon *ngIf="range.controls.start.value || range.controls.end.value" matDatepickerToggleIcon (click)="resetDateRange()">clear</mat-icon>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+              </div>  
+        </div>
+    </form> -->
+    <div class="listBox">
+        <table class="table table-hover shadow">
+            <thead>
+              <tr class="text-center text-white">
+                <th>Index</th>
+                <th>Employee Name</th>
+                <th>Customer Name</th>
+                <th>Service Name</th>
+                <th>Quantity</th>
+                <th>Price per unit</th>
+                <th>Total Price</th>
+                <th>Payment Amount</th>
+                <th>Balance Due</th>
+                <th>Profite</th>
+                <th>Date</th>
+                <th colspan="2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center">
+                <td>{{index+1}}</td>
+                <td>{{transaction.user.name}}</td>
+                <td>{{transaction.customer.name}}</td>
+                <td>{{transaction.service.name}}</td>
+                <td>{{transaction.quantity}}</td>
+                <td>{{transaction.price}}</td>
+                <td>{{transaction.totalPrice}}</td>
+                <td>{{transaction.paymentAmount}}</td>
+                <td>{{transaction.balanceDue}}</td>
+                <td>{{transaction.profite}}</td>
+                <td>{{transaction.createdAt | date}}</td>
+                <td><button (click)="updateTask($event,transaction)" class="btn btn-info" >Update</button></td>
+                <td><button (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button></td>
+              </tr>
+             
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center ">
+            <mat-paginator #paginator
+                 class="demo-paginator bg-info text-white  font-weight-light border rounded"
+                 (page)="handlePageEvent($event)"
+                 [length]="length"
+                 [pageSize]="pageSize"
+                 [disabled]="disabled"
+                 [showFirstLastButtons]="showFirstLastButtons"
+                 [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+                 [hidePageSize]="hidePageSize"
+                 [pageIndex]="pageIndex"
+                 aria-label="Select page">
+            </mat-paginator>
+          </div>
+
+
+
+    </div>
+</div>

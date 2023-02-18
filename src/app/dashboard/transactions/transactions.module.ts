@@ -4,18 +4,25 @@ import { CommonModule } from '@angular/common';
 import { TransactionsRoutingModule } from './transactions-routing.module';
 import { ListTransactionsComponent } from './components/list-transactions/list-transactions.component';
 import { AddTransactionComponent } from './components/add-transaction/add-transaction.component';
-import { ComfirmationComponent } from './components/comfirmation/comfirmation.component';
+import { MaterialModule } from 'src/app/material/material.module';
+import { CoreModule } from 'src/app/core/core.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     ListTransactionsComponent,
     AddTransactionComponent,
-    ComfirmationComponent
   ],
   imports: [
     CommonModule,
-    TransactionsRoutingModule
+    TransactionsRoutingModule,
+    MaterialModule,
+    CoreModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class TransactionsModule { }

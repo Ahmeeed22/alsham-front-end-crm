@@ -32,10 +32,13 @@ export class LoginComponent implements OnInit {
       this._AuthService.login(this.loginFormGroup.value).subscribe({
         next :(res)=>{
           localStorage.setItem('token',res.token)
+          this._AuthService.saveUserCurrent()
           this._Router.navigate(['./main'])
           this.toaster.success("Login Succesfully" , "Success")
         },
         error :(error)=>{
+          console.log(error);
+          
         }
       })
     }else{
