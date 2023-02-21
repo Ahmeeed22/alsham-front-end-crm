@@ -56,6 +56,8 @@ export class AddTransactionComponent implements OnInit {
   
 
   createForm() {
+    console.log(this.data);
+    
     this.newTransactionForm = this.fb.group({
       quantity : [this.data?.quantity || '' , Validators.required],
       balanceDue : [this.data?.balanceDue || '' , Validators.required],
@@ -91,7 +93,7 @@ export class AddTransactionComponent implements OnInit {
     let userLogged= this._AuthService.currentUser.getValue()
     if (userLogged) {
       const {company_id , id:admin_id}=userLogged ;
-      return {...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id}
+      return {...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id: this.data ?this.data.admin_id:admin_id}
     }else{
       this.toaster.error('you are not Authorized')
       this._Router.navigate(['/login'])

@@ -343,13 +343,15 @@ export class DdlSearchableComponent implements OnChanges {
    * validate the ddl searchable inputs and change the style border color
    * @public
    */
-  validate() {
+  validate():any {
     if (this.objData.required) {
       if (this.oldselectedItems?.length > 0) {
         this.borderError = false;
+        return true
       } else {
         this.borderError = true;
         this.messageError = this.translate.currentLang === 'ar' ? this.objData.messageErrorRequired : this.objData.messageErrorRequiredEn
+        return false
       }
     }
   }
@@ -371,7 +373,7 @@ export class DdlSearchableComponent implements OnChanges {
     }
   }
   list: any;
-  resetList(e: any) {
+  resetList() {
     this.oldselectedItems = []
     this.searchInput = ""
     if (this.objData.multiSelect) {
@@ -379,6 +381,7 @@ export class DdlSearchableComponent implements OnChanges {
       this.ourEvent.emit(this.gettingResult());
     }
     else {
+      this.oldselectedItems=[]
       this.ourEvent.emit({ id: undefined });
     }
   }

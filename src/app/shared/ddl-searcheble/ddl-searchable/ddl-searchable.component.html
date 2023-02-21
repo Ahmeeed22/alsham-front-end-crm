@@ -48,7 +48,7 @@
         (keyup)="search()" />
     </div>
     <form [formGroup]="multiSelectForm" *ngIf="listItems.length">
-      <span class="cursor-pointer d-block mb-2 text-left text-primary" (click)="resetList($event)">{{'Reset' }}</span>
+      <!-- <span class="cursor-pointer d-block mb-2 text-left text-primary" (click)="resetList()">{{'Reset' }}</span> -->
       <ul class="options-list" (scroll)="paginationScroll($event)">
         <!-- <i class="fas fa-redo-alt text-primary pb-2" (click)="resetList($event)"></i> -->
         <ng-container *ngIf="!objData.multiSelect">

@@ -9,7 +9,13 @@ import { environment } from 'src/environments/environment';
 export class CustomersService {
 
   constructor(private http:HttpClient) { }
+  
   getAllCustomers():Observable<any>{
     return this.http.get(`${environment.baseApi}allcustomers`)
   }
+
+  getAllCustomersSearch():Observable<any>{
+    return this.http.get(`${environment.baseApi}searchCustomer`)
+  }
+
 }

@@ -11,11 +11,12 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class LayoutComponent implements OnInit {
   sideBarOpen:boolean=true ;
   isLogged:boolean =false;
+  user:any;
   constructor(private authService:AuthService , private router:Router, private toaster:ToastrService) { 
    this.authService.currentUser.subscribe(res=> {
       this.isLogged = this.authService.currentUser.getValue()!==null ? true : false ;
       console.log(this.authService.currentUser.getValue());
-      
+      this.user=this.authService.currentUser.getValue()
     }) 
   }
 

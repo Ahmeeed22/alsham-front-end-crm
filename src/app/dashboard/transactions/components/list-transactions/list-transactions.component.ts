@@ -1,5 +1,5 @@
 import { PageEvent } from '@angular/material/paginator';
-import { Component, OnInit ,ViewChild,ElementRef} from '@angular/core';
+import { Component, OnInit ,ViewChild,ElementRef,Input} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { TransactionsService } from '../../transactions.service';
@@ -7,6 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 import { ComfirmationComponent } from 'src/app/shared/comfirmation/comfirmation.component';
+import { Item } from 'src/app/shared/ddl-searcheble/models/item';
+import { DdlSearchableComponent } from 'src/app/shared/ddl-searcheble/ddl-searchable/ddl-searchable.component';
+import { CustomersService } from 'src/app/dashboard/customer/customers.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @Component({
@@ -18,20 +22,13 @@ export class ListTransactionsComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'user' ,'deadline','status', 'actions'];
   dataSource:any = [];
   tasksFilter!:FormGroup
-  users:any = [
-    {
-      name:"Ahmed",
-      id:"63d36463a5a313fca07f9997"
-    }, {
-      name:"Sayed",
-      id:"63d3648ca5a313fca07f999a"
-    },
-  ]
 
-  status:any = [
-    // {name:this.translate.instant("tasks.Complete"),id:1 },
-    // {name:this.translate.currentLang=='en'?"In-Progress":'جاري التنفيذ' ,id:2},
-  ]
+  customersObj!:Item;
+  @ViewChild('customers') customers !: DdlSearchableComponent;
+  usersObj!:Item;
+  @ViewChild('users') users !: DdlSearchableComponent;
+  @ViewChild('start') start !: ElementRef;
+  @ViewChild('end') end !: ElementRef;
 // pagination setup
   length = 50;
   pageSize = 10;
@@ -45,40 +42,62 @@ export class ListTransactionsComponent implements OnInit {
   pageEvent !: PageEvent;
   filteration:any = {
     offset:this.pageIndex+1,
-    limit: this.pageSize
+    limit: this.pageSize,
+    // customer_id:-1,
+    // admin_id:-1,
+    // startedDate:null,
+    // endDate:null,
+    date:true
   }
   timeOutId:any
 
-  constructor(private _TransactionsService:TransactionsService  ,private toaster:ToastrService,public dialog: MatDialog ) {}
+  constructor(
+    private _TransactionsService:TransactionsService  
+    ,private toaster:ToastrService
+    ,public dialog: MatDialog
+    ,private _CustomersService:CustomersService
+    ,private _AuthService:AuthService
+     ) {}
 
   ngOnInit(): void {
     this.getAllTransactions();
+    this.getCustomers();
+    this.getUsers();
   }
 
   getAllTransactions(){
     console.log(this.filteration);
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
-    console.log(this.filteration);
-    
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
-        console.log(res.result.rows);
         this.length=res.result.count
         this.dataSource=res.result.rows
-        console.log(this.dataSource);
+        console.log(res);
+        
         this.toaster.success("success get Transactions","success")
         
-      },
-      error:(err)=>{
-        // console.log(err);
-        // this.toaster.error('errrrrror')
+      }
+    })
+  }
+  getCustomers(){
+    this._CustomersService.getAllCustomers().subscribe({
+      next :(res)=>{
+        console.log(res);
+        this.customersObj= { staticArray:res.result.rows, placeholder: 'العميل', placeholderEn: 'Search By Customer', required: false, searachable: true, multiSelect: false };
+      }
+    })
+  }
+  getUsers(){
+    this._AuthService.getAllUser().subscribe({
+      next :(res)=>{
+        console.log(res.users.rows);
+        this.usersObj= { staticArray:res.users.rows, placeholder: 'الموظف', placeholderEn: 'Search By Employee', required: false, searachable: true, multiSelect: false };
       }
     })
   }
 
+
   updateTask(e:any,ele:any){
-    console.log(ele);
-    
     const dialogRef = this.dialog.open(AddTransactionComponent, {
       width:"60%",
       disableClose:true,
@@ -91,25 +110,18 @@ export class ListTransactionsComponent implements OnInit {
 
   }
   deleteTask(id:any){
-
     const dialogRef = this.dialog.open(ComfirmationComponent, {
       width: '750px',
-    disableClose:true,
-    data : {message :"Are You Sure to Delete ? "}
-
+      disableClose:true,
+      data : {message :"Are You Sure to Delete ? "}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
       if(result!=='no') {
         this._TransactionsService.deleteTransaction(id).subscribe({
           next:()=>{
             this.toaster.success("Transaction Deleted Succesfully" , "Success")
             this.getAllTransactions()
-          },
-          error : ()=>{
-            // this.toaster.error("Task Deleted faild" , "Faild")
           }
         })
       }else{
@@ -119,44 +131,16 @@ export class ListTransactionsComponent implements OnInit {
 
 
   }
-  selectStatus(e:any){
-    console.log(e.value);
-    this.resetPagination()
-    this.filteration.status=e.value ;
+
+  search(e:any,start:any,end:any){ 
+    start?this.filteration.startedDate= new Date(start.split('-').reverse().join('-')).toISOString():'' ;
+    end?this.filteration.endDate=new Date(end.split('-').reverse().join('-')).toISOString():'' ;
+    // this.resetPagination()
+    (this.customers.gettingResult()?.id) ? this.filteration.customer_id= this.customers.gettingResult()?.id:'';
+    (this.users.gettingResult()?.id) ? this.filteration.admin_id= this.users.gettingResult()?.id:'';
+    console.log(this.filteration);
+    
     this.getAllTransactions()
-  }
-  selectUser(e:any){
-    this.resetPagination()
-    this.filteration['userId']=e.value
-    this.getAllTransactions()  
-  }
-  
-  range = new FormGroup({
-    start: new FormControl(null),
-    end: new FormControl(null),
-  });
-
-  resetDateRange(){
-    this.range.reset();
-    this.filteration.fromDate=null
-    this.filteration.toDate=null
-    this.resetPagination()
-    this.getAllTransactions() 
-  }
-
-  selectData(e:any,type:any){
-    this.resetPagination()
-    this.filteration[type]= moment(e.value).format('DD-MM-YYYY') ;
-   (type==='toDate' && this.filteration.toDate !=='Invalid date')? this.getAllTransactions() : ''
-  }
-  search(e:any){
-    this.resetPagination()
-    this.filteration.keyword= e.value ;
-    clearTimeout( this.timeOutId)
-    this.timeOutId=setTimeout(() => {
-      this.getAllTransactions()
-    }, 600);    
-
   }
 
   resetPagination(){
@@ -165,6 +149,18 @@ export class ListTransactionsComponent implements OnInit {
     this.pageIndex =0;
   }
 
+  resetSearch(start:any,end:any){
+    const {limit ,offset ,...reset}=this.filteration
+    this.filteration={limit,offset}
+    this.getAllTransactions()
+    this.resetPagination();
+    this.customers.resetList();
+    this.users.resetList();
+   this.start.nativeElement.value=null
+   this.end.nativeElement.value=null
+   
+  }
+  // configration for pagination
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
     this.length = e.length;
@@ -184,14 +180,11 @@ export class ListTransactionsComponent implements OnInit {
   addTask(): void {
     const dialogRef = this.dialog.open(AddTransactionComponent, {
       width:"60%",
-      // height:"90%",
       disableClose:true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getAllTransactions()
-
     });
   }
 }

@@ -1,1 +1,28 @@
 <h1>Home</h1>
+<div class="d-flex">
+    <mat-form-field appearance="outline" class="w-25 rounded" style="border-radius: 20px !important">
+        <mat-label>new test plane</mat-label>
+        <input matInput  currencyMask  type="text" #testplan  placeholder="Test Plane">
+    </mat-form-field>
+    <button  mat-flat-button class="btn btn-success  mx-2 px-3 py-1" (click)="addTestPlane(testplan.value)"   >Create</button>
+</div>
+
+<ul>
+    <li *ngFor="let folder of tree  ;let index=index">
+
+        {{folder.name}}<button mat-icon-button (click)="addTestCase()"><mat-icon>add</mat-icon></button>
+        <ul *ngIf="folder.testCases.length>0" class="pl-4">
+            <li *ngFor="let testCases of folder.testCases  ;let i=index">
+                {{testCases.name}}
+            </li>
+
+          </ul>
+          <div class="addneww">
+              <mat-form-field appearance="fill">
+                <mat-label>New item...</mat-label>
+                <input matInput #itemValue placeholder="Ex. Lettuce">
+              </mat-form-field>
+              <button mat-button (click)="saveNode(itemValue.value ,index)">Save</button>
+          </div>
+    </li>
+</ul>

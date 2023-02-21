@@ -1,0 +1,69 @@
+button {
+    color: #FFF;
+    margin: 0 5px;
+    &.addService {
+        background-color: rgb(28, 146, 28)!important;
+
+        color: #FFF;
+        padding: 2px 23px;
+        font-size: 20px;
+    }
+}
+
+table {
+    width: 70%;
+    margin: 20px auto;
+  }
+  :host ::ng-deep {
+    table {
+        thead {
+            // #10bca5
+            background-color: rgb(80, 170, 80)!important;
+
+            .mat-header-cell {
+                color: #FFF;
+            }
+        }
+    }
+}
+button{
+    transition: all .4s;
+    border-radius: 13px;
+}
+button:hover{
+    border-radius: 30px;
+}
+th{
+    font-size: 16px;
+    font-weight: 500;
+}
+  .active{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(0,255,0,.9);
+  }
+  .disactive{
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255,0,0,.9);
+  }
+  form{
+    width: 70%;
+    margin: auto;
+  }
+  @media only screen and (max-width: 720px) {
+    table {
+        width: 90%;
+        margin: 20px auto;
+      }
+      bottom{
+          margin: 5px 5px;
+      } 
+      form{
+        width: 90%;
+      }
+  }
+  .mat-elevation-z8{
+    box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+  }

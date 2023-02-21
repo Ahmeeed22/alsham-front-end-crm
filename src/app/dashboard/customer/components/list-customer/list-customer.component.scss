@@ -1,0 +1,47 @@
+table {
+    width: 80%;
+    margin: 20px auto;
+  }
+  :host ::ng-deep {
+    table {
+        thead {
+            // #10bca5
+            background-color: rgb(80, 170, 80)!important;
+
+            .mat-header-cell {
+                color: #FFF;
+            }
+        }
+    }
+}
+button{
+    transition: all .4s;
+    border-radius: 13px;
+}
+button:hover{
+    border-radius: 30px;
+}
+th{
+    font-size: 16px;
+    font-weight: 500;
+}
+  .active{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(0,255,0,.9);
+  }
+  .disactive{
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255,0,0,.9);
+  }
+  @media only screen and (max-width: 720px) {
+    table {
+        width: 90%;
+        margin: 20px auto;
+      }
+      bottom{
+          margin: 5px 5px;
+      } 
+  }

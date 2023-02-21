@@ -11,8 +11,10 @@ import jwtDecode from 'jwt-decode'
   providedIn: 'root'
 })
 export class AuthService {
+
    baseURL=environment.baseApi  ;
    currentUser =new BehaviorSubject(null) ;
+   
    constructor(private _HttpClient:HttpClient ,  private router:Router) { 
      if (localStorage.getItem('token')) {
       const token :any=localStorage.getItem('token')
