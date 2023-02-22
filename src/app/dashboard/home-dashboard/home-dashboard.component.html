@@ -9,20 +9,21 @@
 
 <ul>
     <li *ngFor="let folder of tree  ;let index=index">
-
-        {{folder.name}}<button mat-icon-button (click)="addTestCase()"><mat-icon>add</mat-icon></button>
-        <ul *ngIf="folder.testCases.length>0" class="pl-4">
+        <button  mat-icon-button (click)="expandList($event, index)" [id]="index+'btn'"><i class="fa-solid fa-arrow-right-long"></i></button>
+        {{folder.name}}
+        <button mat-icon-button (click)="addTestCase(index)"><mat-icon>add</mat-icon></button>
+        <ul *ngIf="folder.testCases.length>0" class="pl-5 d-none" [id]="index+'testCases'">
             <li *ngFor="let testCases of folder.testCases  ;let i=index">
                 {{testCases.name}}
             </li>
 
-          </ul>
-          <div class="addneww">
+        </ul>
+          <div class="addneww d-none" [id]="index+'test'">
               <mat-form-field appearance="fill">
                 <mat-label>New item...</mat-label>
                 <input matInput #itemValue placeholder="Ex. Lettuce">
               </mat-form-field>
-              <button mat-button (click)="saveNode(itemValue.value ,index)">Save</button>
+              <button mat-button (click)="saveNode(itemValue.value ,index)"  >Save</button>
           </div>
     </li>
 </ul>

@@ -43,6 +43,7 @@ export class ListServiceComponent implements AfterViewInit {
         console.log(res.services);
         this.dataSource = new MatTableDataSource<any>(res.services);
         this.dataSource.paginator = this.paginator;
+        this.toaster.success("success get Services","success")
       },
       error : (err)=>{
         console.log(err);

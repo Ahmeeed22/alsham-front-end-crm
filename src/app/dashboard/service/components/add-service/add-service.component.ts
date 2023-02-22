@@ -71,13 +71,11 @@ export class AddServiceComponent implements OnInit {
     if (userLogged) {
       if (this.newServiceForm.valid && this.status.validate()) {
         console.log('true');
-        
         this._ServicesService.addService({...this.newServiceForm.value ,active}).subscribe({
           next :(res)=>{
             console.log(res);
             this.toaster.success("success add Service","success")
             this.dialog.close(true)
-            
           },
           error :(err)=>{
             console.log(err);
@@ -85,7 +83,6 @@ export class AddServiceComponent implements OnInit {
         })
       } else {
         console.log("false");
-        
         this.newServiceForm.markAllAsTouched() ;
         this.status.validate();
       }
@@ -97,15 +94,16 @@ export class AddServiceComponent implements OnInit {
       let data=this.gatheringData()? this.gatheringData() : null
       this._ServicesService.updateService(this.data.id  ,data).subscribe({
         next: res=>{
-          this.toaster.success("success update transaction","success")
+          this.toaster.success("success update Service","success")
           this.dialog.close(true)
         },
         error : err=>{
-
+          this.newServiceForm.markAllAsTouched() ;
+          this.status.validate();
         }
       })
     }else{
-      
+      this.toaster.info("No Data Edited" , "info")
     }
   }
 

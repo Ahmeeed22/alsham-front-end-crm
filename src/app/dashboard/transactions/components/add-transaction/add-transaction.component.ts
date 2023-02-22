@@ -141,6 +141,7 @@ export class AddTransactionComponent implements OnInit {
         }
       })
     }else{
+      this.toaster.info("No Data Edited" , "info")
       
     }
   }

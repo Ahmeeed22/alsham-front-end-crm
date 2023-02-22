@@ -6,17 +6,17 @@
             <img src="./assets/logo.svg" alt="Company Logo" />
             </div>
             <mat-divider></mat-divider>
-            <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+            <h2 matSubheader class="mt-2"></h2>
         
             <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/home" >
-                <mat-icon>home</mat-icon> Home
+              <i class="fa-solid fa-house   fa-lg pr-4"></i> Home
             </a>
            <!--  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
             <mat-icon>dashboard</mat-icon> Dashboard
             </a> -->
-            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <mat-icon>edit</mat-icon> Transactions</a>
-            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <mat-icon>edit</mat-icon> Services </a>
-            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <mat-icon>edit</mat-icon> Customers </a>
+            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <i class="fa-solid fa-comments-dollar fa-lg pr-4"></i> Transactions</a>
+            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <i class="fa-solid fa-gears  fa-lg pr-4"></i> Services </a>
+            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <i class="fa-solid fa-users  fa-lg pr-4"></i>Customers </a>
         </mat-nav-list>
         </mat-drawer>
     <!-- end of side bar -->
