@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -6,61 +7,79 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
   styleUrls: ['./home-dashboard.component.scss']
 })
 export class HomeDashboardComponent implements OnInit {
-  flage:boolean=true ;
-  @ViewChildren('itemValue') itemValue!: QueryList<ElementRef>;
-  tree :any[]=[{
-            name:"first",
-            testCases:
-                      [
-                        {name:"testCase one"},
-                        {name:"testCase two"},
-                        {name:"testCase three"},
-                      ]
-        },
-        {
-          name:"second ",
-          testCases:
-                    [
-                      {name:"testCase one2"},
-                      {name:"testCase two2"},
-                      {name:"testCase three2"},
-                    ]
-      },
-]
-  constructor() { }
+  detailsProfite:any={}
+  count:number=0;
+  filteration:any
+  detailsProfiteMonthly:any={}
+  countMonthly:number= 0 ;
+  amountCash:number= 0 ;
+
+  constructor(
+    private _TransactionsService:TransactionsService  
+  ) { 
+    var start = new Date();
+    start.setUTCHours(0,0,0,0);
+    var end = new Date();
+    end.setUTCHours(23,59,59,999);
+
+    this.filteration = {
+      date:true ,
+      startedDate :start.toISOString(),
+      endDate : end.toISOString() ,
+    }
+  }
 
   ngOnInit(): void {
+    console.log(this.filteration);
+    this.getAllTransactions()
+    this.getAllTransactionsMonthly()
   }
 
-  addTestPlane(nameOfTestPlane:any){
-    this.tree.push({name:nameOfTestPlane ,testCases:[]})
-  }
-
-  addTestCase(index:number){
-    let ele=document.getElementById(`${index}test`)
-    ele?.classList.toggle('d-none')
-  }
-
-
-  saveNode(x:any,index:number){
-    this.tree[index].testCases.push({name:x})
-    let ele=document.getElementById(`${index}test`)
-    ele?.classList.toggle('d-none')
-    this.itemValue.toArray().forEach(val => val.nativeElement.value = null);
-    
-  }
-
-  expandList(e:any,i:number){
-    this.flage =!this.flage;
-    if ( this.flage ) {
-       document.getElementById(`${i}btn`)!.innerHTML=`<i class="fa-solid fa-arrow-right-long"></i>`
-    } else {
-       document.getElementById(`${i}btn`)!.innerHTML=`<i class="fa-solid fa-arrow-down"></i>`
+  getAllTransactions(){
+    console.log(this.filteration);
+    this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
+    this._TransactionsService.getAllTransactions(this.filteration).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.count=res.result.count
+        this.detailsProfite={...res.allProfite[0]}
+        console.log(this.detailsProfite);
+        
       }
-      let ele=document.getElementById(`${i}testCases`)
-          ele?.classList.toggle('d-none')
-          e.stopPropagation()
+    })
   }
+
+   startOfMonth(date:any)
+  {
+     
+   return new Date(date.getFullYear(), date.getMonth(),1);
+ 
+  }
+
+  getAllTransactionsMonthly(){
+    let dt = new Date(); 
+    let start = this.startOfMonth(dt).toISOString();
+    var end = new Date();
+    end.setUTCHours(23,59,59,999);
+    this.filteration = {
+      date:true ,
+      startedDate :start,
+      endDate : end.toISOString() ,
+    }
+    this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
+    this._TransactionsService.getAllTransactions(this.filteration).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.countMonthly=res.result.count
+        this.detailsProfiteMonthly={...res.allProfite[0]}
+        this.amountCash=this.detailsProfiteMonthly.paymentAmount - this.detailsProfiteMonthly.total_price_without_profite 
+        console.log(this.amountCash);
+        console.log(this.detailsProfiteMonthly);
+        
+      }
+    })
+  }
+
 
 
 }

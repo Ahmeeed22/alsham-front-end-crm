@@ -1,3 +1,104 @@
-button{
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%);
+    box-shadow: 0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+.col {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+}
+.m-b-25 {
+    margin-bottom: 25px;
+}
+h6 {
+    font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    font-family: quicksand,sans-serif;
+}
+.text-c-blue {
+    color: #4099ff;
+}
+.f-w-700 {
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 24px;
+}
+.m-b-0 {
+    margin-bottom: 0;
+}
+p {
+    font-size: 14px;
+}
+.comp-card i {
+    color: #fff;
+    width: 50px;
     height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 17px;
+    font-size: 18px;
+    text-shadow: 0 6px 8px rgb(62 57 107 / 18%);
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.bg-c-blue {
+    background: #4099ff;
+}
+.fa, .fas {
+    font-weight: 900;
+}
+.text-c-green {
+    color: #2ed8b6;
+}
+.text-c-yellow {
+    color: #ffb64d;
+}
+.comp-card i {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 17px 0;
+    font-size: 18px;
+    text-shadow: 0 6px 8px rgb(62 57 107 / 18%);
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.card-body:hover   i{
+    border-radius: 50%;
+}
+.bg-c-yellow {
+    background: #ffb64d;
+}
+.bg-c-green {
+    background: #2ed8b6;
 }

@@ -43,10 +43,6 @@ export class ListTransactionsComponent implements OnInit {
   filteration:any = {
     offset:this.pageIndex+1,
     limit: this.pageSize,
-    // customer_id:-1,
-    // admin_id:-1,
-    // startedDate:null,
-    // endDate:null,
     date:true
   }
   timeOutId:any
@@ -72,10 +68,7 @@ export class ListTransactionsComponent implements OnInit {
       next:(res)=>{
         this.length=res.result.count
         this.dataSource=res.result.rows
-        console.log(res);
-        
         this.toaster.success("success get Transactions","success")
-        
       }
     })
   }

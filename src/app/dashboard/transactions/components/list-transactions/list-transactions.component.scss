@@ -2,9 +2,9 @@ button {
     color: #FFF;
     margin: 0 5px;
     &.addTask {
-        background-color: rgb(28, 146, 28)!important;
-
-        color: #FFF;
+        background-color: #63e38a!important;
+        // rgb(28, 146, 28)!important;
+        color: #fff;
         padding: 2px 23px;
         font-size: 20px;
     }
@@ -15,7 +15,7 @@ button {
     table {
         thead {
             // #10bca5
-            background-color: rgb(80, 170, 80)!important;
+            background-color: rgb(126, 128, 126)!important;
 
             .mat-header-cell {
                 color: #FFF;

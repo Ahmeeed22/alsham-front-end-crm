@@ -1,29 +1,160 @@
-<h1>Home</h1>
-<div class="d-flex">
-    <mat-form-field appearance="outline" class="w-25 rounded" style="border-radius: 20px !important">
-        <mat-label>new test plane</mat-label>
-        <input matInput  currencyMask  type="text" #testplan  placeholder="Test Plane">
-    </mat-form-field>
-    <button  mat-flat-button class="btn btn-success  mx-2 px-3 py-1" (click)="addTestPlane(testplan.value)"   >Create</button>
+<div class="container">
+    <div class="row my-3">
+        <h3 class="text-info">Summary Of Day</h3>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Profite</h6>
+                            <h3 class="f-w-700 text-c-blue">{{detailsProfite.total_profite | currency:' AED '}}</h3>
+                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-eye bg-c-blue"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Balance</h6>
+                            <h3 class="f-w-700 text-c-green">{{detailsProfite.balanceDue | currency:' AED '}}</h3>
+                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-bullseye bg-c-green"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Payment Amount</h6>
+                            <h3 class="f-w-700 text-c-yellow">{{detailsProfite.paymentAmount | currency:' AED '}}</h3>
+                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-hand-paper bg-c-yellow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Numbers of Transactions</h6>
+                            <h3 class="f-w-700 text-c-blue">{{detailsProfite.quantity}}</h3>
+                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fa-solid fa-hashtag"></i> -->
+                            <i class="fas fa-hashtag bg-c-blue"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-3">
+        <h3 class="text-info">Summary Of Month</h3>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Profite</h6>
+                            <h3 class="f-w-700 text-c-blue">{{detailsProfiteMonthly.total_profite | currency:' AED '}}</h3>
+                            <p class="m-b-0">from <span>{{this.filteration.startedDate |date}}</span> to Now</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-eye bg-c-blue"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Current Cash</h6>
+                            <h3 class="f-w-700 text-c-blue">{{amountCash | currency:' AED '}}</h3>
+                            <p class="m-b-0">from <span>{{this.filteration.startedDate |date}}</span> to Now</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-eye bg-c-blue"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Balance</h6>
+                            <h3 class="f-w-700 text-c-green">{{detailsProfiteMonthly.balanceDue | currency:' AED '}}</h3>
+                            <p class="m-b-0">from <span>{{this.filteration.startedDate |date}}</span> to Now</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-bullseye bg-c-green"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25 " >Total Payment Amount</h6>
+                            <h3 class="f-w-700 text-c-yellow">{{detailsProfiteMonthly.paymentAmount | currency:' AED '}}</h3>
+                            <p class="m-b-0">from <span>{{this.filteration.startedDate |date}}</span> to Now</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-hand-paper bg-c-yellow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Numbers of Transactions</h6>
+                            <h3 class="f-w-700 text-c-yellow">{{detailsProfiteMonthly.quantity}}</h3>
+                            <p class="m-b-0">from <span>{{this.filteration.startedDate |date}}</span> to Now</p>
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fa-solid fa-hashtag"></i> -->
+                            <i class="fas fa-hashtag bg-c-yellow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<ul>
-    <li *ngFor="let folder of tree  ;let index=index">
-        <button  mat-icon-button (click)="expandList($event, index)" [id]="index+'btn'"><i class="fa-solid fa-arrow-right-long"></i></button>
-        {{folder.name}}
-        <button mat-icon-button (click)="addTestCase(index)"><mat-icon>add</mat-icon></button>
-        <ul *ngIf="folder.testCases.length>0" class="pl-5 d-none" [id]="index+'testCases'">
-            <li *ngFor="let testCases of folder.testCases  ;let i=index">
-                {{testCases.name}}
-            </li>
-
-        </ul>
-          <div class="addneww d-none" [id]="index+'test'">
-              <mat-form-field appearance="fill">
-                <mat-label>New item...</mat-label>
-                <input matInput #itemValue placeholder="Ex. Lettuce">
-              </mat-form-field>
-              <button mat-button (click)="saveNode(itemValue.value ,index)"  >Save</button>
-          </div>
-    </li>
-</ul>
