@@ -23,7 +23,7 @@ export class ListCustomerComponent implements AfterViewInit {
   @ViewChild('status') status !: DdlSearchableComponent;
   statusObj : Item= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false
       }
-  displayedColumns: string[] = ['index', 'name', 'email' , 'phoneNo','active' ,'action'];
+  displayedColumns: string[] = ['index', 'name', 'email' , 'phoneNo','deposite','active' ,'action'];
   dataSource !:any;
   constructor(
     private _CustomersService:CustomersService

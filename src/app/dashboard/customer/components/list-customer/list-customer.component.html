@@ -53,13 +53,19 @@
                 <!-- desc Column -->
                 <ng-container matColumnDef="email">
                   <th class="text-center" mat-header-cell *matHeaderCellDef> Email </th>
-                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.email||'-'}} </td>
                 </ng-container>
       
+                 <!-- desc Column -->
+             <ng-container matColumnDef="deposite">
+                <th class="text-center" mat-header-cell *matHeaderCellDef> Deposite </th>
+                <td mat-cell *matCellDef="let element"> {{element.deposite|currency:' AED  '}} </td>
+              </ng-container>
+
               <!-- desc Column -->
               <ng-container matColumnDef="phoneNo">
                   <th class="text-center" mat-header-cell *matHeaderCellDef> Phone No </th>
-                  <td mat-cell *matCellDef="let element"> {{element.phoneNo}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.phoneNo||'-'}} </td>
               </ng-container>
       
                 <!-- status Column -->

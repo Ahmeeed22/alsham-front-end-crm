@@ -1,6 +1,6 @@
 import { PageEvent } from '@angular/material/paginator';
 import { Component, OnInit ,ViewChild,ElementRef,Input} from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { TransactionsService } from '../../transactions.service';
 import { ToastrService } from 'ngx-toastr';
@@ -46,26 +46,73 @@ export class ListTransactionsComponent implements OnInit {
     date:true
   }
   timeOutId:any
-
+  cities!:any[];
+  form : any;
+  selectedCities:any;
+  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true};
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
     ,public dialog: MatDialog
     ,private _CustomersService:CustomersService
     ,private _AuthService:AuthService
-     ) {}
+    ,private formBuilder: FormBuilder
+     ) {
+      this.cities = [
+        { name: "Employee Name", code: "empName" },
+        { name: "Customer Name", code: "cusName" },
+        { name: "Service Name", code: "serName" },
+        { name: "Quantity", code: "qu" },
+        { name: "Price per unit", code: "ppu" }, 
+        { name: "Total Price", code: "tp" },
+        { name: "Payment Amount", code: "pm" } ,
+        { name: "Balance Due", code: "bd" },
+        { name: "Profite", code: "p" },
+        { name: "Date", code: "date" },
+        { name: "Actions", code: "acts" }
+      ];
+      this.form = this.formBuilder.group({
+        selectedCities: [[  { name: "Customer Name", code: "cusName" },
+        { name: "Service Name", code: "serName" },
+        { name: "Quantity", code: "qu" },
+        { name: "Total Price", code: "tp" },
+        { name: "Balance Due", code: "bd" },
+        { name: "Date", code: "date" },
+        { name: "Actions", code: "acts" }], Validators.required]
+      });
+     }
 
   ngOnInit(): void {
     this.getAllTransactions();
     this.getCustomers();
     this.getUsers();
-  }
+    
+    
+      this.form.get("selectedCities").valueChanges.subscribe(()  => {
+        Object.entries(this.colDisplay).forEach(([key,value]:any)=>{
+          if (true ) {
+            this.colDisplay[key]=false;
+          }
+        })
 
+          for (let index = 0; index < this.form.get("selectedCities").value.length; index++) {
+            this.colDisplay[`${this.form.get("selectedCities")?.value[index]?.code}`]=true ;
+          }
+      })
+    }
+    // patchForm() {
+    //   this.form.patchValue({ selectedCities: [{ name: "Paris", code: "PRS" }] });
+    //   // Here patchValue with Paris
+    //   // NOTE : This Paris need to be in options of p-MultiSelect otherwise chip will not populate.
+    // }
+    sumCols:any;
   getAllTransactions(){
     console.log(this.filteration);
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
+        console.log(res.allProfite[0]);
+        this.sumCols={...res.allProfite[0]}
         this.length=res.result.count
         this.dataSource=res.result.rows
         this.toaster.success("success get Transactions","success")
@@ -179,5 +226,9 @@ export class ListTransactionsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getAllTransactions()
     });
+  }
+
+  print(){
+    window.print()
   }
 }

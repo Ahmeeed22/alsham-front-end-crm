@@ -1,6 +1,6 @@
-<mat-drawer-container>
+<mat-drawer-container >
     <!--start of side bar -->
-        <mat-drawer mode="side" [opened]="sideBarOpen">
+        <mat-drawer mode="side" [opened]="sideBarOpen" class="layouting">
         <mat-nav-list >
             <div class="logo py-4">
             <img src="./assets/logo.svg" alt="Company Logo" />
@@ -22,7 +22,7 @@
     <!-- end of side bar -->
     <mat-drawer-content>
       <!-- header -->
-      <mat-toolbar class="navbar">
+      <mat-toolbar class="navbar layouting">
         <mat-toolbar-row class="justify-content-between">
           <button mat-icon-button
            (click)="toggleSidebar()"

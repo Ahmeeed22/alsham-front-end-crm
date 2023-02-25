@@ -40,7 +40,8 @@ export class AddCustomerComponent implements OnInit {
     this.newServiceForm = this.fb.group({
       name : [this.data?.name || '' , Validators.required],
       email : [this.data?.email || '' ,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
-      phoneNo : [this.data?.phoneNo || '' ]
+      phoneNo : [this.data?.phoneNo || '' ],
+      deposite : [this.data?.deposite || 0 ,Validators.min(0) ],
     })
 
     this.formValues = {...this.newServiceForm.value}

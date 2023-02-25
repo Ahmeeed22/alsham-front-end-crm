@@ -5,7 +5,7 @@ import { DdlSearchableComponent } from './ddl-searcheble/ddl-searchable/ddl-sear
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { ComfirmationComponent } from './comfirmation/comfirmation.component';
-
+import {MultiSelectModule} from 'primeng/multiselect';
 @NgModule({
   declarations: [ 
     DdlSearchableComponent ,
@@ -22,7 +22,8 @@ import { ComfirmationComponent } from './comfirmation/comfirmation.component';
   exports:[
     ButtonModule,
     DdlSearchableComponent,
-    DropdownModule
+    DropdownModule,
+    MultiSelectModule
   ]
 })
 export class SharedModule { }
