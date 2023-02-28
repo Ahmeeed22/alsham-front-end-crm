@@ -1,15 +1,20 @@
 
 <div class="p-2">
     <header class="d-flex justify-content-between align-items-center" >
-        <h1 class="m-0">{{!data?'Add New Transaction':'Update Transaction'}}</h1>
+        <div class="right">
+            <h1 style="font-size: 22px;" class= "mt-0 text-info font-weight-bolder">{{!data?'Add New Transaction':'Update Transaction'}} </h1>
+        </div>
         <button mat-flat-button (click)="close()" class="text-danger">
-          <mat-icon>close</mat-icon>
+            <mat-icon>close</mat-icon>
         </button>
-      </header>
+    </header>
+    <span class="mt-5 text-secondary"><span style="color: blue; font-size: 18px;">*</span>
+     {{customerName?customerName:'Customer'}} Deposite = {{customerDeposite?customerDeposite:0}}
+    </span>
   <form [formGroup]="newTransactionForm" >
         <div class="row mt-1">
                 <div class="col-md-12 my-2" >
-                    <app-ddl-searchable *ngIf="customersObj" [objData]="customersObj"
+                    <app-ddl-searchable *ngIf="customersObj" [objData]="customersObj"  (ourEvent)="gettingDeposite($event)"
                      #customers></app-ddl-searchable>
                 </div>  
                 <div class="col-md-12 my-2 " >

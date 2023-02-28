@@ -34,6 +34,7 @@ export class AddCustomerComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.gatheringData()
   }
 
   createForm() {
@@ -54,10 +55,10 @@ export class AddCustomerComponent implements OnInit {
   }
 
   gatheringData(){
-    let active=this.status.gettingResult()?.id
+    let active=this.status?.gettingResult()?.id
     let userLogged= this._AuthService.currentUser.getValue()
     if (userLogged) {
-     console.log(true);
+     console.log(userLogged);
      const {company_id , id:admin_id}=userLogged ;
      return {...this.newServiceForm.value , active , company_id , admin_id}
     }else{

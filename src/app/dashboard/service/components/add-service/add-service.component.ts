@@ -67,7 +67,8 @@ export class AddServiceComponent implements OnInit {
 
   createService(){
     let active=this.status.gettingResult()?.id
-    let userLogged= this._AuthService.currentUser.getValue()
+    let userLogged= this._AuthService.currentUser.getValue() ;
+    
     if (userLogged) {
       if (this.newServiceForm.valid && this.status.validate()) {
         console.log('true');

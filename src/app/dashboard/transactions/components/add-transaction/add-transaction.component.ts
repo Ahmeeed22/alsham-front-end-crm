@@ -24,6 +24,8 @@ export class AddTransactionComponent implements OnInit {
   @ViewChild('customers') customers !: DdlSearchableComponent;
   newTransactionForm :any;
   formValues:any ;
+  customerDeposite:any;
+  customerName:any;
 
   constructor(
     private _CustomersService:CustomersService,
@@ -50,8 +52,32 @@ export class AddTransactionComponent implements OnInit {
     this.newTransactionForm?.get("balanceDue").valueChanges.subscribe(()  => {
       setTimeout(() => {
         this.newTransactionForm.get('paymentAmount').patchValue(((this.newTransactionForm.value.price + this.newTransactionForm.value.profite)*(this.newTransactionForm.value.quantity))-this.newTransactionForm?.get("balanceDue").value)
-     })
-      }, 500);
+     },500)
+      } );
+
+    // handle deposite 
+    this.newTransactionForm.get("profite").valueChanges.subscribe (():any=>{
+       if (this.customerDeposite ===0) return null;
+        setTimeout(()=>{
+          if (this.newTransactionForm.value.price && this.newTransactionForm.value.profite && this.newTransactionForm.value.quantity) {
+            var totalPrice=(this.newTransactionForm.value.price + this.newTransactionForm.value.profite)*(this.newTransactionForm.value.quantity) ;
+            console.log(totalPrice);
+            
+            if (this.customerDeposite >= totalPrice) {
+              this.newTransactionForm.get('balanceDue').patchValue(0) ;
+              // this.newTransactionForm.get('paymentAmount').patchValue(totalPrice) ;
+              // update here customer deposite
+  
+            } else {
+              // this.newTransactionForm.get('balanceDue').patchValue(totalPrice-this.customerDeposite) ;
+              this.newTransactionForm.get('paymentAmount').patchValue(this.customerDeposite) ;
+              // update here customer deposite
+  
+            }
+          }
+        },100)
+      })
+
   }
   
 
@@ -87,6 +113,14 @@ export class AddTransactionComponent implements OnInit {
     })
   }
 
+  updateCustomerDeposite(id:number,body:any){
+    this._CustomersService.updateCustomer(id,body).subscribe({
+      next : (res)=>{
+        this.toaster.success("customer deposite success updated","Success")
+      }
+    })
+  }
+
   gatheringData(){
     let customer_id=this.customers.gettingResult()?.id
     let service_id=this.services.gettingResult()?.id
@@ -107,6 +141,43 @@ export class AddTransactionComponent implements OnInit {
     if (userLogged) {
       const {company_id , id:admin_id}=userLogged ;
       if (this.newTransactionForm.valid && customer_id && service_id) {
+        if (this.customerDeposite>0) {
+          var totalPrice=(this.newTransactionForm.value.price + this.newTransactionForm.value.profite)*(this.newTransactionForm.value.quantity) ;
+          
+          if (this.customerDeposite >= totalPrice ) {
+            // this.newTransactionForm.get('balanceDue').patchValue(0) ;
+            // this.newTransactionForm.get('paymentAmount').patchValue(totalPrice) ;
+            if (this.newTransactionForm.get('balanceDue').value !=0) {
+              this.toaster.warning("this customer have deposite more than total price must balance equal zero") ;
+              return ;
+            }
+            // update here customer deposite
+            this._CustomersService.updateCustomer(this.customerSelected.id,{deposite :this.customerSelected.deposite-totalPrice}).subscribe({
+              next :(res)=>{
+                this.toaster.success("customer deposite updated","success")
+              }
+            })
+          } else {
+            // this.newTransactionForm.get('balanceDue').patchValue(totalPrice-this.customerDeposite) ;
+            // this.newTransactionForm.get('paymentAmount').patchValue(this.customerDeposite) ;
+            // update here customer deposite
+            if (this.newTransactionForm.get('paymentAmount').value < this.customerSelected.deposite) {
+              this.toaster.warning("this customer have deposite more than payment amount ") ;
+              return ;
+            }
+            // update here customer deposite
+            this._CustomersService.updateCustomer(this.customerSelected.id,{deposite :0}).subscribe({
+              next :(res)=>{
+                this.toaster.success("customer deposite updated","success")
+              }
+            })
+
+
+          }
+        }
+
+
+
         this._TransactionsService.addTransaction({...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id}).subscribe({
           next :(res)=>{
             console.log(res);
@@ -175,6 +246,15 @@ export class AddTransactionComponent implements OnInit {
       hasChanges= true ;
     }
     return hasChanges
+  }
+  customerSelected:any ;
+  gettingDeposite(event:any){
+    this.customerSelected={...event}
+    console.log(this.customerSelected);
+    
+    console.log(event.deposite);
+    this.customerDeposite=event.deposite
+    this.customerName=event.name
   }
 
 }
