@@ -49,68 +49,73 @@
       defaultLabel="Select a City" optionLabel="name">
       </p-multiSelect>
     </form>
-    <button class="btn btn-primary  px-4  "  (click)="print()">print</button>
+    <button class="btn btn-primary  px-4  "(click)="printTest({ printable: 'print-section', type: 'html',style: '.parentt{width:95% ; margin:auto;}table tfoot tr ,table thead tr{background:#ccc;}table tfoot tr .sumInfo{border: 2px solid blue !important;}tbody{text-align:center; border: 2px solid blue;}table{background-image: url(https://ik.imagekit.io/2cvha6t2l9/bg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677596175916); background-repeat: repeat;background-position: center center;width: 60%;height: 60%;color:#000, border:none !important;}tr{text-align:center;}td{text-align:center; border-top: 2px solid blue;font-size: larger;}' },immg)">print</button>
   </div>
 <div class="my-2 mx-4 pb-2 mat-elevation-z8" >
 
-    <div class="listBox">
-      <div class="table-responsive">
-
-        <table class="table table-hover ">
-            <thead>
-            
-              <tr class="text-center text-white text-light">
-                <th >Index</th>
-                <!-- {empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:false ,date:true ,acts:true} -->
-                <th *ngIf="colDisplay.empName">Employee Name</th>
-                <th *ngIf="colDisplay.cusName">Customer Name</th>
-                <th *ngIf="colDisplay.serName">Service Name</th>
-                <th *ngIf="colDisplay.qu">Quantity</th>
-                <th *ngIf="colDisplay.ppu">Price per unit</th>
-                <th *ngIf="colDisplay.tp">Total Price</th>
-                <th *ngIf="colDisplay.pm">Payment Amount</th>
-                <th *ngIf="colDisplay.bd">Balance Due</th>
-                <th *ngIf="colDisplay.p">Profite</th>
-                <th *ngIf="colDisplay.date">Date</th>
-                <th *ngIf="colDisplay.acts" colspan="2">Actions</th>
-              </tr>
-            </thead>
-            <tfoot class="text-center">
-              <tr>
-                  <th >Sum</th>
-                  <th *ngIf="colDisplay.empName"></th>
-                  <th *ngIf="colDisplay.cusName"></th>
-                  <th *ngIf="colDisplay.serName"></th>
-                  <th *ngIf="colDisplay.qu" class="table-info">{{sumCols?.quantity}}</th>
-                  <th *ngIf="colDisplay.ppu"></th>
-                  <th *ngIf="colDisplay.tp" class="table-info">{{sumCols?.total_price}}</th>
-                  <th *ngIf="colDisplay.pm" class="table-info">{{sumCols?.paymentAmount}}</th>
-                  <th *ngIf="colDisplay.bd" class="table-info">{{sumCols?.balanceDue}}</th>
-                  <th *ngIf="colDisplay.p" class="table-info">{{sumCols?.total_profite}}</th>
-                  <th *ngIf="colDisplay.date"></th>
-                  <th *ngIf="colDisplay.acts" colspan="2"></th>
-              </tr>
-              </tfoot>
-            <tbody>
-              <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center">
-                <td>{{index+1}}</td>
-                <td *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
-                <td *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
-                <td *ngIf="colDisplay.serName">{{transaction.service.name}}</td>
-                <td *ngIf="colDisplay.qu">{{transaction.quantity}}</td>
-                <td *ngIf="colDisplay.ppu">{{transaction.price}}</td>
-                <td *ngIf="colDisplay.tp">{{transaction.totalPrice}}</td>
-                <td *ngIf="colDisplay.pm">{{transaction.paymentAmount}}</td>
-                <td *ngIf="colDisplay.bd">{{transaction.balanceDue}}</td>
-                <td *ngIf="colDisplay.p">{{transaction.profite}}</td>
-                <td *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
-                <td  *ngIf="colDisplay.acts" colspan="2"><button (click)="updateTask($event,transaction)" class="btn btn-info" >Update</button>
-               <button (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button></td>
-              </tr>
-             
-            </tbody>
-
-          </table>
+    <div class="listBox" >
+      <div class="table-responsive"  id="print-section" >
+        <div class="parentt" >
+          <img #immg   src="https://ik.imagekit.io/2cvha6t2l9/header.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677595766963" class="w-100 headerInvoiceImg d-none headinvoice" alt="" srcset="">
+          <div #infoo class=" d-none headinvoice">
+            <h3 *ngIf="customersObj">Invoice To :  <span>{{ customerName ? customerName : 'Customer Name'}}</span> </h3>
+            <h3 *ngIf="customersObj">Date :  <span>{{ myDate|date :'medium'}}</span> </h3>
+          </div>
+          <table class="table table-hover ">
+              <thead>
+              
+                <tr class="text-center text-white text-light" >
+                  <th >Index</th>
+                  <!-- {empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:false ,date:true ,acts:true} -->
+                  <th *ngIf="colDisplay.empName">Employee Name</th>
+                  <th *ngIf="colDisplay.cusName">Customer Name</th>
+                  <th *ngIf="colDisplay.serName">Service Name</th>
+                  <th *ngIf="colDisplay.qu">Quantity</th>
+                  <th *ngIf="colDisplay.ppu">Price per unit</th>
+                  <th *ngIf="colDisplay.tp">Total Price</th>
+                  <th *ngIf="colDisplay.pm">Payment Amount</th>
+                  <th *ngIf="colDisplay.bd">Balance Due</th>
+                  <th *ngIf="colDisplay.p">Profite</th>
+                  <th *ngIf="colDisplay.date">Date</th>
+                  <th *ngIf="colDisplay.acts" colspan="2">Actions</th>
+                </tr>
+              </thead>
+              <tfoot class="text-center">
+                <tr >
+                    <th >Sum</th>
+                    <th *ngIf="colDisplay.empName">--</th>
+                    <th *ngIf="colDisplay.cusName">--</th>
+                    <th *ngIf="colDisplay.serName">--</th>
+                    <th *ngIf="colDisplay.qu" class="table-info sumInfo">{{sumCols?.quantity}}</th>
+                    <th *ngIf="colDisplay.ppu">--</th>
+                    <th *ngIf="colDisplay.tp" class="table-info sumInfo">{{sumCols?.total_price}}</th>
+                    <th *ngIf="colDisplay.pm" class="table-info sumInfo">{{sumCols?.paymentAmount}}</th>
+                    <th *ngIf="colDisplay.bd" class="table-info sumInfo">{{sumCols?.balanceDue}}</th>
+                    <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCols?.total_profite}}</th>
+                    <th *ngIf="colDisplay.date">--</th>
+                    <th *ngIf="colDisplay.acts" colspan="2">--</th>
+                </tr>
+                </tfoot>
+              <tbody>
+                <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center" style="text-align: center;">
+                  <td style="text-align: center;" >{{index+1}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.serName">{{transaction.service.name}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.qu">{{transaction.quantity}}</td>
+                  <td style="text-align: center;"  *ngIf="colDisplay.ppu">{{transaction.price}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.tp">{{transaction.totalPrice}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.pm">{{transaction.paymentAmount}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.bd">{{transaction.balanceDue}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.p">{{transaction.profite}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
+                  <td style="text-align: center;"  *ngIf="colDisplay.acts" colspan="2"><button (click)="updateTask($event,transaction)" class="btn btn-info" >Update</button>
+                 <button (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button></td>
+                </tr>
+               
+              </tbody>
+            </table>
+        </div>
       </div>
           <div class="d-flex justify-content-center atPrint">
             <mat-paginator #paginator

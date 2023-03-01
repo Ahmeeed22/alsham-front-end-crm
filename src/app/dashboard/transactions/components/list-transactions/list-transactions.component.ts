@@ -11,6 +11,8 @@ import { Item } from 'src/app/shared/ddl-searcheble/models/item';
 import { DdlSearchableComponent } from 'src/app/shared/ddl-searcheble/ddl-searchable/ddl-searchable.component';
 import { CustomersService } from 'src/app/dashboard/customer/customers.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import * as es6printJS from "print-js";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -29,6 +31,8 @@ export class ListTransactionsComponent implements OnInit {
   @ViewChild('users') users !: DdlSearchableComponent;
   @ViewChild('start') start !: ElementRef;
   @ViewChild('end') end !: ElementRef;
+  @ViewChild('immg') immg !: ElementRef;
+  @ViewChild('infoo') infoo !: ElementRef;
 // pagination setup
   length = 50;
   pageSize = 10;
@@ -49,7 +53,8 @@ export class ListTransactionsComponent implements OnInit {
   cities!:any[];
   form : any;
   selectedCities:any;
-  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true};
+  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:false};
+  myDate:any
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
@@ -57,6 +62,7 @@ export class ListTransactionsComponent implements OnInit {
     ,private _CustomersService:CustomersService
     ,private _AuthService:AuthService
     ,private formBuilder: FormBuilder
+    ,private spinnerService: NgxSpinnerService
      ) {
       this.cities = [
         { name: "Employee Name", code: "empName" },
@@ -78,9 +84,29 @@ export class ListTransactionsComponent implements OnInit {
         { name: "Total Price", code: "tp" },
         { name: "Balance Due", code: "bd" },
         { name: "Date", code: "date" },
-        { name: "Actions", code: "acts" }], Validators.required]
+        // { name: "Actions", code: "acts" }
+      ]
+        , Validators.required]
       });
-     }
+    }
+
+    // print invoice
+  printTest(x:any,y:any) {
+      this.myDate = new Date();
+      this.spinnerService.show()
+    this.immg.nativeElement.classList.toggle('d-block');
+    this.infoo.nativeElement.classList.toggle('d-block');
+    setTimeout(() => {
+     es6printJS(x);
+     this.immg.nativeElement.style.position='absolute'
+     this.infoo.nativeElement.style.position='absolute'
+     this.immg.nativeElement.style.opacity=0
+     this.infoo.nativeElement.style.opacity=0
+    this.immg.nativeElement.classList.toggle('d-block');
+    this.infoo.nativeElement.classList.toggle('d-block');
+    this.spinnerService.hide()
+    }, 300);
+    }
 
   ngOnInit(): void {
     this.getAllTransactions();
@@ -171,11 +197,15 @@ export class ListTransactionsComponent implements OnInit {
 
 
   }
-
+  customerName:any ;
   search(e:any,start:any,end:any){ 
     start?this.filteration.startedDate= new Date(start.split('-').reverse().join('-')).toISOString():'' ;
     end?this.filteration.endDate=new Date(end.split('-').reverse().join('-')).toISOString():'' ;
     // this.resetPagination()
+    this.customerName =this.customers.gettingResult().name
+    console.log(this.customerName);
+    console.log(this.customers.gettingResult().name);
+    
     (this.customers.gettingResult()?.id) ? this.filteration.customer_id= this.customers.gettingResult()?.id:'';
     (this.users.gettingResult()?.id) ? this.filteration.admin_id= this.users.gettingResult()?.id:'';
     console.log(this.filteration);

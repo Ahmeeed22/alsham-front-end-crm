@@ -62,16 +62,27 @@ th{
         height: 53px;
     }
 }
+// .headerInvoiceImg{
+//     display: none;
+//  }
 @media print {
     .atPrint {
         display: none !important;
      }
      .listBox{
         height: 100vh;
-        width: 100vw;
+        width: 90vw;
      }
-     table{
-        width: 100%;
+     .headinvoice{
+        display: block;
      }
+    //  table{
+    //     width: 100%;
+    //     text-align: center !important;
+
+    //  }
+    //  .headerInvoiceImg{
+    //     display: block;
+    //  }
      
   }
