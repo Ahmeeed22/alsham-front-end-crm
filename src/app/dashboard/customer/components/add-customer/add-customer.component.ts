@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { TransactionsService } from 'src/app/dashboard/transactions/transactions.service';
 import { ComfirmationComponent } from 'src/app/shared/comfirmation/comfirmation.component';
 import { DdlSearchableComponent } from 'src/app/shared/ddl-searcheble/ddl-searchable/ddl-searchable.component';
 import { Item } from 'src/app/shared/ddl-searcheble/models/item';
@@ -27,6 +28,7 @@ export class AddCustomerComponent implements OnInit {
     private toaster:ToastrService,
     public dialog: MatDialogRef<AddCustomerComponent> , 
     public dialogpublic: MatDialog ,
+    private _TransactionsService:TransactionsService,
     @Inject(MAT_DIALOG_DATA) public data:any
   ) {
     this.getStatus();
@@ -94,12 +96,35 @@ export class AddCustomerComponent implements OnInit {
   updateCustomer(){
     if (this.testChange() && this.newServiceForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
-      this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
-        next: res=>{
-          this.toaster.success("success update Customer","success")
-          this.dialog.close(true)
-        }
-      })
+      console.log(data);
+      
+      if (data.deposite) {
+        this._TransactionsService.getAllTransactions({customer_id:this.data.id , balanceDue:1}).subscribe({
+          next : (res)=>{
+            console.log(res);
+            
+            if(res.allProfite[0].balanceDue ){
+              // this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
+              //   next: res=>{
+              //     this.toaster.success("success update Customer","success")
+              //     this.dialog.close(true)
+              //   }
+              // })
+              this.toaster.warning(`failed update Customer because he have balance = ${res.allProfite[0].balanceDue} at ${res.result.count} transactions`,"success")
+              // this.dialog.close(true)
+            }
+  
+            
+          }
+        })
+      }else{
+        this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
+          next: res=>{
+            this.toaster.success("success update Customer","success")
+            this.dialog.close(true)
+          }
+        })
+      }
     }else{
       this.newServiceForm.markAllAsTouched() ;
       this.status.validate();
