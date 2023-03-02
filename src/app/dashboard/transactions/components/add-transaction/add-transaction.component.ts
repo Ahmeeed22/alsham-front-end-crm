@@ -93,6 +93,11 @@ export class AddTransactionComponent implements OnInit {
     })
 
     this.formValues = {...this.newTransactionForm.value}
+    if (this.data?.price) {
+        // this.newTransactionForm.get('quantity').disable();
+        // this.newTransactionForm.get('profite').disable();
+        // this.newTransactionForm.get('price').disable();
+    }
   }
 
   getServices(){
@@ -201,8 +206,8 @@ export class AddTransactionComponent implements OnInit {
     if (this.testChange() && this.newTransactionForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
       console.log(data);
-      let {company_id ,...newObject }=data
-      this._TransactionsService.updateTransaction(this.data.id  ,newObject).subscribe({
+      let {company_id ,balanceDue,paymentAmount,...newObject }=data
+      this._TransactionsService.updateTransaction(this.data.id  ,{balanceDue,paymentAmount}).subscribe({
         next: res=>{
           this.toaster.success("success update transaction","success")
           this.dialog.close(true)
