@@ -1,7 +1,6 @@
 import { PageEvent } from '@angular/material/paginator';
-import { Component, OnInit ,ViewChild,ElementRef,Input} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import { Component, OnInit ,ViewChild,ElementRef} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransactionsService } from '../../transactions.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,10 +20,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./list-transactions.component.scss']
 })
 export class ListTransactionsComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'title', 'user' ,'deadline','status', 'actions'];
+  // displayedColumns: string[] = ['position', 'title', 'user' ,'deadline','status', 'actions'];
   dataSource:any = [];
   tasksFilter!:FormGroup
-
   customersObj!:Item;
   @ViewChild('customers') customers !: DdlSearchableComponent;
   usersObj!:Item;
@@ -55,6 +53,8 @@ export class ListTransactionsComponent implements OnInit {
   selectedCities:any;
   colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:false};
   myDate:any
+  sumCols:any;
+  customerName:any ;
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
@@ -84,28 +84,27 @@ export class ListTransactionsComponent implements OnInit {
         { name: "Total Price", code: "tp" },
         { name: "Balance Due", code: "bd" },
         { name: "Date", code: "date" },
-        // { name: "Actions", code: "acts" }
-      ]
-        , Validators.required]
+        { name: "Actions", code: "acts" }
+      ], Validators.required]
       });
     }
 
-    // print invoice
+// print invoice
   printTest(x:any,y:any) {
       this.myDate = new Date();
       this.spinnerService.show()
-    this.immg.nativeElement.classList.toggle('d-block');
-    this.infoo.nativeElement.classList.toggle('d-block');
-    setTimeout(() => {
-     es6printJS(x);
-     this.immg.nativeElement.style.position='absolute'
-     this.infoo.nativeElement.style.position='absolute'
-     this.immg.nativeElement.style.opacity=0
-     this.infoo.nativeElement.style.opacity=0
-    this.immg.nativeElement.classList.toggle('d-block');
-    this.infoo.nativeElement.classList.toggle('d-block');
-    this.spinnerService.hide()
-    }, 300);
+      this.immg.nativeElement.classList.toggle('d-block');
+      this.infoo.nativeElement.classList.toggle('d-block');
+      setTimeout(() => {
+        es6printJS(x);
+        this.immg.nativeElement.style.position='absolute'
+        this.infoo.nativeElement.style.position='absolute'
+        this.immg.nativeElement.style.opacity=0
+        this.infoo.nativeElement.style.opacity=0
+        this.immg.nativeElement.classList.toggle('d-block');
+        this.infoo.nativeElement.classList.toggle('d-block');
+        this.spinnerService.hide()
+      }, 400);
     }
 
   ngOnInit(): void {
@@ -120,24 +119,20 @@ export class ListTransactionsComponent implements OnInit {
             this.colDisplay[key]=false;
           }
         })
-
           for (let index = 0; index < this.form.get("selectedCities").value.length; index++) {
             this.colDisplay[`${this.form.get("selectedCities")?.value[index]?.code}`]=true ;
           }
       })
-    }
+  }
     // patchForm() {
     //   this.form.patchValue({ selectedCities: [{ name: "Paris", code: "PRS" }] });
     //   // Here patchValue with Paris
     //   // NOTE : This Paris need to be in options of p-MultiSelect otherwise chip will not populate.
     // }
-    sumCols:any;
   getAllTransactions(){
-    console.log(this.filteration);
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
-        console.log(res.allProfite[0]);
         this.sumCols={...res.allProfite[0]}
         this.length=res.result.count
         this.dataSource=res.result.rows
@@ -148,7 +143,6 @@ export class ListTransactionsComponent implements OnInit {
   getCustomers(){
     this._CustomersService.getAllCustomers().subscribe({
       next :(res)=>{
-        console.log(res);
         this.customersObj= { staticArray:res.result.rows, placeholder: 'العميل', placeholderEn: 'Search By Customer', required: false, searachable: true, multiSelect: false };
       }
     })
@@ -156,7 +150,6 @@ export class ListTransactionsComponent implements OnInit {
   getUsers(){
     this._AuthService.getAllUser().subscribe({
       next :(res)=>{
-        console.log(res.users.rows);
         this.usersObj= { staticArray:res.users.rows, placeholder: 'الموظف', placeholderEn: 'Search By Employee', required: false, searachable: true, multiSelect: false };
       }
     })
@@ -194,28 +187,22 @@ export class ListTransactionsComponent implements OnInit {
         this.toaster.info('Transaction not deleted' , "Info")
       }
     });
-
-
   }
-  customerName:any ;
+
+
   search(e:any,start:any,end:any){ 
     start?this.filteration.startedDate= new Date(start.split('-').reverse().join('-')).toISOString():'' ;
     end?this.filteration.endDate=new Date(end.split('-').reverse().join('-')).toISOString():'' ;
     // this.resetPagination()
-    this.customerName =this.customers.gettingResult().name
-    console.log(this.customerName);
-    console.log(this.customers.gettingResult().name);
-    
+    this.customerName =this.customers.gettingResult()?.name
     (this.customers.gettingResult()?.id) ? this.filteration.customer_id= this.customers.gettingResult()?.id:'';
     (this.users.gettingResult()?.id) ? this.filteration.admin_id= this.users.gettingResult()?.id:'';
-    console.log(this.filteration);
-    
     this.getAllTransactions()
   }
 
   resetPagination(){
     this.filteration.offset=1 ;
-    this.pageSize = 3;
+    this.pageSize = 10;
     this.pageIndex =0;
   }
 
@@ -252,7 +239,6 @@ export class ListTransactionsComponent implements OnInit {
       width:"60%",
       disableClose:true
     });
-
     dialogRef.afterClosed().subscribe(result => {
       this.getAllTransactions()
     });

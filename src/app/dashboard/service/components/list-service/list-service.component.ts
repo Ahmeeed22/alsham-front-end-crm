@@ -22,7 +22,7 @@ export class ListServiceComponent implements AfterViewInit {
   @ViewChild('status') status !: DdlSearchableComponent;
   displayedColumns: string[] = ['index', 'name', 'desc' , 'active' ,'action'];
   dataSource !:any ;
-  statusObj : Item= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false
+  statusObj : Item= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: false, searachable: false, multiSelect: false
       }
   constructor(
     private _ServicesService:ServicesService

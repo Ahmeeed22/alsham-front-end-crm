@@ -65,6 +65,15 @@ th{
 // .headerInvoiceImg{
 //     display: none;
 //  }
+@media only screen and (max-width: 768px) {
+    .ddl{
+        margin: 8.3px 0px;
+    }
+    .search{
+        padding:18px 22px ;
+        margin: 12px ;
+    }
+}
 @media print {
     .atPrint {
         display: none !important;
