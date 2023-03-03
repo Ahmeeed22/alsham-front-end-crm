@@ -26,14 +26,11 @@
                 </div>  
         </div>
     </form>
-
     <footer class="tw-p-3">
         <div class="d-flex justify-content-center align-items-center">
             <button *ngIf="!data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="createService()"   >Create</button>
             <button *ngIf="data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="updateService()"   >Update</button>
-         
             <button mat-flat-button class="btn btn-danger py-1 px-5" (click)="close()">Close</button>
           </div>
-        
       </footer>
 </div>

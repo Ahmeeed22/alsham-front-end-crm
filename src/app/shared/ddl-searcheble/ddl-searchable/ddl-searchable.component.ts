@@ -207,13 +207,9 @@ export class DdlSearchableComponent implements OnChanges {
         }
       }
       if(this.listItems.length===0){
-
         this.patchValueToForm(this.objData.staticArray)
-        
         this.listItems = [...this.objData.staticArray];
-        console.log(this.listItems.length);
       }
-      
     }
   }
   /**

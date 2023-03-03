@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -8,20 +8,17 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent{
   sideBarOpen:boolean=true ;
   isLogged:boolean =false;
   user:any;
   constructor(private authService:AuthService , private router:Router, private toaster:ToastrService) { 
    this.authService.currentUser.subscribe(res=> {
       this.isLogged = this.authService.currentUser.getValue()!==null ? true : false ;
-      console.log(this.authService.currentUser.getValue());
       this.user=this.authService.currentUser.getValue()
     }) 
   }
 
-  ngOnInit(): void {
-  }
   toggleSidebar(){
     this.sideBarOpen= !this.sideBarOpen
   }

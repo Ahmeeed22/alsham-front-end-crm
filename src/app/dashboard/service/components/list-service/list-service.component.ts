@@ -40,13 +40,9 @@ export class ListServiceComponent implements AfterViewInit {
   getAllServices(filter?:any){
     this._ServicesService.getAllServicesSearch(filter).subscribe({
       next : (res)=>{
-        console.log(res.services);
         this.dataSource = new MatTableDataSource<any>(res.services);
         this.dataSource.paginator = this.paginator;
         this.toaster.success("success get Services","success")
-      },
-      error : (err)=>{
-        console.log(err);
       }
     })
   }
@@ -97,13 +93,8 @@ export class ListServiceComponent implements AfterViewInit {
 
   search(e:any,name:any){ 
     // this.resetPagination()
-    console.log(name);
-    console.log(this.status.gettingResult()?.id);
-    ;
-    
     (this.status.gettingResult()?.id == 0||this.status.gettingResult()?.id ==1) ? this.filteration.active= this.status.gettingResult()?.id:'';
     (name) ? this.filteration.name= name:'';
-    console.log(this.filteration);
     this.getAllServices(this.filteration)
   }
 
@@ -119,7 +110,5 @@ export class ListServiceComponent implements AfterViewInit {
     // this.resetPagination();
     this.status.resetList();
    this.name.nativeElement.value=null
-   
   }
-
 }

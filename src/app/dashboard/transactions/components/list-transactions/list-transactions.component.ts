@@ -51,7 +51,7 @@ export class ListTransactionsComponent implements OnInit {
   cities!:any[];
   form : any;
   selectedCities:any;
-  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:false};
+  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true};
   myDate:any
   sumCols:any;
   customerName:any ;
@@ -194,7 +194,7 @@ export class ListTransactionsComponent implements OnInit {
     start?this.filteration.startedDate= new Date(start.split('-').reverse().join('-')).toISOString():'' ;
     end?this.filteration.endDate=new Date(end.split('-').reverse().join('-')).toISOString():'' ;
     // this.resetPagination()
-    this.customerName =this.customers.gettingResult()?.name
+    this.customerName = (this.customers.gettingResult()?.name )? this.customers?.gettingResult()?.name: '';
     (this.customers.gettingResult()?.id) ? this.filteration.customer_id= this.customers.gettingResult()?.id:'';
     (this.users.gettingResult()?.id) ? this.filteration.admin_id= this.users.gettingResult()?.id:'';
     this.getAllTransactions()

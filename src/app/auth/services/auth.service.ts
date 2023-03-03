@@ -36,6 +36,4 @@ export class AuthService {
     return this._HttpClient.get(`${environment.baseApi}allUsers`)
   }
 
-  
-  
 }

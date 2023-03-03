@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -19,14 +19,13 @@ import { TransactionsService } from '../../transactions.service';
 export class AddTransactionComponent implements OnInit {
   servicesObj!:Item;
   @ViewChild('services') services !: DdlSearchableComponent;
-
   customersObj!:Item;
   @ViewChild('customers') customers !: DdlSearchableComponent;
   newTransactionForm :any;
   formValues:any ;
   customerDeposite:any;
   customerName:any;
-
+  customerSelected:any ;
   constructor(
     private _CustomersService:CustomersService,
     private _ServicesService:ServicesService,
@@ -61,8 +60,6 @@ export class AddTransactionComponent implements OnInit {
         setTimeout(()=>{
           if (this.newTransactionForm.value.price && this.newTransactionForm.value.profite && this.newTransactionForm.value.quantity) {
             var totalPrice=(this.newTransactionForm.value.price + this.newTransactionForm.value.profite)*(this.newTransactionForm.value.quantity) ;
-            console.log(totalPrice);
-            
             if (this.customerDeposite >= totalPrice) {
               this.newTransactionForm.get('balanceDue').patchValue(0) ;
               // this.newTransactionForm.get('paymentAmount').patchValue(totalPrice) ;
@@ -71,19 +68,14 @@ export class AddTransactionComponent implements OnInit {
             } else {
               // this.newTransactionForm.get('balanceDue').patchValue(totalPrice-this.customerDeposite) ;
               this.newTransactionForm.get('paymentAmount').patchValue(this.customerDeposite) ;
-              // update here customer deposite
-  
             }
           }
         },100)
       })
-
   }
   
 
   createForm() {
-    console.log(this.data);
-    
     this.newTransactionForm = this.fb.group({
       quantity : [this.data?.quantity || '' , Validators.required],
       balanceDue : [this.data?.balanceDue || '' , Validators.required],
@@ -91,13 +83,7 @@ export class AddTransactionComponent implements OnInit {
       profite : [this.data?.profite || '' , Validators.required],
       price : [this.data?.price || '' , Validators.required],
     })
-
     this.formValues = {...this.newTransactionForm.value}
-    if (this.data?.price) {
-        // this.newTransactionForm.get('quantity').disable();
-        // this.newTransactionForm.get('profite').disable();
-        // this.newTransactionForm.get('price').disable();
-    }
   }
 
   getServices(){
@@ -150,8 +136,6 @@ export class AddTransactionComponent implements OnInit {
           var totalPrice=(this.newTransactionForm.value.price + this.newTransactionForm.value.profite)*(this.newTransactionForm.value.quantity) ;
           
           if (this.customerDeposite >= totalPrice ) {
-            // this.newTransactionForm.get('balanceDue').patchValue(0) ;
-            // this.newTransactionForm.get('paymentAmount').patchValue(totalPrice) ;
             if (this.newTransactionForm.get('balanceDue').value !=0) {
               this.toaster.warning("this customer have deposite more than total price must balance equal zero") ;
               return ;
@@ -163,8 +147,6 @@ export class AddTransactionComponent implements OnInit {
               }
             })
           } else {
-            // this.newTransactionForm.get('balanceDue').patchValue(totalPrice-this.customerDeposite) ;
-            // this.newTransactionForm.get('paymentAmount').patchValue(this.customerDeposite) ;
             // update here customer deposite
             if (this.newTransactionForm.get('paymentAmount').value < this.customerSelected.deposite) {
               this.toaster.warning("this customer have deposite more than payment amount ") ;
@@ -176,22 +158,13 @@ export class AddTransactionComponent implements OnInit {
                 this.toaster.success("customer deposite updated","success")
               }
             })
-
-
           }
         }
 
-
-
         this._TransactionsService.addTransaction({...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id}).subscribe({
           next :(res)=>{
-            console.log(res);
             this.toaster.success("success add transaction","success")
             this.dialog.close(true)
-            
-          },
-          error :(err)=>{
-            console.log(err);
           }
         })
       } else {
@@ -205,20 +178,15 @@ export class AddTransactionComponent implements OnInit {
   updateTransaction(){
     if (this.testChange() && this.newTransactionForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
-      console.log(data);
       let {company_id ,balanceDue,paymentAmount,...newObject }=data
       this._TransactionsService.updateTransaction(this.data.id  ,{balanceDue,paymentAmount}).subscribe({
         next: res=>{
           this.toaster.success("success update transaction","success")
           this.dialog.close(true)
-        },
-        error : err=>{
-
         }
       })
     }else{
       this.toaster.info("No Data Edited" , "info")
-      
     }
   }
 
@@ -252,12 +220,9 @@ export class AddTransactionComponent implements OnInit {
     }
     return hasChanges
   }
-  customerSelected:any ;
+
   gettingDeposite(event:any){
     this.customerSelected={...event}
-    console.log(this.customerSelected);
-    
-    console.log(event.deposite);
     this.customerDeposite=event.deposite
     this.customerName=event.name
   }

@@ -60,7 +60,6 @@ export class AddCustomerComponent implements OnInit {
     let active=this.status?.gettingResult()?.id
     let userLogged= this._AuthService.currentUser.getValue()
     if (userLogged) {
-     console.log(userLogged);
      const {company_id , id:admin_id}=userLogged ;
      return {...this.newServiceForm.value , active , company_id , admin_id}
     }else{
@@ -76,45 +75,26 @@ export class AddCustomerComponent implements OnInit {
         let data=this.gatheringData()? this.gatheringData() : null
         this._CustomersService.addCustomer(data).subscribe({
           next :(res)=>{
-            console.log(res);
             this.toaster.success("success add Service","success")
             this.dialog.close(true)
-          },
-          error :(err)=>{
-            console.log(err);
           }
         })
       } else {
-        console.log("false");
         this.newServiceForm.markAllAsTouched() ;
         this.status.validate();
       }
     }
   }
-
   
   updateCustomer(){
     if (this.testChange() && this.newServiceForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
-      console.log(data);
-      
       if (data.deposite) {
         this._TransactionsService.getAllTransactions({customer_id:this.data.id , balanceDue:1}).subscribe({
           next : (res)=>{
-            console.log(res);
-            
             if(res.allProfite[0].balanceDue ){
-              // this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
-              //   next: res=>{
-              //     this.toaster.success("success update Customer","success")
-              //     this.dialog.close(true)
-              //   }
-              // })
               this.toaster.warning(`failed update Customer because he have balance = ${res.allProfite[0].balanceDue} at ${res.result.count} transactions`,"success")
-              // this.dialog.close(true)
             }
-  
-            
           }
         })
       }else{
@@ -151,8 +131,6 @@ export class AddCustomerComponent implements OnInit {
 
   testChange(){
     let hasChanges = false
-    console.log(this.formValues);
-    
     Object.keys(this.formValues).forEach((item) => { 
       if(this.formValues[item] !== this.newServiceForm.value[item])   {
         hasChanges= true ;
@@ -164,6 +142,5 @@ export class AddCustomerComponent implements OnInit {
     }
     return hasChanges
   }
-
 
 }

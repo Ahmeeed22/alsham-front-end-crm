@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginFormGroup = this._formBuilder.group({
     email: ['',[ Validators.required , Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     password: ['', Validators.required ]
@@ -24,9 +24,6 @@ export class LoginComponent implements OnInit {
 
    }
 
-  ngOnInit(): void {
-  }
-
   onSubmit(){
     if (this.loginFormGroup.valid){
       this._AuthService.login(this.loginFormGroup.value).subscribe({
@@ -35,15 +32,10 @@ export class LoginComponent implements OnInit {
           this._AuthService.saveUserCurrent()
           this._Router.navigate(['./main'])
           this.toaster.success("Login Succesfully" , "Success")
-        },
-        error :(error)=>{
-          console.log(error);
-          
         }
       })
     }else{
       this.loginFormGroup.markAllAsTouched() ;
     }
-  
   }
 }

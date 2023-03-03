@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -6,14 +6,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   templateUrl: './comfirmation.component.html',
   styleUrls: ['./comfirmation.component.scss']
 })
-export class ComfirmationComponent implements OnInit {
+export class ComfirmationComponent{
   constructor( public dialog: MatDialogRef<ComfirmationComponent> , 
     public matDialog:MatDialog, @Inject(MAT_DIALOG_DATA) public data:any,) { }
 
-  ngOnInit(): void {
-    console.log(this.data);
-    
-  }
   confirm(){
     this.dialog.close(true)
     this.matDialog.closeAll();

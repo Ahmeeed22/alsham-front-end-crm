@@ -9,18 +9,16 @@ import { Item } from 'src/app/shared/ddl-searcheble/models/item';
 import { CustomersService } from '../../customers.service';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 
-
-const ELEMENT_DATA: any[] = [];
-
 @Component({
   selector: 'app-list-customer',
   templateUrl: './list-customer.component.html',
   styleUrls: ['./list-customer.component.scss']
 })
-export class ListCustomerComponent implements AfterViewInit {
+export class ListCustomerComponent {
   filteration :any ={name:null,active:null}
   @ViewChild('name') name !: ElementRef;
   @ViewChild('status') status !: DdlSearchableComponent;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   statusObj : Item= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false
       }
   displayedColumns: string[] = ['index', 'name', 'email' , 'phoneNo','deposite','active' ,'action'];
@@ -33,24 +31,12 @@ export class ListCustomerComponent implements AfterViewInit {
     this.getAllCustomers()
   }
 
-
-
-@ViewChild(MatPaginator) paginator!: MatPaginator;
-
-ngAfterViewInit() {
-}
-
 getAllCustomers(filter?:any){
   this._CustomersService.getAllCustomersSearch(filter).subscribe({
     next : (res)=>{
-      console.log(res.result);
       this.dataSource = new MatTableDataSource<any>(res.result);
       this.dataSource.paginator = this.paginator;
       this.toaster.success("success get Customers","success")
-
-    },
-    error : (err)=>{
-      console.log(err);
     }
   })
 }
@@ -72,7 +58,6 @@ addCustomer(): void {
     width:"60%",
     disableClose:true
   });
-
   dialogRef.afterClosed().subscribe(result => {
     this.getAllCustomers()
   });
@@ -100,14 +85,9 @@ deleteCustomer(id:any){
 }
 
 search(e:any,name:any){ 
-  // this.resetPagination()
-  console.log(name);
-  console.log(this.status.gettingResult()?.id);
-  ;
-  
+  // this.resetPagination() 
   (this.status.gettingResult()?.id == 0||this.status.gettingResult()?.id ==1) ? this.filteration.active= this.status.gettingResult()?.id:'';
   (name) ? this.filteration.name= name:'';
-  console.log(this.filteration);
   this.getAllCustomers(this.filteration)
 }
 
@@ -118,7 +98,6 @@ resetSearch(){
   // this.resetPagination();
   this.status.resetList();
  this.name.nativeElement.value=null
- 
 }
 
 }

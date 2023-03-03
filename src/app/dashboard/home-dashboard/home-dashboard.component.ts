@@ -30,30 +30,23 @@ export class HomeDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.filteration);
     this.getAllTransactions()
     this.getAllTransactionsMonthly()
   }
 
   getAllTransactions(){
-    console.log(this.filteration);
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
-        console.log(res);
         this.count=res.result.count
         this.detailsProfite={...res.allProfite[0]}
-        console.log(this.detailsProfite);
-        
       }
     })
   }
 
    startOfMonth(date:any)
   {
-     
    return new Date(date.getFullYear(), date.getMonth(),1);
- 
   }
 
   getAllTransactionsMonthly(){
@@ -69,17 +62,11 @@ export class HomeDashboardComponent implements OnInit {
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
-        console.log(res);
         this.countMonthly=res.result.count
         this.detailsProfiteMonthly={...res.allProfite[0]}
         this.amountCash=this.detailsProfiteMonthly.paymentAmount - this.detailsProfiteMonthly.total_price_without_profite 
-        console.log(this.amountCash);
-        console.log(this.detailsProfiteMonthly);
-        
       }
     })
   }
-
-
 
 }
