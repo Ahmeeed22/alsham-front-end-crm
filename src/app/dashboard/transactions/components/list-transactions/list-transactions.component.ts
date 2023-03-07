@@ -1,5 +1,5 @@
 import { PageEvent } from '@angular/material/paginator';
-import { Component, OnInit ,ViewChild,ElementRef} from '@angular/core';
+import { Component, OnInit ,ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransactionsService } from '../../transactions.service';
 import { ToastrService } from 'ngx-toastr';
@@ -31,6 +31,7 @@ export class ListTransactionsComponent implements OnInit {
   @ViewChild('end') end !: ElementRef;
   @ViewChild('immg') immg !: ElementRef;
   @ViewChild('infoo') infoo !: ElementRef;
+  @ViewChild('footerInvoice') footerInvoice !: ElementRef;
 // pagination setup
   length = 50;
   pageSize = 10;
@@ -55,6 +56,7 @@ export class ListTransactionsComponent implements OnInit {
   myDate:any
   sumCols:any;
   customerName:any ;
+  invoiceNo!:number;
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
@@ -91,9 +93,11 @@ export class ListTransactionsComponent implements OnInit {
 
 // print invoice
   printTest(x:any,y:any) {
+    this.invoiceNo=this.generateRandom();
       this.myDate = new Date();
       this.spinnerService.show()
       this.immg.nativeElement.classList.toggle('d-block');
+      this.footerInvoice.nativeElement.classList.toggle('d-none');
       this.infoo.nativeElement.classList.toggle('d-block');
       setTimeout(() => {
         es6printJS(x);
@@ -103,6 +107,7 @@ export class ListTransactionsComponent implements OnInit {
         this.infoo.nativeElement.style.opacity=0
         this.immg.nativeElement.classList.toggle('d-block');
         this.infoo.nativeElement.classList.toggle('d-block');
+        this.footerInvoice.nativeElement.classList.toggle('d-none');
         this.spinnerService.hide()
       }, 400);
     }
@@ -130,6 +135,8 @@ export class ListTransactionsComponent implements OnInit {
     //   // NOTE : This Paris need to be in options of p-MultiSelect otherwise chip will not populate.
     // }
   getAllTransactions(){
+    console.log(this.generateRandom());
+    
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
@@ -247,4 +254,13 @@ export class ListTransactionsComponent implements OnInit {
   print(){
     window.print()
   }
+  generateRandom(min :number = 500, max:number = 5000) {
+    let difference = max - min;
+    let rand = Math.random();
+    rand = Math.floor( rand * difference);
+    rand = rand + min;
+    return rand;
+  }
+  
+
 }

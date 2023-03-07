@@ -10,7 +10,7 @@
                         <div class="col">
                             <h6 class="m-b-25">Total Profite</h6>
                             <h3 class="f-w-700 text-c-blue">{{detailsProfite.total_profite?detailsProfite.total_profite:0 | currency:' AED '}}</h3>
-                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                            <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-eye bg-c-blue"></i>
@@ -27,7 +27,7 @@
                         <div class="col">
                             <h6 class="m-b-25">Total Balance</h6>
                             <h3 class="f-w-700 text-c-green">{{detailsProfite.balanceDue?detailsProfite.balanceDue:0 | currency:' AED '}}</h3>
-                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                            <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-bullseye bg-c-green"></i>
@@ -43,7 +43,7 @@
                         <div class="col">
                             <h6 class="m-b-25">Total Payment Amount</h6>
                             <h3 class="f-w-700 text-c-yellow">{{detailsProfite.paymentAmount?detailsProfite.paymentAmount:0 | currency:' AED '}}</h3>
-                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                            <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-hand-paper bg-c-yellow"></i>
@@ -59,7 +59,7 @@
                         <div class="col">
                             <h6 class="m-b-25">Numbers of Transactions</h6>
                             <h3 class="f-w-700 text-c-blue">{{detailsProfite.quantity?detailsProfite.quantity:0}}</h3>
-                            <p class="m-b-0">{{this.filteration.startedDate |date}}</p>
+                            <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
                             <!-- <i class="fa-solid fa-hashtag"></i> -->

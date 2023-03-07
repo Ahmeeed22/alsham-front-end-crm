@@ -19,7 +19,7 @@ export class ListCustomerComponent {
   @ViewChild('name') name !: ElementRef;
   @ViewChild('status') status !: DdlSearchableComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  statusObj : Item= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false
+  statusObj : Item= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: false, searachable: false, multiSelect: false
       }
   displayedColumns: string[] = ['index', 'name', 'email' , 'phoneNo','deposite','active' ,'action'];
   dataSource !:any;

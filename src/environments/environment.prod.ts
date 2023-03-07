@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseApi : 'http://localhost:3001/api/v1/'
+  baseApi : 'https://distinct-bass-tiara.cyclic.app/api/v1/'
 
 };

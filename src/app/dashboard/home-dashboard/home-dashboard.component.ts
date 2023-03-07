@@ -13,7 +13,7 @@ export class HomeDashboardComponent implements OnInit {
   detailsProfiteMonthly:any={}
   countMonthly:number= 0 ;
   amountCash:number= 0 ;
-
+  dateToday=new Date() ;
   constructor(
     private _TransactionsService:TransactionsService  
   ) { 

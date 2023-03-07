@@ -87,21 +87,49 @@ export class AddCustomerComponent implements OnInit {
   }
   
   updateCustomer(){
+    console.log(this.newServiceForm.valid);
+    console.log(this.testChange());
+    
     if (this.testChange() && this.newServiceForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
       if (data.deposite) {
         this._TransactionsService.getAllTransactions({customer_id:this.data.id , balanceDue:1}).subscribe({
           next : (res)=>{
+            console.log(res);
+            console.log(res.allProfite[0].balanceDue);
             if(res.allProfite[0].balanceDue ){
               this.toaster.warning(`failed update Customer because he have balance = ${res.allProfite[0].balanceDue} at ${res.result.count} transactions`,"success")
+            }else{
+              this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
+                next: res=>{
+                  console.log(res);
+                  
+                  this.toaster.success("success update Customer","success")
+                  this.dialog.close(true)
+                },
+                error:(err)=>{
+                  console.log(err);
+                  
+                }
+              })
             }
+          },
+          error:(err)=>{
+            console.log(err);
+            
           }
-        })
+        }) 
       }else{
         this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
           next: res=>{
+            console.log(res);
+            
             this.toaster.success("success update Customer","success")
             this.dialog.close(true)
+          },
+          error:(err)=>{
+            console.log(err);
+            
           }
         })
       }

@@ -77,11 +77,11 @@ export class AddTransactionComponent implements OnInit {
 
   createForm() {
     this.newTransactionForm = this.fb.group({
-      quantity : [this.data?.quantity || '' , Validators.required],
-      balanceDue : [this.data?.balanceDue || '' , Validators.required],
-      paymentAmount : [this.data?.paymentAmount || '' , Validators.required],
-      profite : [this.data?.profite || '' , Validators.required],
-      price : [this.data?.price || '' , Validators.required],
+      quantity : [this.data?.quantity || 0 , Validators.required],
+      balanceDue : [this.data?.balanceDue || 0 , Validators.required],
+      paymentAmount : [this.data?.paymentAmount || 0 , Validators.required],
+      profite : [this.data?.profite || 0 , Validators.required],
+      price : [this.data?.price || 0 , Validators.required],
     })
     this.formValues = {...this.newTransactionForm.value}
   }
@@ -176,6 +176,8 @@ export class AddTransactionComponent implements OnInit {
   }
 
   updateTransaction(){
+    console.log(this.newTransactionForm);
+    
     if (this.testChange() && this.newTransactionForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
       let {company_id ,balanceDue,paymentAmount,...newObject }=data
