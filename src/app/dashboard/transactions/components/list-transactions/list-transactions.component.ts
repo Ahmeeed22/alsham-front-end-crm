@@ -46,7 +46,8 @@ export class ListTransactionsComponent implements OnInit {
   filteration:any = {
     offset:this.pageIndex+1,
     limit: this.pageSize,
-    date:true
+    date:true,
+    active:true
   }
   timeOutId:any
   cities!:any[];

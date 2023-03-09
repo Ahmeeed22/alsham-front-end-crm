@@ -77,7 +77,7 @@ export class HomeDashboardComponent implements OnInit {
     this._CustomersService.getAllCustomersSearch({name:'petty Cash'}).subscribe({
       next : (res)=>{
         console.log(res);
-        this.pettyCash=res.result[0].transactions[0]?.paymentAmount ||0 ;
+        this.pettyCash=res.result[0]?.transactions[0]?.paymentAmount ||0 ;
       }
     })
   }
