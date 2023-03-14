@@ -163,6 +163,8 @@ export class AddTransactionComponent implements OnInit {
 
         this._TransactionsService.addTransaction({...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id}).subscribe({
           next :(res)=>{
+            console.log(res);
+            
             this.toaster.success("success add transaction","success")
             this.dialog.close(true)
           }
@@ -183,6 +185,7 @@ export class AddTransactionComponent implements OnInit {
       let {company_id ,balanceDue,paymentAmount,...newObject }=data
       this._TransactionsService.updateTransaction(this.data.id  ,{balanceDue,paymentAmount}).subscribe({
         next: res=>{
+          console.log(res);
           this.toaster.success("success update transaction","success")
           this.dialog.close(true)
         }

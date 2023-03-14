@@ -116,7 +116,8 @@
                   <td style="text-align: center;" *ngIf="colDisplay.p">{{transaction.profite}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
                   <td style="text-align: center;"  *ngIf="colDisplay.acts" colspan="1"><button (click)="updateTask($event,transaction)" class="btn btn-info" >Update</button>
-                 <button *ngIf="false" (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button></td>
+                 <button *ngIf="false" (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button>
+                 <button (click)="showDetails($event,transaction)" class="btn btn-outline-secondary text-secondary hhover">Details</button></td>
                 </tr>
               </tbody>
             </table>

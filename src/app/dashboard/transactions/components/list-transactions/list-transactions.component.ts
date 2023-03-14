@@ -12,6 +12,7 @@ import { CustomersService } from 'src/app/dashboard/customer/customers.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import * as es6printJS from "print-js";
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DetailsComponent } from '../details/details.component';
 
 
 @Component({
@@ -141,6 +142,7 @@ export class ListTransactionsComponent implements OnInit {
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
+        console.log(res);
         this.sumCols={...res.allProfite[0]}
         this.length=res.result.count
         this.dataSource=res.result.rows
@@ -173,6 +175,18 @@ export class ListTransactionsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getAllTransactions()
+    });
+
+  }
+  showDetails(e:any,ele:any){
+    const dialogRef = this.dialog.open(DetailsComponent, {
+      width:"60%",
+      disableClose:true,
+      data:ele,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // this.getAllTransactions()
     });
 
   }

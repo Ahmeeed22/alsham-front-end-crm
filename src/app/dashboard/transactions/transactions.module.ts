@@ -8,12 +8,14 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DetailsComponent } from './components/details/details.component';
 
 
 @NgModule({
   declarations: [
     ListTransactionsComponent,
     AddTransactionComponent,
+    DetailsComponent,
   ],
   imports: [
     CommonModule,
