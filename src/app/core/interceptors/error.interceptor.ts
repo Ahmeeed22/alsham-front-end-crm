@@ -24,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError ( (error:HttpErrorResponse)=>{
 
       this.toaster.error(error.error.message || error.error.error.message)
-      if (error.error.error.message == 'jwt expired' || error.error.error.message == 'Not Authenticated..'  || error.error.error.message == 'invalid signature'  ) {
+      if (error?.error?.error?.message == 'jwt expired' || error?.error?.error?.message == 'Not Authenticated..'  || error?.error?.error?.message == 'invalid signature'  ) {
         this.router.navigate(['/login']) ;
         localStorage.removeItem('token')
       }
