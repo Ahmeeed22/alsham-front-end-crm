@@ -10,31 +10,36 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                <form class="w-75 " [formGroup]="loginFormGroup"  (ngSubmit)="onSubmit()">
-                    <div class="row ">
-                        <h2 class="m-left-auto my-3  font-weight-bold">Log into your account</h2>
-                            <div class="col-md-12">
-                                <mat-form-field appearance="outline" class="w-100 my-2">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput formControlName="email" placeholder="aaa@aaa.com"  required>
-                                    <mat-error *ngIf="loginFormGroup.get('email')?.touched && loginFormGroup.get('email')?.hasError('required')">required</mat-error>
-                                    <mat-error *ngIf="loginFormGroup.get('email')?.touched && loginFormGroup.get('email')?.hasError('pattern')">Please provide a valid email address</mat-error>
-                                  </mat-form-field>
-                            </div>  
-                            <div class="col-md-12 my-2">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Password</mat-label>
-                                    <input matInput formControlName="password" type="password"  [type]="hide ? 'password' : 'text'"   required>
-                                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                    <mat-error *ngIf="loginFormGroup.get('password')?.touched && loginFormGroup.get('password')?.hasError('required')">please enter password is required </mat-error>
-                                  </mat-form-field>
-                            </div> 
-                            <div class="col-md-12 my-2">
-                                <button mat-raised-button color="primary" >Login</button>
-                            </div>
-                    </div>
-                </form>
+            <div class="col-lg-6 ">
+                <div class="imgRamadan d-flex justify-content-end">
+                    <img src="https://ik.imagekit.io/2cvha6t2l9/25140727_7079.jpg?updatedAt=1679554936354" class="ramadan" alt="" srcset="">
+                </div>
+                <div class=" d-flex align-items-center justify-content-center">
+                    <form class="w-75 " [formGroup]="loginFormGroup"  (ngSubmit)="onSubmit()">
+                        <div class="row ">
+                            <h2 class="m-left-auto my-3  font-weight-bold">Log into your account</h2>
+                                <div class="col-md-12">
+                                    <mat-form-field appearance="outline" class="w-100 my-2">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput formControlName="email" placeholder="aaa@aaa.com"  required>
+                                        <mat-error *ngIf="loginFormGroup.get('email')?.touched && loginFormGroup.get('email')?.hasError('required')">required</mat-error>
+                                        <mat-error *ngIf="loginFormGroup.get('email')?.touched && loginFormGroup.get('email')?.hasError('pattern')">Please provide a valid email address</mat-error>
+                                      </mat-form-field>
+                                </div>  
+                                <div class="col-md-12 my-2">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Password</mat-label>
+                                        <input matInput formControlName="password" type="password"  [type]="hide ? 'password' : 'text'"   required>
+                                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        <mat-error *ngIf="loginFormGroup.get('password')?.touched && loginFormGroup.get('password')?.hasError('required')">please enter password is required </mat-error>
+                                      </mat-form-field>
+                                </div> 
+                                <div class="col-md-12 my-2">
+                                    <button mat-raised-button color="primary" >Login</button>
+                                </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

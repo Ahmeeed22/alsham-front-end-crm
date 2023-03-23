@@ -1,64 +1,63 @@
-<mat-drawer-container >
-    <!--start of side bar -->
-        <mat-drawer mode="side" [opened]="sideBarOpen" class="layouting">
-        <mat-nav-list >
-            <div class="logo py-1  " style="background-color: #000;">
-            <img src="https://ik.imagekit.io/2cvha6t2l9/bllogo.PNG?ik-sdk-version=javascript-1.4.3&updatedAt=1678092036169" alt="Company Logo" />
-            </div>
-            <mat-divider></mat-divider>
-            <h2 matSubheader class="mt-2"></h2>
-        
-            <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/home" >
-              <i class="fa-solid fa-house   fa-lg pr-4"></i> Home
-            </a>
-           <!--  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+<mat-drawer-container>
+  <!--start of side bar -->
+  <mat-drawer mode="side" [opened]="sideBarOpen" class="layouting">
+    <mat-nav-list>
+      <div class="logo py-1  " style="background-color: #000;">
+        <img src="https://ik.imagekit.io/2cvha6t2l9/bllogo.PNG?ik-sdk-version=javascript-1.4.3&updatedAt=1678092036169"
+          alt="Company Logo" />
+      </div>
+      <mat-divider></mat-divider>
+      <h2 matSubheader class="mt-2"></h2>
+
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/main/home">
+        <i class="fa-solid fa-house   fa-lg pr-4"></i> Home
+      </a>
+      <!--  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
             <mat-icon>dashboard</mat-icon> Dashboard
             </a> -->
-            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <i class="fa-solid fa-comments-dollar fa-lg pr-4"></i> Transactions</a>
-            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <i class="fa-solid fa-gears  fa-lg pr-4"></i> Services </a>
-            <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <i class="fa-solid fa-users  fa-lg pr-4"></i>Customers </a>
-        </mat-nav-list>
-        </mat-drawer>
-    <!-- end of side bar -->
-    <mat-drawer-content>
-      <!-- header -->
-      <mat-toolbar class="navbar layouting">
-        <mat-toolbar-row class="justify-content-between">
-          <button mat-icon-button
-           (click)="toggleSidebar()"
-           >
-            <mat-icon>menu</mat-icon>
-          </button>
-          <div class="row mr-2 ml-auto">
-            <ul class="row m-0 justify-content-center  align-items-center">
-              <li>
-                <button
-                  mat-button
-                  [matMenuTriggerFor]="menu"
-                  class="user mt-2 d-flex align-items-center"
-                >
-                  <img src="assets/user.jpg" alt="" class="user-image mx-auto p-2 d-block" />
-                      {{user?.name}}                  
-                  <mat-icon class="user-image-icon ml-1"
-                    >keyboard_arrow_down</mat-icon
-                  >
+      <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactions/List"> <i
+          class="fa-solid fa-comments-dollar fa-lg pr-4"></i> Transactions</a>
+      <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/services/List"> <i
+          class="fa-solid fa-gears  fa-lg pr-4"></i> Services </a>
+      <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <i
+          class="fa-solid fa-users  fa-lg pr-4"></i>Customers </a>
+    </mat-nav-list>
+    <div class="ramadan ">
+      <img src="https://ik.imagekit.io/2cvha6t2l9/25140727_7079-PhotoRoom.png?updatedAt=1679556724562" 
+        alt="" srcset="">
+    </div>
+  </mat-drawer>
+  <!-- end of side bar -->
+  <mat-drawer-content>
+    <!-- header -->
+    <mat-toolbar class="navbar layouting">
+      <mat-toolbar-row class="justify-content-between">
+        <button mat-icon-button (click)="toggleSidebar()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <div class="row mr-2 ml-auto">
+          <ul class="row m-0 justify-content-center  align-items-center">
+            <li>
+              <button mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
+                <img src="assets/user.jpg" alt="" class="user-image mx-auto p-2 d-block" />
+                {{user?.name}}
+                <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logOut()">
+                  <mat-icon>exit_to_app</mat-icon>
+                  Logout
                 </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item  (click)="logOut()"> 
-                    <mat-icon>exit_to_app</mat-icon>
-                    Logout
-                  </button>
-                </mat-menu>
-              </li>
-            </ul>
-          </div>
-        </mat-toolbar-row>
-      </mat-toolbar>
-      <!-- end of header -->
+              </mat-menu>
+            </li>
+          </ul>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- end of header -->
 
-      <!-- main content  -->
-      <router-outlet></router-outlet>
-      <!-- end of main content  -->
-    </mat-drawer-content>
-  </mat-drawer-container>
-  
+    <!-- main content  -->
+    <router-outlet></router-outlet>
+    <!-- end of main content  -->
+  </mat-drawer-content>
+</mat-drawer-container>
