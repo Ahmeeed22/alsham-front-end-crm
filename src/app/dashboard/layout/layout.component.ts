@@ -17,6 +17,9 @@ export class LayoutComponent{
       this.isLogged = this.authService.currentUser.getValue()!==null ? true : false ;
       this.user=this.authService.currentUser.getValue()
     }) 
+    setInterval(()=>{
+      this.hiA()
+    },6000)
   }
 
   toggleSidebar(){
@@ -30,4 +33,9 @@ export class LayoutComponent{
     this.router.navigate(['/login'])
     this.toaster.success("logout Succesfully" , "Success")
    }
+   hiA(){
+    var pathA:any=document.getElementById("ramd");
+     pathA?.classList?.toggle("hiA");
+     setTimeout(function(){  pathA?.classList?.toggle("hiA"); }, 3000);
+    }
 }

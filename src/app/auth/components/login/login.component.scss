@@ -63,3 +63,19 @@ h2{
     width: 340px;
     height: 240px;
 }
+// 0%   {transform:scale(.5);}
+// 50%  {transform:scale(1);}
+// 100% {transform:scale(0);}
+@keyframes example {
+    0%   {transform:scale(.5);}
+    25%  {transform:scale(1);}
+    50% {transform:scale(0);}
+    75% {transform:scale(.5);}
+    100% {transform:scale(1);}
+    }
+        
+        
+    .hiA{
+        // transition: all 3s;
+        animation: example 3s;
+    }

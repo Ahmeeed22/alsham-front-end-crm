@@ -21,7 +21,9 @@ export class LoginComponent {
      private _Router:Router ,
      private toaster:ToastrService
      ) {
-
+      setInterval(()=>{
+        this.hiA()
+      },6000)
    }
 
   onSubmit(){
@@ -38,4 +40,9 @@ export class LoginComponent {
       this.loginFormGroup.markAllAsTouched() ;
     }
   }
+  hiA(){
+    var pathA:any=document.getElementById("pathA");
+     pathA?.classList?.toggle("hiA");
+     setTimeout(function(){  pathA?.classList?.toggle("hiA"); }, 3000);
+    }
 }
