@@ -54,7 +54,7 @@ export class ListTransactionsComponent implements OnInit {
   cities!:any[];
   form : any;
   selectedCities:any;
-  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true};
+  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true,sponsored:true};
   myDate:any
   sumCols:any;
   customerName:any ;
@@ -71,6 +71,7 @@ export class ListTransactionsComponent implements OnInit {
       this.cities = [
         { name: "Employee Name", code: "empName" },
         { name: "Customer Name", code: "cusName" },
+        { name: "Sponsored", code: "sponsored" },
         { name: "Service Name", code: "serName" },
         { name: "Quantity", code: "qu" },
         { name: "Price per unit", code: "ppu" }, 
@@ -88,6 +89,7 @@ export class ListTransactionsComponent implements OnInit {
         { name: "Total Price", code: "tp" },
         { name: "Balance Due", code: "bd" },
         { name: "Date", code: "date" },
+        { name: "Sponsored", code: "sponsored" },
         { name: "Actions", code: "acts" }
       ], Validators.required]
       });

@@ -75,6 +75,7 @@
                   <th >Index</th>
                   <th *ngIf="colDisplay.empName">Employee Name</th>
                   <th *ngIf="colDisplay.cusName">Customer Name</th>
+                  <th *ngIf="colDisplay.sponsored">Sponsored</th>
                   <th *ngIf="colDisplay.serName">Service Name</th>
                   <th *ngIf="colDisplay.qu">Quantity</th>
                   <th *ngIf="colDisplay.ppu">Price per unit</th>
@@ -91,6 +92,7 @@
                     <th >Sum</th>
                     <th *ngIf="colDisplay.empName">--</th>
                     <th *ngIf="colDisplay.cusName">--</th>
+                    <th *ngIf="colDisplay.sponsored">--</th>
                     <th *ngIf="colDisplay.serName">--</th>
                     <th *ngIf="colDisplay.qu" class="table-info sumInfo">{{sumCols?.quantity}}</th>
                     <th *ngIf="colDisplay.ppu">--</th>
@@ -107,6 +109,7 @@
                   <td style="text-align: center;" >{{index+1}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.sponsored">{{transaction.sponsoredName||'--'}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.serName">{{transaction.service.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.qu">{{transaction.quantity}}</td>
                   <td style="text-align: center;"  *ngIf="colDisplay.ppu">{{transaction.price}}</td>
