@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path : 'customers',
     loadChildren : () => import('./customer/customer.module').then(m => m.CustomerModule)
+  },
+  {
+    path : 'reminders',
+    loadChildren : () => import('./reminder/reminder.module').then(m => m.ReminderModule)
   }
 ];
 

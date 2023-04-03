@@ -1,0 +1,120 @@
+<div class="m-4">
+    <div class="d-flex justify-content-end align-items-center mx-auto   my-3 ">
+        <button class="addService " style="margin-right: 9%;" mat-raised-button (click)="addReminder() ">Add
+            Reminder</button>
+    </div>
+    <div class="d-flex justify-content-center  p-2 m-2 ">
+        <form class="border p-2 m-2  " style="background-color: rgb(255, 254, 254); border-radius: 30px;">
+            <h3 style="font-size: 22px; padding-left: 20px;" class="text-info font-weight-bolder">Search</h3>
+            <div class="row m-2 ">
+                <div class="col-md-4 mt-lg-2">
+                    <mat-form-field appearance="outline" class="w-100 p-0 m-0">
+                        <mat-label>Choose a Start Date</mat-label>
+                        <div class="d-flex w-100 ">
+                            <input matInput [matDatepicker]="pickerstart" #start>
+                            <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
+                        </div>
+                        <mat-datepicker #pickerstart></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 mt-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Choose a End date</mat-label>
+                        <div class="d-flex">
+                          <input matInput [matDatepicker]="pickerEnd"  #end>
+                          <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                        </div>
+                        <mat-datepicker #pickerEnd></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+                        <mat-label>Company Name</mat-label>
+                        <input matInput  currencyMask  type="text"  #name  placeholder="Company Name">
+                    </mat-form-field> 
+                </div>
+                <div class="col-12 my-2 text-right">
+                    <div class="btns d-flex justify-content-end align-items-end">
+                        <button class="btn " style="background:#1746A2"
+                            (click)="search($event,start.value,end.value,name.value)">Search</button>
+                        <button class="btn " style="background-color: #ffb64d;" (click)="resetSearch()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="">
+        <div class="parennt shadow m-auto" style="width: 82%; ">
+            <div class="pt-2  mx-auto d-flex justify-content-end  ">
+                <div class="active"></div>
+                <span class="px-2"> Processed</span>
+                <div class="disactive"></div>
+                <span class="px-2">Not Processed</span>
+
+            </div>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource" class="text-center">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="index">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef> Index </th>
+                        <td mat-cell *matCellDef="let element let i = index;">{{i+1}} </td>
+                    </ng-container>
+                    <!-- Company Name Column -->
+                    <ng-container matColumnDef="companyName">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef>Company Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+                    </ng-container>
+
+                    <!-- sponsored Name Column -->
+                    <ng-container matColumnDef="sponsored">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef>Sponsored </th>
+                        <td mat-cell *matCellDef="let element"> {{element.sponsored}} </td>
+                    </ng-container>
+                    <!-- SERVICE Column -->
+                    <ng-container matColumnDef="service">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef> Service </th>
+                        <td mat-cell *matCellDef="let element"> {{element.service.name||'-'}} </td>
+                    </ng-container>
+
+                    <!-- message Column -->
+                    <ng-container matColumnDef="message">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef> Message </th>
+                        <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+                    </ng-container>
+
+                    <!-- dateExpire no Column -->
+                    <ng-container matColumnDef="dateExpire">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef> Expire Date</th>
+                        <td mat-cell *matCellDef="let element"> {{element.dateExpire|date}} </td>
+                    </ng-container>
+
+                    <!-- status Column -->
+                    <ng-container matColumnDef="status">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="m-auto" [ngClass]="element.status=='new'?'active':'disactive'"></div>
+                        </td>
+                    </ng-container>
+
+                    <!-- actions Column -->
+                    <ng-container matColumnDef="action">
+                        <th class="text-center" mat-header-cell *matHeaderCellDef [attr.rowspan]="2"> Action </th>
+                        <td mat-cell *matCellDef="let element" class="action-link">
+                            <button class="btn btn-info mx-2" (click)="updateReminder($event , element)">Update</button>
+                            <button class="btn btn-danger mx-2" (click)="deleteReminder(element.id)">Delete</button>
+                        </td>
+                    </ng-container>>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
