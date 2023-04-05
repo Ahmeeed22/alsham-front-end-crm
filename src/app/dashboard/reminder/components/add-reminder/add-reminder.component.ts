@@ -41,7 +41,7 @@ export class AddReminderComponent implements OnInit {
   }
 
   getStatus(){
-    let oldSelected=(this?.data?.active && this.data)? {id:1,name:' Active'}:{id:0,name:'Dis active'}
+    let oldSelected=(this?.data?.active && this.data)? {id:'new',name:' Processed'}:{id:'pending',name:'Not Ptocessed'}
      this.statusObj= { staticArray:[{id:'new',name:' Processed'},{id:'pending',name:'Not Ptocessed'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false, oldSelectedItems: this.data? oldSelected : null
     };
   }
@@ -57,9 +57,9 @@ export class AddReminderComponent implements OnInit {
   createForm() {
     this.newServiceForm = this.fb.group({
       companyName : [this.data?.companyName || '' , Validators.required],
-      sponsored : [this.data?.companyName || '' , Validators.required],
-      message : [this.data?.companyName || '' , Validators.required],
-      dateExpire : [this.data?.deposite || "2023-04-09",Validators.min(0) ],
+      sponsored : [this.data?.sponsored || '' , Validators.required],
+      message : [this.data?.message || '' , Validators.required],
+      dateExpire : [this.data?.dateExpire || null,Validators.min(0) ],
     })
 
     this.formValues = {...this.newServiceForm.value}
@@ -91,7 +91,24 @@ export class AddReminderComponent implements OnInit {
   }
 
   updateReminder(date:any){
-
+    if (this.testChange() && this.newServiceForm.valid) { 
+      let finalData={...this.newServiceForm.value,dateExpire:new Date(date.split('-').reverse().join('-')).toISOString(),status:this.status?.gettingResult()?.id,service_id:this.services?.gettingResult()?.id}
+      console.log(finalData);
+      console.log(this.services?.gettingResult());
+      
+      this._ReminderService.updateRemider(this.data.id  ,finalData).subscribe({
+        next: res=>{
+          this.toaster.success("success update Reminder","success")
+          this.dialog.close(true)
+        },
+        error : err=>{
+          this.newServiceForm.markAllAsTouched() ;
+          this.status.validate();
+        }
+      })
+    }else{
+      this.toaster.info("No Data Edited" , "info")
+    }
   }
 
   testChange(){
