@@ -39,14 +39,25 @@
         </button>
         <div class="row mr-2 ml-auto">
           <ul class="row m-0 justify-content-center  align-items-center">
+            <li *ngIf="isReminder">
+              <button mat-button [matMenuTriggerFor]="menuReminder" class="user mt-2 d-flex align-items-center textRed">
+                <i class="fa-regular fa-bell  fa-xl pr-4 " ></i>
+                <!-- <mat-icon class="user-image-icon ml-1" >keyboard_arrow_down</mat-icon> -->
+              </button>
+              <mat-menu #menuReminder="matMenu">
+                <button mat-menu-item class="auto-width-button" routerLink="/main/reminders/List">
+                  There are reminders
+                </button>
+              </mat-menu>
+            </li>
             <li>
               <button mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
-                <img src="assets/user.jpg" alt="" class="user-image mx-auto p-2 d-block" />
+                <!-- <img src="assets/user.jpg" alt="" class="user-image mx-auto p-2 d-block" /> -->
                 {{user?.name}}
                 <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="logOut()">
+                <button mat-menu-item (click)="logOut()" >
                   <mat-icon>exit_to_app</mat-icon>
                   Logout
                 </button>

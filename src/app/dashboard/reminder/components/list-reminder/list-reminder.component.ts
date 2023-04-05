@@ -34,21 +34,21 @@ export class ListReminderComponent implements OnInit {
     this._ReminderService.getAllReminders(filter).subscribe({
       next: (res) => {
         console.log(res.result.rows);
-        if (!filter&&res.result.rows.length>0) {
-          this._ReminderService.IsReminder.next(true)
-        } 
-        if(!filter&&res.result.rows.length==0){
-          this._ReminderService.IsReminder.next(false)
-        }
-        this._ReminderService.IsReminder.subscribe(()=>{
-          console.log(this._ReminderService.IsReminder.getValue(),"test reminder exist");
-        })
+        // if (!filter&&res.result.rows.length>0) {
+        //   this._ReminderService.IsReminder.next(true)
+        // } 
+        // if(!filter&&res.result.rows.length==0){
+        //   this._ReminderService.IsReminder.next(false)
+        // }
+        // this._ReminderService.IsReminder.subscribe(()=>{
+        //   console.log(this._ReminderService.IsReminder.getValue(),"test reminder exist");
+        // })
         this.dataSource = new MatTableDataSource<any>(res.result.rows);
         this.dataSource.paginator = this.paginator;
         this.toaster.success("success get Reminders", "success")
-      }
+      } 
     })
-    
+     
   }
 
   addReminder() {

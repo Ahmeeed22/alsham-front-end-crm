@@ -10,7 +10,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AddCustomerComponent,
     ListCustomerComponent

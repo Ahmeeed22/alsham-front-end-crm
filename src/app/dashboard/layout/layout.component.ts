@@ -28,7 +28,8 @@ export class LayoutComponent{
     setInterval(()=>{
       this.hiA()
     },6000)
-  }
+    this.getAllReminders()
+  }  
 
   toggleSidebar(){
     this.sideBarOpen= !this.sideBarOpen
@@ -45,5 +46,23 @@ export class LayoutComponent{
     var pathA:any=document.getElementById("ramd");
      pathA?.classList?.toggle("hiA");
      setTimeout(function(){  pathA?.classList?.toggle("hiA"); }, 3000);
+    }
+
+    getAllReminders(filter?: any) {
+
+      this._ReminderService.getAllReminders(filter).subscribe({
+        next: (res) => {
+          if (!filter&&res.result.rows.length>0) {
+            this._ReminderService.IsReminder.next(true)
+          } 
+          if(!filter&&res.result.rows.length==0){
+            this._ReminderService.IsReminder.next(false)
+          }
+          this._ReminderService.IsReminder.subscribe(()=>{
+          })
+         
+        }
+      })
+      
     }
 }
