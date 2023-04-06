@@ -105,7 +105,7 @@
                 </tr>
                 </tfoot>
               <tbody>
-                <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center" style="text-align: center;">
+                <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover" style="text-align: center;">
                   <td style="text-align: center;" >{{index+1}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
