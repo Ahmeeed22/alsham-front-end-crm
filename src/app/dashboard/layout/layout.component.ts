@@ -23,12 +23,15 @@ export class LayoutComponent{
     }) 
    this._ReminderService.IsReminder.subscribe(()=>{
     this.isReminder=this._ReminderService.IsReminder.getValue() ;
+    console.log(this._ReminderService.IsReminder.getValue(),"test reminder exist");
     console.log(this.isReminder);
    }) 
     setInterval(()=>{
       this.hiA()
     },6000)
     this.getAllReminders()
+    this._ReminderService.IsReminder.subscribe(()=>{
+    })
   }  
 
   toggleSidebar(){
@@ -58,8 +61,7 @@ export class LayoutComponent{
           if(!filter&&res.result.rows.length==0){
             this._ReminderService.IsReminder.next(false)
           }
-          this._ReminderService.IsReminder.subscribe(()=>{
-          })
+
          
         }
       })

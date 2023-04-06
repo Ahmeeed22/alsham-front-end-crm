@@ -17,7 +17,7 @@
               <mat-form-field appearance="outline" class="w-100 p-0 m-0"  >
                 <mat-label>Choose a Start date</mat-label>
                 <div class="d-flex w-100 " >
-                  <input matInput [matDatepicker]="pickerstart" #start>
+                  <input matInput  (dateChange)="makeValidationMax(start.value)" [matDatepicker]="pickerstart" #start>
                   <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
                 </div>
                 <mat-datepicker #pickerstart></mat-datepicker>
@@ -27,7 +27,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Choose a End date</mat-label>
                 <div class="d-flex">
-                  <input matInput [matDatepicker]="pickerEnd"  #end>
+                  <input matInput [min]="minDate" [matDatepicker]="pickerEnd"  #end>
                   <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                 </div>
                 <mat-datepicker #pickerEnd></mat-datepicker>

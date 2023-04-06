@@ -38,7 +38,7 @@
                     <mat-form-field appearance="outline" class="w-100 p-0 m-0"  >
                         <mat-label>Choose a Expire Date</mat-label>
                         <div class="d-flex w-100 " >
-                          <input matInput [matDatepicker]="pickerstart" formControlName="dateExpire" #start >
+                          <input matInput [min]="minDate" [matDatepicker]="pickerstart" formControlName="dateExpire" #start >
                           <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
                         </div>
                         <mat-datepicker #pickerstart></mat-datepicker>

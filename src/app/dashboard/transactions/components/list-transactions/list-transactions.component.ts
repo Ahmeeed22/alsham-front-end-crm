@@ -59,6 +59,7 @@ export class ListTransactionsComponent implements OnInit {
   sumCols:any;
   customerName:any ;
   invoiceNo!:number;
+  minDate:any;
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
@@ -279,5 +280,8 @@ export class ListTransactionsComponent implements OnInit {
     return rand;
   }
   
+  makeValidationMax(start:any){
+    this.minDate=new Date(start)
+  }
 
 }

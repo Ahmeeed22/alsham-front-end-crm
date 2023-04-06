@@ -22,6 +22,7 @@ export class AddReminderComponent implements OnInit {
   @ViewChild('status') status !: DdlSearchableComponent;
   newServiceForm :any;
   formValues:any ;
+  minDate:any;
   constructor(
     private fb:FormBuilder ,
     private _Router:Router,
@@ -41,8 +42,14 @@ export class AddReminderComponent implements OnInit {
   }
 
   getStatus(){
-    let oldSelected=(this?.data?.active && this.data)? {id:'new',name:' Processed'}:{id:'pending',name:'Not Ptocessed'}
-     this.statusObj= { staticArray:[{id:'new',name:' Processed'},{id:'pending',name:'Not Ptocessed'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false, oldSelectedItems: this.data? oldSelected : null
+    console.log(this?.data?.status,"this?.data?.active");
+    console.log(this.data,"this.data");
+    
+    
+    let oldSelected=(this?.data?.status=='new' && this.data)? {id:'new',name:' Processed'}:{id:'pending',name:'Not Processed'}
+    console.log(oldSelected,"oldSelected");
+    
+     this.statusObj= { staticArray:[{id:'new',name:' Processed'},{id:'pending',name:'Not Processed'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false, oldSelectedItems: this.data? oldSelected : null
     };
   }
   getServices(){
@@ -55,6 +62,7 @@ export class AddReminderComponent implements OnInit {
   }
   
   createForm() {
+    this.minDate=this.data?.dateExpire||new Date(1/1/2015)
     this.newServiceForm = this.fb.group({
       companyName : [this.data?.companyName || '' , Validators.required],
       sponsored : [this.data?.sponsored || '' , Validators.required],
