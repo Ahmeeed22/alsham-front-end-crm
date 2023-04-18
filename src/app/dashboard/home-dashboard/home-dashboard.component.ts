@@ -68,7 +68,9 @@ export class HomeDashboardComponent implements OnInit {
       next:(res)=>{
         this.countMonthly=res.result.count
         this.detailsProfiteMonthly={...res.allProfite[0]}
-        this.amountCash=this.detailsProfiteMonthly.paymentAmount - this.detailsProfiteMonthly.total_price_without_profite 
+        this.amountCash=this.detailsProfiteMonthly.paymentAmount +this.pettyCash - this.detailsProfiteMonthly.total_price_without_profite 
+        console.log("amountCash = ",this.amountCash);
+        
       }
     })
   }
