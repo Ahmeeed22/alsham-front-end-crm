@@ -9,14 +9,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AppComponent  {
   lang :any;
   typeSelected:any;
-  constructor(private translate: TranslateService , private spinnerService: NgxSpinnerService ) {
+  constructor( private spinnerService: NgxSpinnerService ) {
+    console.log("hello from new dyploy");
+    
     this.typeSelected = 'ball-fussion';
-    if("lang" in localStorage){
-      this.lang =localStorage.getItem('lang')
-      translate.use(this.lang);
-    }else{
-      translate.use("en");
-    }
+    // if("lang" in localStorage){
+    //   this.lang =localStorage.getItem('lang')
+    //   translate.use(this.lang);
+    // }else{
+    //   translate.use("en");
+    // }
 
     this.spinnerService.show()
     

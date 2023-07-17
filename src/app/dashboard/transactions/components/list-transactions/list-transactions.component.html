@@ -49,7 +49,7 @@
       defaultLabel="Select a City" optionLabel="name">
       </p-multiSelect>
     </form>
-    <button class="btn btn-primary  px-4  "(click)="printTest({ printable: 'print-section', type: 'html',style: '.parentt{width:95% ; margin:auto;}table tfoot tr ,table thead tr{background:#ccc;}table tfoot tr .sumInfo{border: 2px solid blue !important;}tbody{text-align:center; border: 2px solid blue;}table{background-image: url(https://ik.imagekit.io/2cvha6t2l9/bg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677596175916); background-repeat: repeat;background-position: center center;width: 60%;height: 60%;color:#000, border:none !important;}tr{text-align:center;}td{text-align:center; border-top: 2px solid blue;font-size: larger;}.headinvoice{display:flex ;justify-content: space-between;}h2{padding:10px ; text-align:center;}.pparrent{display:flex ;justify-content: space-between; }' },immg)">print</button>
+    <button class="btn btn-primary  px-4  "(click)="printTest({ printable: 'print-section', type: 'html',style: '.parentt{width:95% ; margin:auto;}table tfoot tr ,table thead tr{background:#ccc;}table tfoot tr .sumInfo{border: 2px solid blue !important;}tbody{text-align:center; border: 2px solid blue;}table{background-image: url(https://ik.imagekit.io/2cvha6t2l9/bg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677596175916); background-repeat: repeat;background-position: center center;width: 60%;height: 60%;color:#000, border:none !important;}tr{text-align:center;}td{text-align:center; border-top: 2px solid blue;font-size: larger;}.headinvoice{display:flex ;justify-content: space-between;}h2{padding:10px ; text-align:center;}.pparrent{display:flex ;justify-content: space-between; }.bgleft{margin-top: 0px; background-image: url(https://ik.imagekit.io/2cvha6t2l9/old2.png?updatedAt=1682950791120);background-position: center center;background-size: contain; }' },immg)">print</button>
   </div>
 <div class="my-2 mx-4 pb-2 mat-elevation-z8" >
 
@@ -106,7 +106,7 @@
                 </tfoot>
               <tbody>
                 <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover" style="text-align: center;">
-                  <td style="text-align: center;" >{{index+1}}</td>
+                  <td style="text-align: center;" >{{(1+index)+(filteration.limit*(filteration.offset-1))+10}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.sponsored">{{transaction.sponsoredName||'--'}}</td>
@@ -144,6 +144,31 @@
                   <br/>
                   <span style="padding: 10px;">........</span>
                 </h2>
+              </div>
+            </div>
+            <div class="headinvoice  d-none" style="display: flex; justify-content: space-between; padding:0px 10px; margin-top: -20px;" #footerInvoice2>
+              <!-- <div class="left">
+                <h2 style="text-align: center;">
+                  توقيع المستلم
+                  <br/>
+                  Receiver Sign
+                  <br/>
+                  <br/>
+                  <span style="padding: 10px;">........</span>
+                </h2>
+                <img src="https://ik.imagekit.io/2cvha6t2l9/logoalsham.PNG?updatedAt=1682924596117" >
+              </div> -->
+              <div class="left bgleft" style="width: 307px; height: 180px;">
+                
+                <!-- <h2 style="text-align: center;">
+                  توقيع العميل
+                  <br/>
+                  Customer Sign
+                  <br/>
+                  <br/>
+                  <span style="padding: 10px;">........</span>
+                </h2> -->
+                <!-- <img  src="https://ik.imagekit.io/2cvha6t2l9/signature2.png?updatedAt=1682949139987" > -->
               </div>
             </div>
         </div>

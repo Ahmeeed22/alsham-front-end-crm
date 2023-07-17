@@ -34,6 +34,10 @@ export class ListCustomerComponent {
 getAllCustomers(filter?:any){
   this._CustomersService.getAllCustomersSearch(filter).subscribe({
     next : (res)=>{
+      for (let index = 0; index < res.result.length; index++) {
+        res.result[index].index=index+1
+        
+      }
       this.dataSource = new MatTableDataSource<any>(res.result);
       this.dataSource.paginator = this.paginator;
       this.toaster.success("success get Customers","success")

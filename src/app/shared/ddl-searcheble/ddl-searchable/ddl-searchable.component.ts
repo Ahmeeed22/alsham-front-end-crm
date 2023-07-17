@@ -119,7 +119,7 @@ export class DdlSearchableComponent implements OnChanges {
    */
   constructor(
     private _DdlSearchableService: DdlSearchableService,
-    public translate: TranslateService,
+    // public translate: TranslateService,
     private eRef: ElementRef,
     // public picturepathPipe: PicturepathPipe
   ) {}
@@ -346,7 +346,7 @@ export class DdlSearchableComponent implements OnChanges {
         return true
       } else {
         this.borderError = true;
-        this.messageError = this.translate.currentLang === 'ar' ? this.objData.messageErrorRequired : this.objData.messageErrorRequiredEn
+        this.messageError = this.objData.messageErrorRequiredEn
         return false
       }
     }

@@ -41,7 +41,10 @@ export class ListServiceComponent implements AfterViewInit {
     this._ServicesService.getAllServicesSearch(filter).subscribe({
       next : (res)=>{
         console.log(res.services);
-        
+        for (let index = 0; index < res.services.length; index++) {
+          res.services[index].index=index+1
+          
+        }
         this.dataSource = new MatTableDataSource<any>(res.services);
         this.dataSource.paginator = this.paginator;
         this.toaster.success("success get Services","success")
