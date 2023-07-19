@@ -30,6 +30,7 @@ export class ListTransactionsComponent implements OnInit {
   @ViewChild('users') users !: DdlSearchableComponent;
   @ViewChild('start') start !: ElementRef;
   @ViewChild('end') end !: ElementRef;
+  @ViewChild('balanceDues') balanceDues !: ElementRef;
   @ViewChild('immg') immg !: ElementRef;
   @ViewChild('infoo') infoo !: ElementRef;
   @ViewChild('footerInvoice') footerInvoice !: ElementRef;
@@ -223,9 +224,10 @@ export class ListTransactionsComponent implements OnInit {
   }
 
 
-  search(e:any,start:any,end:any){ 
+  search(e:any,start:any,end:any,balanceDue:any){ 
     start?this.filteration.startedDate= new Date(start.split('-').reverse().join('-')).toISOString():'' ;
     end?this.filteration.endDate=new Date(end.split('-').reverse().join('-')).toISOString():'' ;
+    this.filteration.balanceDue=balanceDue||0
     // this.resetPagination()
     this.customerName = (this.customers.gettingResult()?.name )? this.customers?.gettingResult()?.name: '';
     (this.customers.gettingResult()?.id) ? this.filteration.customer_id= this.customers.gettingResult()?.id:'';
@@ -248,6 +250,7 @@ export class ListTransactionsComponent implements OnInit {
     this.users.resetList();
    this.start.nativeElement.value=null
    this.end.nativeElement.value=null
+   this.balanceDues.nativeElement.value=null
    
   }
   // configration for pagination
