@@ -24,4 +24,7 @@ export class TransactionsService {
   updateTransaction(id:number ,data:any):Observable<any>{
     return this.http.put(`${this.baseURL}updateTransaction/${id}`,data)
   }
+  getSummary(filter:any):Observable<any>{
+    return this.http.post(`${environment.baseApi}getTransactionsSummary`,filter)
+  }
 }

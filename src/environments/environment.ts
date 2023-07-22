@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false ,
-  baseApi : 'https://distinct-bass-tiara.cyclic.app/api/v1/'
+  // baseApi : 'https://distinct-bass-tiara.cyclic.app/api/v1/'
+  baseApi: 'http://localhost:3001/api/v1/'
 
 };
 
@@ -16,3 +17,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+ 

@@ -1,0 +1,115 @@
+<div class="m-4">
+    <div class="d-flex justify-content-end align-items-center mx-auto   my-3 ">
+        <button class="addService " style="margin-right: 9%;" mat-raised-button (click)="addTransactionAccount() ">Add Supply/Expenses</button>
+    </div>
+    <div class="d-flex justify-content-center  p-2 m-2 ">
+        <form class="border p-2 m-2  " style="background-color: rgb(255, 254, 254); border-radius: 30px;">
+            <h3 style="font-size: 22px; padding-left: 20px;" class="text-info font-weight-bolder">Search</h3>
+            <div class="row m-2 ">
+                <div class="col-md-4 mt-lg-2">
+                    <mat-form-field appearance="outline" class="w-100 p-0 m-0">
+                        <mat-label>Choose a Start Date</mat-label>
+                        <div class="d-flex w-100 ">
+                            <input matInput 
+                            (dateChange)="makeValidationMax(start.value)"
+                            [matDatepicker]="pickerstart" #start>
+                            <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
+                        </div>
+                        <mat-datepicker #pickerstart></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 mt-lg-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Choose a End date</mat-label>
+                        <div class="d-flex">
+                          <input  [min]="minDate"  matInput [matDatepicker]="pickerEnd"  #end>
+                          <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                        </div>
+                        <mat-datepicker #pickerEnd></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-4 "  style="margin-top: 12px;">
+                    <app-ddl-searchable *ngIf="statusObj" [objData]="statusObj"
+                    #type></app-ddl-searchable>
+                </div>  
+                <div class="col-md-12 mt-4">
+                    <div class="btns d-flex justify-content-end align-items-end">
+                        <button class="btn " style="background:#1746A2"
+                            (click)="search($event,start.value,end.value)">Search</button>
+                        <button class="btn " style="background-color: #ffb64d;" (click)="resetSearch()">Reset</button>
+                    </div>
+                    
+                </div> 
+                
+            </div>
+        </form>
+    </div>
+    <div class="">
+        <div class="parennt shadow m-auto" style="width: 82%; ">
+            <!-- <div class="pt-2  mx-auto d-flex justify-content-end  ">
+                <div class="active"></div>
+                <span class="px-2"> Processed</span>
+                <div class="disactive"></div>
+                <span class="px-2">Not Processed</span>
+
+            </div> -->
+            <table mat-table [dataSource]="dataSource" class="text-center" matSort>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="index">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef> Index </th>
+                  <td mat-cell *matCellDef="let element let i = index;">{{i+1}} </td>
+                  <td mat-footer-cell *matFooterCellDef>Sum</td>
+                </ng-container>
+              
+                <!--receiptNumber Name Column -->
+                <ng-container matColumnDef="receiptNumber">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef>Receipt Number </th>
+                  <td mat-cell *matCellDef="let element"> {{element.receiptNumber}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container> 
+              
+                <!--amount Name Column -->
+                <ng-container matColumnDef="amount">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef>Amount </th>
+                  <td mat-cell *matCellDef="let element"> {{element.amount | currency:' AED '}} </td>
+                  <td mat-footer-cell *matFooterCellDef>{{sumAmount | currency:' AED '}}</td>
+                </ng-container>
+              
+                <!-- type Name Column -->
+                <ng-container matColumnDef="type">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef>Type </th>
+                  <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+              
+                <!-- createdAt no Column -->
+                <ng-container matColumnDef="createdAt">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef>  Date</th>
+                  <td mat-cell *matCellDef="let element"> {{element.createdAt|date}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+              
+                <!-- actions Column -->
+                <ng-container matColumnDef="action">
+                  <th class="text-center" mat-header-cell *matHeaderCellDef [attr.rowspan]="2"> Action </th>
+                  <td mat-cell *matCellDef="let element" class="action-link">
+                    <button class="btn btn-info mx-2" (click)="updateTransactionAccount($event , element)">Update</button>
+                    <button class="btn btn-danger mx-2" (click)="deleteTransactionAccount(element.id)">Delete</button>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+              </table>
+              
+            <div class="d-flex justify-content-center">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
