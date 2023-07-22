@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CustomersService } from '../customer/customers.service';
 import { TransactionsService } from '../transactions/transactions.service';
 
@@ -7,7 +7,7 @@ import { TransactionsService } from '../transactions/transactions.service';
   templateUrl: './home-dashboard.component.html',
   styleUrls: ['./home-dashboard.component.scss']
 })
-export class HomeDashboardComponent implements OnInit {
+export class HomeDashboardComponent implements OnInit , OnDestroy{
   pettyCash=0;
   detailsProfite:any={}
   count:number=0;
@@ -30,12 +30,13 @@ export class HomeDashboardComponent implements OnInit {
       startedDate :start.toISOString(),
       endDate : end.toISOString() ,
     }
-    this.getPettyCash();
   }
-
+  
+  
   ngOnInit(): void {
+    this.getPettyCash();
     this.getAllTransactions();
-    this.getAllTransactionsMonthly();
+    this.getMonthlySummary()
   }
 
   getAllTransactions(){
@@ -52,7 +53,6 @@ export class HomeDashboardComponent implements OnInit {
   {
    return new Date(date.getFullYear(), date.getMonth(),1);
   }
-
   getAllTransactionsMonthly(){
     let dt = new Date(); 
     let start = this.startOfMonth(dt).toISOString();
@@ -68,20 +68,53 @@ export class HomeDashboardComponent implements OnInit {
       next:(res)=>{
         this.countMonthly=res.result.count
         this.detailsProfiteMonthly={...res.allProfite[0]}
-        this.amountCash=this.detailsProfiteMonthly.paymentAmount +this.pettyCash - this.detailsProfiteMonthly.total_price_without_profite 
-        console.log("amountCash = ",this.amountCash);
+        // console.log(typeof this.detailsProfiteMonthly.paymentAmount , '=',this.detailsProfiteMonthly.paymentAmount);
+        // console.log(typeof this.pettyCash , '=',this.pettyCash);
+        // console.log(typeof this.detailsProfiteMonthly.total_price_without_profite , '=',this.detailsProfiteMonthly.total_price_without_profite);
+        
+        
+        this.amountCash=+this.detailsProfiteMonthly.paymentAmount +this.pettyCash - (+this.detailsProfiteMonthly.total_price_without_profite )
+        // console.log("amountCash = ",this.amountCash);
         
       }
     })
   }
-
   getPettyCash(){
     this._CustomersService.getAllCustomersSearch({name:'petty Cash'}).subscribe({
       next : (res)=>{
-        console.log(res);
+        // console.log(res);
         this.pettyCash=res.result[0]?.transactions[0]?.paymentAmount ||0 ;
+        this.getAllTransactionsMonthly();
       }
     })
+  }
+
+  
+  getMonthlySummary(){
+    let dt = new Date(); 
+    let start = this.startOfMonth(dt).toISOString();
+    var end = new Date();
+    end.setUTCHours(23,59,59,999);
+    this.filteration = {
+      date:true ,
+      startedDate :start,
+      endDate : end.toISOString() ,
+    }
+    this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0  ;
+    this._TransactionsService.getSummary(this.filteration).subscribe({
+      next :res=>{
+        console.log(res);
+      },
+      error :err=>{
+        console.log(err);
+        
+      }
+    })
+
+  }
+
+  ngOnDestroy(): void {
+   
   }
 
 }

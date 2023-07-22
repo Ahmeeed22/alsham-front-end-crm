@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path : 'reminders',
     loadChildren : () => import('./reminder/reminder.module').then(m => m.ReminderModule)
+  },
+  {
+    path : 'transactionAccount',
+    loadChildren : () => import('./transaction-account/transaction-account.module').then(m=>m.TransactionAccountModule)
   }
 ];
 
