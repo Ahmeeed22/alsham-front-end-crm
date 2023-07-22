@@ -16,6 +16,8 @@ export class HomeDashboardComponent implements OnInit , OnDestroy{
   countMonthly:number= 0 ;
   amountCash:number= 0 ;
   dateToday=new Date() ;
+  dailySummary:any ;
+  monthlySummary:any ;
   constructor(
     private _TransactionsService:TransactionsService  ,
     private _CustomersService:CustomersService
@@ -36,15 +38,28 @@ export class HomeDashboardComponent implements OnInit , OnDestroy{
   ngOnInit(): void {
     this.getPettyCash();
     this.getAllTransactions();
-    this.getMonthlySummary()
+    // this.getMonthlySummary()
   }
 
   getAllTransactions(){
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
-    this._TransactionsService.getAllTransactions(this.filteration).subscribe({
-      next:(res)=>{
-        this.count=res.result.count
-        this.detailsProfite={...res.allProfite[0]}
+    // this._TransactionsService.getAllTransactions(this.filteration).subscribe({
+    //   next:(res)=>{
+    //     this.count=res.result.count
+    //     this.detailsProfite={...res.allProfite[0]} ;
+    //     console.log(res);
+        
+    //   }
+    // })
+
+    this._TransactionsService.getSummary(this.filteration).subscribe({
+      next :res=>{
+        console.log("daily",res);
+        this.dailySummary=res
+      },
+      error :err=>{
+        console.log(err);
+        
       }
     })
   }
@@ -68,16 +83,19 @@ export class HomeDashboardComponent implements OnInit , OnDestroy{
       next:(res)=>{
         this.countMonthly=res.result.count
         this.detailsProfiteMonthly={...res.allProfite[0]}
-        // console.log(typeof this.detailsProfiteMonthly.paymentAmount , '=',this.detailsProfiteMonthly.paymentAmount);
-        // console.log(typeof this.pettyCash , '=',this.pettyCash);
-        // console.log(typeof this.detailsProfiteMonthly.total_price_without_profite , '=',this.detailsProfiteMonthly.total_price_without_profite);
-        
-        
         this.amountCash=+this.detailsProfiteMonthly.paymentAmount +this.pettyCash - (+this.detailsProfiteMonthly.total_price_without_profite )
-        // console.log("amountCash = ",this.amountCash);
-        
       }
     })
+    // this._TransactionsService.getSummary(this.filteration).subscribe({
+    //   next :res=>{
+    //     console.log("monthly",res);
+    //     this.monthlySummary=res
+    //   },
+    //   error :err=>{
+    //     console.log(err);
+        
+    //   }
+    // })
   }
   getPettyCash(){
     this._CustomersService.getAllCustomersSearch({name:'petty Cash'}).subscribe({
@@ -90,28 +108,28 @@ export class HomeDashboardComponent implements OnInit , OnDestroy{
   }
 
   
-  getMonthlySummary(){
-    let dt = new Date(); 
-    let start = this.startOfMonth(dt).toISOString();
-    var end = new Date();
-    end.setUTCHours(23,59,59,999);
-    this.filteration = {
-      date:true ,
-      startedDate :start,
-      endDate : end.toISOString() ,
-    }
-    this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0  ;
-    this._TransactionsService.getSummary(this.filteration).subscribe({
-      next :res=>{
-        console.log(res);
-      },
-      error :err=>{
-        console.log(err);
+  // getMonthlySummary(){
+  //   let dt = new Date(); 
+  //   let start = this.startOfMonth(dt).toISOString();
+  //   var end = new Date();
+  //   end.setUTCHours(23,59,59,999);
+  //   this.filteration = {
+  //     date:true ,
+  //     startedDate :start,
+  //     endDate : end.toISOString() ,
+  //   }
+  //   this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0  ;
+  //   this._TransactionsService.getSummary(this.filteration).subscribe({
+  //     next :res=>{
+  //       console.log(res);
+  //     },
+  //     error :err=>{
+  //       console.log(err);
         
-      }
-    })
+  //     }
+  //   })
 
-  }
+  // }
 
   ngOnDestroy(): void {
    

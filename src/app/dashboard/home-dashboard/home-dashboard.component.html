@@ -8,8 +8,8 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h6 class="m-b-25">Total Profite</h6>
-                            <h3 class="f-w-700 text-c-blue">{{detailsProfite.total_profite?detailsProfite.total_profite:0 | currency:' AED '}}</h3>
+                            <h6 class="m-b-25">Total Profite {{' ( Gross )'}}</h6>
+                            <h3 class="f-w-700 text-c-blue">{{dailySummary?.summary?.total_profite_gross||0 | currency:' AED '}}</h3>
                             <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
@@ -26,7 +26,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="m-b-25">Total Balance</h6>
-                            <h3 class="f-w-700 text-c-green">{{detailsProfite.balanceDue?detailsProfite.balanceDue:0 | currency:' AED '}}</h3>
+                            <h3 class="f-w-700 text-c-green">{{dailySummary?.summary?.balanceDue||0 | currency:' AED '}}</h3>
                             <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
@@ -42,7 +42,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="m-b-25">Total Payment Amount</h6>
-                            <h3 class="f-w-700 text-c-yellow">{{detailsProfite.paymentAmount?detailsProfite.paymentAmount:0 | currency:' AED '}}</h3>
+                            <h3 class="f-w-700 text-c-yellow">{{dailySummary?.summary?.paymentAmount||0 | currency:' AED '}}</h3>
                             <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
@@ -58,12 +58,45 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="m-b-25">Numbers of Transactions</h6>
-                            <h3 class="f-w-700 text-c-blue">{{detailsProfite.quantity?detailsProfite.quantity:0}}</h3>
+                            <h3 class="f-w-700 text-c-blue">{{dailySummary?.summary?.count||0}}</h3>
                             <p class="m-b-0">{{dateToday |date}}</p>
                         </div>
                         <div class="col-auto">
                             <!-- <i class="fa-solid fa-hashtag"></i> -->
                             <i class="fas fa-hashtag bg-c-blue"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Supply</h6>
+                            <h3 class="f-w-700 text-c-blue">{{dailySummary?.summary?.sumSupply||0 | currency:' AED '}}</h3>
+                            <p class="m-b-0">{{dateToday |date}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-eye bg-c-blue"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-6">
+
+            <div class="card comp-card ">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="m-b-25">Total Expenses</h6>
+                            <h3 class="f-w-700 text-c-green">{{dailySummary?.summary?.sumExpenses||0 | currency:' AED '}}</h3>
+                            <p class="m-b-0">{{dateToday |date}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-bullseye bg-c-green"></i>
                         </div>
                     </div>
                 </div>
