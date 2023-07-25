@@ -86,16 +86,16 @@ export class HomeDashboardComponent implements OnInit , OnDestroy{
         this.amountCash=+this.detailsProfiteMonthly.paymentAmount +this.pettyCash - (+this.detailsProfiteMonthly.total_price_without_profite )
       }
     })
-    // this._TransactionsService.getSummary(this.filteration).subscribe({
-    //   next :res=>{
-    //     console.log("monthly",res);
-    //     this.monthlySummary=res
-    //   },
-    //   error :err=>{
-    //     console.log(err);
+    this._TransactionsService.getSummary(this.filteration).subscribe({
+      next :res=>{
+        console.log("monthly",res);
+        this.monthlySummary=res
+      },
+      error :err=>{
+        console.log(err);
         
-    //   }
-    // })
+      }
+    })
   }
   getPettyCash(){
     this._CustomersService.getAllCustomersSearch({name:'petty Cash'}).subscribe({
