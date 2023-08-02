@@ -27,4 +27,15 @@ export class TransactionsService {
   getSummary(filter:any):Observable<any>{
     return this.http.post(`${environment.baseApi}getTransactionsSummary`,filter)
   }
+
+  getAllBankAccount():Observable<any>{
+    return this.http.get(`${environment.baseApi}getAllBankAccount`)
+   }
+
+   
+   getAllsuppliers():Observable<any>{
+    return this.http.get(`${environment.baseApi}allsupplier`)
+   }
+   
+
 }

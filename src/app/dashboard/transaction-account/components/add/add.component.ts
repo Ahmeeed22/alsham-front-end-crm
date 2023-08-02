@@ -8,6 +8,7 @@ import { ComfirmationComponent } from 'src/app/shared/comfirmation/comfirmation.
 import { DdlSearchableComponent } from 'src/app/shared/ddl-searcheble/ddl-searchable/ddl-searchable.component';
 import { Item } from 'src/app/shared/ddl-searcheble/models/item';
 import { TransactionAccountService } from '../../services/transaction-account.service';
+import { TransactionsService } from 'src/app/dashboard/transactions/transactions.service';
 
 @Component({
   selector: 'app-add',
@@ -15,6 +16,8 @@ import { TransactionAccountService } from '../../services/transaction-account.se
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
+  @ViewChild('banks') banks !: DdlSearchableComponent;
+  banksObj!:Item;
   newServiceForm :any;
   formValues:any ;
   minDate:any;
@@ -26,12 +29,14 @@ export class AddComponent implements OnInit {
     private _Router:Router,
     private toaster:ToastrService,
     private _TransactionAccountService:TransactionAccountService,
+    private _TransactionsService:TransactionsService,
     public dialog: MatDialogRef<AddComponent> , 
     public dialogpublic: MatDialog ,
     @Inject(MAT_DIALOG_DATA) public data:any,
     private _ServicesService:ServicesService
   ) { 
     this.createForm();
+    this.getAllBanksAccounts()
   }
 
   ngOnInit(): void {
@@ -49,8 +54,8 @@ export class AddComponent implements OnInit {
   }
 
   createTransactionAccount(){
-    
-    let finalData={...this.newServiceForm.value,type:this.type.gettingResult()?.id}
+    var accountId=this.banks?.gettingResult()?.id || null ;
+    let finalData={...this.newServiceForm.value,type:this.type.gettingResult()?.id , accountId}
     
     console.log(finalData);
     if (this.newServiceForm.valid && this.type.validate()) {
@@ -104,5 +109,20 @@ export class AddComponent implements OnInit {
       this.dialog.close()
     }
   }
+
+  getAllBanksAccounts(){
+    this._TransactionsService.getAllBankAccount().subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.banksObj= { staticArray:res.result.rows, placeholder: 'البنك', placeholderEn: 'Bank Account', required: false, searachable: true, multiSelect: false, oldSelectedItems:this?.data?.service
+      };
+        
+      },
+      error :(err)=>{
+        console.log(err);
+        
+      }
+  })
+}
 
 }

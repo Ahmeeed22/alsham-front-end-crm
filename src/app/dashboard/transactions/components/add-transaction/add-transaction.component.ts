@@ -17,15 +17,20 @@ import { TransactionsService } from '../../transactions.service';
   styleUrls: ['./add-transaction.component.scss']
 })
 export class AddTransactionComponent implements OnInit {
-  servicesObj!:Item;
+  @ViewChild('suppliers') suppliers !: DdlSearchableComponent;
+  suppliersObj!:Item;
+  @ViewChild('banks') banks !: DdlSearchableComponent;
+  banksObj!:Item;
   @ViewChild('services') services !: DdlSearchableComponent;
-  customersObj!:Item;
+  servicesObj!:Item;
   @ViewChild('customers') customers !: DdlSearchableComponent;
+  customersObj!:Item;
   newTransactionForm :any;
   formValues:any ;
   customerDeposite:any;
   customerName:any;
   customerSelected:any ;
+  public isVisaChecked: boolean = false;
   constructor(
     private _CustomersService:CustomersService,
     private _ServicesService:ServicesService,
@@ -41,7 +46,9 @@ export class AddTransactionComponent implements OnInit {
       this.createForm()
       this.getServices()
       this.getCustomers()
-  }
+      this.getAllSuppliers();
+      this.getAllBanksAccounts();
+    }
 
   ngOnInit(): void {
     this.newTransactionForm?.get("paymentAmount").valueChanges.subscribe(()  => {
@@ -76,6 +83,8 @@ export class AddTransactionComponent implements OnInit {
   
 
   createForm() {
+    console.log(this.data);
+    
     this.newTransactionForm = this.fb.group({
       quantity : [this.data?.quantity || 0 , Validators.required],
       balanceDue : [this.data?.balanceDue || 0 , Validators.required],
@@ -116,10 +125,13 @@ export class AddTransactionComponent implements OnInit {
   gatheringData(){
     let customer_id=this.customers.gettingResult()?.id
     let service_id=this.services.gettingResult()?.id
+    // let supplierId=this.suppliers.gettingResult()?.id || null ;
+    // let accountId=this.banks.gettingResult()?.id || null ;
+    let visa=true
     let userLogged= this._AuthService.currentUser.getValue()
     if (userLogged) {
       const {company_id , id:admin_id}=userLogged ;
-      return {...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id: this.data ?this.data.admin_id:admin_id}
+      return {...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id: this.data ?this.data.admin_id:admin_id ,visa}
     }else{
       this.toaster.error('you are not Authorized')
       this._Router.navigate(['/login'])
@@ -129,6 +141,9 @@ export class AddTransactionComponent implements OnInit {
   createTransaction(){
     let customer_id=this.customers.gettingResult()?.id
     let service_id=this.services.gettingResult()?.id
+    let supplierId=this.suppliers?.gettingResult()?.id || null ;
+    let accountId=this.banks?.gettingResult()?.id || null ;
+    let visa=true
     let userLogged= this._AuthService.currentUser.getValue()
     if (userLogged) {
       const {company_id , id:admin_id}=userLogged ;
@@ -162,7 +177,7 @@ export class AddTransactionComponent implements OnInit {
           }
         }
 
-        this._TransactionsService.addTransaction({...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id}).subscribe({
+        this._TransactionsService.addTransaction({...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id,visa,accountId,supplierId}).subscribe({
           next :(res)=>{
             console.log(res);
             
@@ -174,6 +189,9 @@ export class AddTransactionComponent implements OnInit {
         this.newTransactionForm.markAllAsTouched() ;
         this.customers.validate();
         this.services.validate();
+        this.isVisaChecked? this.suppliers.validate() :  this.banks.validate();
+       
+        ;
       }
     }
   }
@@ -232,5 +250,48 @@ export class AddTransactionComponent implements OnInit {
     this.customerDeposite=event.deposite
     this.customerName=event.name
   }
+
+  getAllBanksAccounts(){
+    this._TransactionsService.getAllBankAccount().subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.banksObj= { staticArray:res.result.rows, placeholder: 'البنك', placeholderEn: 'Bank Account', required: !this.isVisaChecked, searachable: true, multiSelect: false, oldSelectedItems:this?.data?.service
+      };
+        
+      },
+      error :(err)=>{
+        console.log(err);
+        
+      }
+  })
+}
+
+getAllSuppliers(){
+  this._TransactionsService.getAllsuppliers().subscribe({
+    next:(res)=>{
+      console.log(res);
+      this.suppliersObj= { staticArray:res.result.rows, placeholder: 'المورد', placeholderEn: 'Supplier', required: this.isVisaChecked, searachable: true, multiSelect: false, oldSelectedItems:this?.data?.service
+    };
+      
+    },
+    error :(err)=>{
+      console.log(err);
+      
+    }
+})
+}
+
+
+
+onCheckboxChange(event: any) {
+  this.isVisaChecked = event.target.checked;
+  if (this.isVisaChecked) {
+    this.suppliersObj= { staticArray:this.suppliersObj.staticArray, placeholder: 'المورد', placeholderEn: 'Supplier', required: this.isVisaChecked, searachable: true, multiSelect: false, oldSelectedItems:this?.data?.service
+  };
+  } else {
+    this.banksObj= { staticArray:this.banksObj.staticArray, placeholder: 'البنك', placeholderEn: 'Bank Account', required: !this.isVisaChecked, searachable: true, multiSelect: false, oldSelectedItems:this?.data?.service
+  };
+  }
+}
 
 }

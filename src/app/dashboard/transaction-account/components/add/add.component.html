@@ -24,6 +24,10 @@
                         <input matInput  currencyMask  type="number" formControlName="amount"  placeholder="Amount">
                     </mat-form-field> 
                 </div>
+                <div class="col-md-12 my-2 " >
+                    <app-ddl-searchable *ngIf="banksObj" [objData]="banksObj"
+                     #banks></app-ddl-searchable>
+                </div> 
               
         </div>
     </form>

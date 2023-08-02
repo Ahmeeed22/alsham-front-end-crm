@@ -1,0 +1,18 @@
+ /* Custom styles for bigger checkbox with border color */
+ .custom-checkbox input[type="checkbox"] {
+    width: 2rem; /* Adjust the width to make the checkbox bigger */
+    height: 2rem; /* Adjust the height to make the checkbox bigger */
+    border: 2px solid #007bff; /* Change this to the desired border color */
+    border-radius: 0.25rem; /* Optional: Adjust border radius if needed */
+  }
+
+  .custom-checkbox .custom-control-label {
+    padding-left: .5rem; /* Add some padding to create space for the larger checkbox */
+  }
+  .custom-control-label {
+    position: relative;
+    margin-bottom: 5px;
+    vertical-align: top;
+    padding-top: 2px !important;
+    font-size: 16px;
+}

@@ -26,5 +26,7 @@ export class TransactionAccountService {
    updateTransactionAccount(id:any,data:any):Observable<any>{
     return this._httpClient.put(`${environment.baseApi}updateTransactionAccount/${id}`,data)
    }
+
    
+
 }

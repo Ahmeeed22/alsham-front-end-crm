@@ -122,6 +122,8 @@ export class ListTransactionsComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.getAllSuppliers();
+    this.getAllBanksAccounts();
     this.getAllTransactions();
     this.getCustomers();
     this.getUsers();
@@ -294,5 +296,31 @@ export class ListTransactionsComponent implements OnInit {
   makeValidationMax(start:any){
     this.minDate=new Date(start)
   }
+
+  getAllBanksAccounts(){
+    this._TransactionsService.getAllBankAccount().subscribe({
+      next:(res)=>{
+        console.log(res);
+        
+      },
+      error :(err)=>{
+        console.log(err);
+        
+      }
+  })
+}
+
+getAllSuppliers(){
+  this._TransactionsService.getAllsuppliers().subscribe({
+    next:(res)=>{
+      console.log(res);
+      
+    },
+    error :(err)=>{
+      console.log(err);
+      
+    }
+})
+}
 
 }
