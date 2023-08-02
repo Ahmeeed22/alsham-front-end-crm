@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path : 'transactionAccount',
     loadChildren : () => import('./transaction-account/transaction-account.module').then(m=>m.TransactionAccountModule)
+  },
+  {
+    path :'banks',
+    loadChildren : () => import('./banks/banks-routing.module').then(m=>m.BanksRoutingModule)
+  },
+  {
+    path :'sppliers',
+    loadChildren : () => import('./suppliers/suppliers-routing.module').then(m=>m.SuppliersRoutingModule)
   }
 ];
 
