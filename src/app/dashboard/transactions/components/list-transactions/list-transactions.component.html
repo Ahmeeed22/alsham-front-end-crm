@@ -115,7 +115,7 @@
                 </tfoot>
               <tbody>
                 <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover" style="text-align: center;">
-                  <td style="text-align: center;" >{{(1+index)+(filteration.limit*(filteration.offset-1))+10}}</td>
+                  <td style="text-align: center;" >{{(1+index)+(filteration.limit*(filteration.offset-1))+filteration.limit}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.sponsored">{{transaction.sponsoredName||'--'}}</td>

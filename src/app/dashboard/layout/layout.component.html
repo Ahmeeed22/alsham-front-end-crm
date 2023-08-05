@@ -20,10 +20,14 @@
             class="fa-solid fa-gears  fa-lg pr-4"></i> Services </a>
         <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <i
             class="fa-solid fa-users  fa-lg pr-4"></i>Customers </a>
+        <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/sppliers/List"> <i
+              class="fa-solid fa-users  fa-lg pr-4"></i>Suppliers </a>    
+        <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/banks/List"> <i
+          class="fa-solid fa-users  fa-lg pr-4"></i>Banks </a>
+        <a *ngIf="isLogged " mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactionAccount/List"> <i class="fa-regular fa-money-check-dollar  fa-xl pr-4"></i>Expenses / Supply </a>  
         <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/reminders/List"> 
           <i class="fa-regular fa-bell  fa-xl pr-4"></i>
           Reminder </a>
-        <a *ngIf="isLogged " mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactionAccount/List"> <i class="fa-regular fa-money-check-dollar  fa-xl pr-4"></i>Expenses / Supply </a>  
       </div>
       <div class="ramadan ">
         <img src="https://ik.imagekit.io/2cvha6t2l9/25140727_7079-PhotoRoom.png?updatedAt=1679556724562" 

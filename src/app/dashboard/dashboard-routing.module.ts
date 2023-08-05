@@ -33,11 +33,11 @@ const routes: Routes = [
   },
   {
     path :'banks',
-    loadChildren : () => import('./banks/banks-routing.module').then(m=>m.BanksRoutingModule)
+    loadChildren : () => import('./banks/banks.module').then(m=>m.BanksModule)
   },
   {
     path :'sppliers',
-    loadChildren : () => import('./suppliers/suppliers-routing.module').then(m=>m.SuppliersRoutingModule)
+    loadChildren : () => import('./suppliers/suppliers.module').then(m=>m.SuppliersModule)
   }
 ];
 

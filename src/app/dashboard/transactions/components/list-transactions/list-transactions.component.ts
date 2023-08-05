@@ -39,7 +39,7 @@ export class ListTransactionsComponent implements OnInit {
   length = 50;
   pageSize = 10;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [5, 10, 20,50];
 
   hidePageSize = false;
   showPageSizeOptions = true;
@@ -148,7 +148,9 @@ export class ListTransactionsComponent implements OnInit {
   getAllTransactions(){
     console.log(this.generateRandom());
     
-    console.log("before",(1+this.pageIndex),(this.filteration.offset));
+    console.log("before",'this.pageIndex',(this.pageIndex),'offset',(this.filteration.offset ));
+    console.log('filteration.limit',this.filteration.limit);
+    
     this.filteration.offset=this.filteration.offset > 0 ? this.filteration.offset - 1 : 0 
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
