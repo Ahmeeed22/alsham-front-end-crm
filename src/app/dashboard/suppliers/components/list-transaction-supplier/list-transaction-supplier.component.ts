@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SppliersService } from '../../sppliers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSupplierTransactionComponent } from '../add-supplier-transaction/add-supplier-transaction.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-list-transaction-supplier',
   templateUrl: './list-transaction-supplier.component.html',
@@ -12,7 +13,7 @@ export class ListTransactionSupplierComponent implements OnInit {
   suppliers:any=[] ;
   suppierStatements:any=[] ;
   selectedSupplier:any= {} ;
-  constructor(private _SppliersService:SppliersService , private dialog:MatDialog) {
+  constructor(private _SppliersService:SppliersService , private dialog:MatDialog , private toaster:ToastrService) {
     this.getAllSuppliers()
     
    }
@@ -39,10 +40,11 @@ export class ListTransactionSupplierComponent implements OnInit {
       next :res=>{
         this.dataSource=res.result.rows ;
         this.onSuppierChange(null,this.selectedSupplier)
+        this.toaster.success("Success Getting Suppliers Statements","Success")
         
       },
       error :(err)=>{
-
+        this.toaster.error("faild  Getting Suppliers Statements","Error")
       }
     })
   }
@@ -62,7 +64,7 @@ export class ListTransactionSupplierComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getAllSuppliersStatement();
+      this.getAllSuppliers() ;
     });
   }
 

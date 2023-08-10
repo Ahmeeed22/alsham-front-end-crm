@@ -26,7 +26,8 @@ export class AddSupplierTransactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
+  } ;
+
   getAllSuppliers(){
     this._SppliersService.getAllSuppliers().subscribe({
       next:(res)=>{
@@ -36,15 +37,17 @@ export class AddSupplierTransactionComponent implements OnInit {
         console.log(err);
       }
     })
-  }
+  } ;
+
   getAllBanksAccounts(){
     this._TransactionsService.getAllBankAccount().subscribe({
       next:(res)=>{
         console.log(res);
-        this.banks=res.result.rows
+        this.banks=res.result.rows ;
+        this.toaster.success("get all banks accounts" ,"success")
       },
       error :(err)=>{
-        console.log(err);
+        this.toaster.error("error getting banks" , "error")
       }
   })
 }
@@ -59,9 +62,11 @@ export class AddSupplierTransactionComponent implements OnInit {
         },
         error :(err)=>{
           console.log(err);
-          
+          this.toaster.error("error saving data" , "error")
         }
       })
+    }else{
+      this.toaster.error("please enter valid data","data")
     }
     console.log(this.formAdd.value);
   }

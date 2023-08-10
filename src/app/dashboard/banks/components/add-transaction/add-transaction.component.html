@@ -1,1 +1,50 @@
-<p>add-transaction works!</p>
+
+<div class="container">
+    <header class="d-flex justify-content-between align-items-center" >
+        <legend>Add Bank Statement</legend>
+        <!-- <h1 class="m-0">{{!data?'Add New Service':'Update Service'}}</h1> -->
+        <button mat-flat-button (click)="dialog.close(true)" class="text-danger">
+          <mat-icon>close</mat-icon>
+        </button>
+      </header>
+
+    <div class="row">
+      <div class="col col-md-12 pt-3" >
+        <form [formGroup]="formAdd" (ngSubmit)="save()">
+            <mat-form-field  appearance="outline" class="w-100 " >
+                <mat-label>Select Banks</mat-label>
+                <mat-select formControlName="accountId" placeholder="Bank" >
+                    <mat-option *ngFor="let bank of banks" [value]="bank.id">
+                        {{bank.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field  appearance="outline" class="w-100 " >
+                <mat-label>Select Type</mat-label>
+                <mat-select formControlName="type" placeholder="Bank" >
+                    <mat-option value="withdraw">
+                        Withdrow
+                    </mat-option>
+                    <mat-option value="deposit">
+                        Deposit
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100 position-relative">
+                <mat-label>Amount</mat-label>
+                <input matInput type="number"  formControlName="amount" placeholder="e.g. Creating an Online Shopping Experience"
+                  spellcheck="true" required>
+                <mat-error
+                  *ngIf="formAdd.get('amount')?.touched && formAdd.get('amount')?.hasError('required')">required</mat-error>
+                <mat-error
+                  *ngIf="formAdd.get('amount')?.touched && formAdd.get('amount')?.hasError('min')">must greater than 10</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100 position-relative">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="DESC" placeholder="DESCRIPTION " >
+            </mat-form-field>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>

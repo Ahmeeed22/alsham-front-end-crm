@@ -25,6 +25,7 @@
 
                     <tr class="text-center text-white text-light">
                         <th>Index</th>
+                        <th>Employee Name</th>
                         <th>Description</th>
                         <th>DR</th>
                         <th>CR</th>
@@ -49,6 +50,7 @@
                     <tr *ngFor="let transaction of suppierStatements  ;let index=index" class="text-center hover"
                         style="text-align: center;">
                         <td style="text-align: center;">{{(1+index)}}</td>
+                        <td style="text-align: center;">{{transaction.empName|| '--'}}</td>
                         <td style="text-align: center;">{{transaction.desc}}</td>
                         <td style="text-align: center;">{{transaction.type=='debit'? transaction.amount:'--'}}</td>
                         <td style="text-align: center;">{{transaction.type=='credit'? transaction.amount:'--'}}</td>
