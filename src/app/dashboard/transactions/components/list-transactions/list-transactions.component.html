@@ -92,6 +92,7 @@
                   <th *ngIf="colDisplay.pm">Payment Amount</th>
                   <th *ngIf="colDisplay.bd">Balance Due</th>
                   <th *ngIf="colDisplay.p">Profite</th>
+                  <th *ngIf="colDisplay.com">Commission</th>
                   <th *ngIf="colDisplay.date">Date</th>
                   <th *ngIf="colDisplay.acts" colspan="1">Actions</th>
                 </tr>
@@ -109,6 +110,7 @@
                     <th *ngIf="colDisplay.pm" class="table-info sumInfo">{{sumCols?.paymentAmount}}</th>
                     <th *ngIf="colDisplay.bd" class="table-info sumInfo">{{sumCols?.balanceDue}}</th>
                     <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCols?.total_profite}}</th>
+                    <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCommissionUNpaid +' / '+ sumCols?.SumCommission}}</th>
                     <th *ngIf="colDisplay.date">--</th>
                     <th *ngIf="colDisplay.acts" colspan="1">--</th>
                 </tr>
@@ -126,6 +128,12 @@
                   <td style="text-align: center;" *ngIf="colDisplay.pm">{{transaction.paymentAmount}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.bd">{{transaction.balanceDue}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.p">{{transaction.profite}}</td>
+                  <td style="text-align: center;" *ngIf="colDisplay.com"><span class="font-weight-bolder">{{transaction.commission}}</span>
+                    <div class="custom-control custom-checkbox pt-2" >
+                      <input type="checkbox" [disabled]="transaction.comIsDone || !transaction.commission" class="custom-control-input" [id]="transaction.id" [checked]="transaction.comIsDone"  (change)="onCheckboxChange($event,transaction.id,transaction.commission,transaction.comIsDone)">
+                      <label class="custom-control-label" [for]="transaction.id">{{transaction.comIsDone||!transaction.commission? 'Paid': 'UnPaid'}} </label>
+                    </div>
+                  </td>
                   <td style="text-align: center;" *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
                   <td style="text-align: center;"  *ngIf="colDisplay.acts" colspan="1"><button (click)="updateTask($event,transaction)" class="btn btn-info" >Update</button>
                  <button *ngIf="false" (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button>

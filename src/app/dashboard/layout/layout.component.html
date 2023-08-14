@@ -20,10 +20,9 @@
             class="fa-solid fa-gears  fa-lg pr-4"></i> Services </a>
         <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/customers/List"> <i
             class="fa-solid fa-users  fa-lg pr-4"></i>Customers </a>
-        <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/sppliers/List"> <i
-              class="fa-solid fa-users  fa-lg pr-4"></i>Suppliers </a>    
-        <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/banks/List"> <i
-          class="fa-solid fa-users  fa-lg pr-4"></i>Banks </a>
+        <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/sppliers/List"> <i class="fas fa-handshake fa-lg pr-4"></i>Suppliers </a>    
+        <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/banks/List"> <i class="fa-solid fa-building fa-lg pr-4"></i>
+          Banks </a>
         <a *ngIf="isLogged " mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactionAccount/List"> <i class="fa-regular fa-money-check-dollar  fa-xl pr-4"></i>Expenses / Supply </a>  
         <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/reminders/List"> 
           <i class="fa-regular fa-bell  fa-xl pr-4"></i>
@@ -47,11 +46,10 @@
           <ul class="row m-0 justify-content-center  align-items-center">
             <li *ngIf="isReminder">
               <button mat-button [matMenuTriggerFor]="menuReminder" class="user mt-2 d-flex align-items-center textRed">
-                <!-- <i class="fa-regular fa-bell  fa-xl pr-4 " ></i> -->
-                <img src="https://ik.imagekit.io/2cvha6t2l9/unnamed.gif?updatedAt=1689758801539" alt="" srcset=""   style="width: 30px;
+                <i class="fa-regular fa-bell  fa-xl pr-4 " *ngIf="!isReminderUrgent"></i>
+                <img *ngIf="isReminderUrgent" src="https://ik.imagekit.io/2cvha6t2l9/unnamed.gif?updatedAt=1689758801539" alt="" srcset=""   style="width: 30px;
                 aspect-ratio: auto 20 / 20;
                 height: 30px;"  >
-                <!-- <mat-icon class="user-image-icon ml-1" >keyboard_arrow_down</mat-icon> -->
               </button>
               <mat-menu #menuReminder="matMenu">
                 <button mat-menu-item class="auto-width-button" routerLink="/main/reminders/List">

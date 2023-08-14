@@ -90,6 +90,7 @@ export class AddTransactionComponent implements OnInit {
       balanceDue : [this.data?.balanceDue || 0 , Validators.required],
       paymentAmount : [this.data?.paymentAmount || 0 , Validators.required],
       profite : [this.data?.profite || 0 , Validators.required],
+      commission : [this.data?.commission || 0 , Validators.required],
       price : [this.data?.price || 0 , Validators.required],
       sponsoredName : [this.data?.sponsoredName || null , Validators.required],
     })

@@ -56,12 +56,14 @@ export class ListTransactionsComponent implements OnInit {
   cities!:any[];
   form : any;
   selectedCities:any;
-  colDisplay:any={empName:false ,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true,sponsored:true};
+  colDisplay:any={empName:false ,com:false,cusName:true ,serName:true ,qu:true ,ppu:false ,tp:true ,pm:false ,bd:true,p:false ,date:true ,acts:true,sponsored:true};
   myDate:any
   sumCols:any;
   customerName:any ;
   invoiceNo!:number;
   minDate:any;
+  sumCommissionUNpaid:any ;
+
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
@@ -82,6 +84,7 @@ export class ListTransactionsComponent implements OnInit {
         { name: "Payment Amount", code: "pm" } ,
         { name: "Balance Due", code: "bd" },
         { name: "Profite", code: "p" },
+        { name: "Commission", code: "com" },
         { name: "Date", code: "date" },
         { name: "Actions", code: "acts" }
       ];
@@ -155,10 +158,13 @@ export class ListTransactionsComponent implements OnInit {
     this._TransactionsService.getAllTransactions(this.filteration).subscribe({
       next:(res)=>{
         console.log(res);
-        this.sumCols={...res.allProfite[0]}
+        this.sumCols={...res.allProfite[0]} ;
+        this.sumCommissionUNpaid=res.sumCommissionUNpaid
         this.length=res.result.count
         this.dataSource=res.result.rows
-        this.toaster.success("success get Transactions","success")
+        this.toaster.success("success get Transactions","success") ;
+        console.log("sumCommissionUNpaid",this.sumCommissionUNpaid);
+        
       }
     })
     // this.filteration.offset++
@@ -323,6 +329,39 @@ getAllSuppliers(){
       
     }
 })
+}
+
+onCheckboxChange(event:any,id:any,commission:any,isDone:boolean){
+  if (commission>0 && !isDone) { 
+
+
+
+    const dialogRef = this.dialog.open(ComfirmationComponent, {
+      width: '750px',
+      disableClose:true,
+      data : {message :"Are You Sure to Pay This Commission ? "}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result!=='no') {
+        this._TransactionsService.updateTransaction(id  ,{comIsDone:event.target.checked,com:true}).subscribe({
+          next: res=>{
+            console.log(res);
+            this.toaster.success("success pay commission","success") ;
+            this.getAllTransactions();
+          }
+        })
+      }else{
+        this.toaster.info('Transaction not pay commission' , "Info") ;
+        event.target.checked=false ;
+      }
+    });
+
+
+  }else{
+    this.toaster.info("No Data Edited" , "info")
+  }
+ 
 }
 
 }

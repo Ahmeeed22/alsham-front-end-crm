@@ -10,6 +10,7 @@ export class ReminderService {
 
   constructor(private http:HttpClient) { }
   public IsReminder=new BehaviorSubject<boolean>(false) ;
+  public IsReminderUrgent=new BehaviorSubject<boolean>(false) ;
   getAllReminders(filter:any):Observable<any>{
 
     return this.http.post(`${environment.baseApi}allReminders`,filter)
