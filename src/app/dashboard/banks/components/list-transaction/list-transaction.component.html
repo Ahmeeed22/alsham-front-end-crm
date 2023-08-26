@@ -11,8 +11,8 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="addStatement d-flex align-items-center">
-                <button class="addTask" mat-raised-button (click)="addbankstatement()" >Add Bank Statement</button>
+            <div class="addStatement d-flex align-items-center" >
+                <button class="addTask" [disabled]="role!==3"  mat-raised-button (click)="addbankstatement()" >Add Bank Statement</button>
 
             </div>
         </div>

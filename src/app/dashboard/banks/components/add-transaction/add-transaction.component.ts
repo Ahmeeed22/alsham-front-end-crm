@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TransactionsService } from 'src/app/dashboard/transactions/transactions.service';
 import { ToastrService } from 'ngx-toastr';
 import { BanksService } from '../../banks.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-add-transaction',
@@ -19,10 +20,10 @@ export class AddTransactionComponent implements OnInit {
     type : new FormControl('',[Validators.required])
   }) ;
   banks : any[]=[] ;
-  
 
-  constructor(private _BanksService:BanksService,public dialog: MatDialogRef<AddTransactionComponent> , private toaster:ToastrService) {
-    this.getAllBanks() ;
+
+  constructor(private _BanksService:BanksService,public dialog: MatDialogRef<AddTransactionComponent> , private toaster:ToastrService ) {
+    this.getAllBanks() ; 
 
    }
 

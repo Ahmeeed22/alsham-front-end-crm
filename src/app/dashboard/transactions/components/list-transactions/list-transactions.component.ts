@@ -63,6 +63,7 @@ export class ListTransactionsComponent implements OnInit {
   invoiceNo!:number;
   minDate:any;
   sumCommissionUNpaid:any ;
+  role:any ;
 
   constructor(
     private _TransactionsService:TransactionsService  
@@ -99,6 +100,12 @@ export class ListTransactionsComponent implements OnInit {
         { name: "Actions", code: "acts" }
       ], Validators.required]
       });
+
+      this._AuthService.currentUser.subscribe(res=> {
+        var user:any=this._AuthService.currentUser.getValue()
+        this.role=user.role
+        
+      }) 
     }
 
 // print invoice
@@ -189,15 +196,19 @@ export class ListTransactionsComponent implements OnInit {
 
 
   updateTask(e:any,ele:any){
-    const dialogRef = this.dialog.open(AddTransactionComponent, {
-      width:"60%",
-      disableClose:true,
-      data:ele,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.getAllTransactions()
-    });
+    if (this.role===3) {
+      const dialogRef = this.dialog.open(AddTransactionComponent, {
+        width:"60%",
+        disableClose:true,
+        data:ele,
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.getAllTransactions()
+      });
+    }else{
+      this.toaster.info('this action not allawed' , "Info")
+    }
 
   }
   showDetails(e:any,ele:any){

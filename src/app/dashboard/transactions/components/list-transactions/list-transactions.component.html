@@ -135,7 +135,7 @@
                     </div>
                   </td>
                   <td style="text-align: center;" *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
-                  <td style="text-align: center;"  *ngIf="colDisplay.acts" colspan="1"><button (click)="updateTask($event,transaction)" class="btn btn-info" >Update</button>
+                  <td style="text-align: center;"  *ngIf="colDisplay.acts" colspan="1"><button (click)="updateTask($event,transaction)" class="btn btn-info"  [disabled]="role!==3" >Update</button>
                  <button *ngIf="false" (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button>
                  <button (click)="showDetails($event,transaction)" class="btn btn-outline-secondary text-secondary hhover">Details</button></td>
                 </tr>

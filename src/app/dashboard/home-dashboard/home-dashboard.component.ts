@@ -70,7 +70,8 @@ export class HomeDashboardComponent implements OnInit , OnDestroy{
   }
   getAllTransactionsMonthly(){
     let dt = new Date(); 
-    let start = this.startOfMonth(dt).toISOString();
+    // let start = this.startOfMonth(dt).toISOString();
+    let start = new Date(2019,10,10); 
     var end = new Date();
     end.setUTCHours(23,59,59,999);
     this.filteration = {

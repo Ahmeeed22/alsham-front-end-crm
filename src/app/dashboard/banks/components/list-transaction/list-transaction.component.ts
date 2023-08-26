@@ -3,6 +3,7 @@ import { BanksService } from '../../banks.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-list-transaction',
@@ -14,10 +15,17 @@ export class ListTransactionComponent implements OnInit {
   banks:any=[] ;
   banksStatements:any=[] ;
   selectedBank:any= {} ;
-  constructor(private _BanksService:BanksService , private dialog:MatDialog  , private toaster:ToastrService) {
+  role : Number=0 ;
+  constructor(private _BanksService:BanksService , private dialog:MatDialog  , private toaster:ToastrService,private authService:AuthService) {
+    this.authService.currentUser.subscribe(res=> {
+      var user:any=this.authService.currentUser.getValue()
+      this.role=user.role
+      
+    }) 
     this.getAllbanks() ;
-    
+
    }
+   
 
   ngOnInit(): void {
   }
