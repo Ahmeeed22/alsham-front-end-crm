@@ -105,7 +105,7 @@
                     <th *ngIf="colDisplay.sponsored">--</th>
                     <th *ngIf="colDisplay.serName">--</th>
                     <th *ngIf="colDisplay.qu" class="table-info sumInfo">{{sumCols?.quantity}}</th>
-                    <th *ngIf="colDisplay.ppu">--</th>
+                    <th *ngIf="colDisplay.ppu">{{sumCols?.total_price_without_profite}}</th>
                     <th *ngIf="colDisplay.tp" class="table-info sumInfo">{{sumCols?.total_price}}</th>
                     <th *ngIf="colDisplay.pm" class="table-info sumInfo">{{sumCols?.paymentAmount}}</th>
                     <th *ngIf="colDisplay.bd" class="table-info sumInfo">{{sumCols?.balanceDue}}</th>
@@ -117,7 +117,7 @@
                 </tfoot>
               <tbody>
                 <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover" style="text-align: center;">
-                  <td style="text-align: center;" >{{(1+index)+(filteration.limit*(filteration.offset-1))+filteration.limit}}</td>
+                  <td style="text-align: center;" >{{((1+index)+(filteration.limit*(filteration.offset-1))+filteration.limit) }}<span class="text-info font-weight-bolder">{{ role == 3 ?' -- '+ ( 7200-transaction.id + 271) : '' }}</span></td>
                   <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
                   <td style="text-align: center;" *ngIf="colDisplay.sponsored">{{transaction.sponsoredName||'--'}}</td>
