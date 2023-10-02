@@ -199,11 +199,14 @@ export class AddTransactionComponent implements OnInit {
 
   updateTransaction(){
     console.log(this.newTransactionForm);
-    
+    let customer_id=this.customers.gettingResult()?.id
+    let service_id=this.services.gettingResult()?.id
+    let supplierId=this.suppliers?.gettingResult()?.id || null ;
+    let accountId=this.banks?.gettingResult()?.id || null ;
     if (this.testChange() && this.newTransactionForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
       let {company_id ,balanceDue,paymentAmount,sponsoredName,...newObject }=data
-      this._TransactionsService.updateTransaction(this.data.id  ,{balanceDue,paymentAmount,sponsoredName}).subscribe({
+      this._TransactionsService.updateTransaction(this.data.id  ,{...this.newTransactionForm.value ,customer_id,service_id}).subscribe({
         next: res=>{
           console.log(res);
           this.toaster.success("success update transaction","success")
