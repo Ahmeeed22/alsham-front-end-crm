@@ -1,0 +1,39 @@
+<div class="container">
+    <header class="d-flex justify-content-between ">
+        <h1>Add Owner Statement</h1>
+        <button mat-flat-button class="text-danger">
+            <mat-icon (click)="dialog.close(true)">close</mat-icon>
+        </button>
+    </header>
+    <div class="row">
+        <div class="col-12 pt-3">
+            <form [formGroup]="ownerFormGroup" (ngSubmit)="save(ownerFormGroup.value)">
+                <mat-form-field  appearance="outline" class="w-100 " >
+                    <mat-label>Select Type</mat-label>
+                    <mat-select formControlName="type" placeholder="Owner" >
+                        <mat-option value="drowing">
+                            Drowing
+                        </mat-option>
+                        <mat-option value="invest">
+                            Invest
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 position-relative">
+                    <mat-label>Amount</mat-label>
+                    <input matInput type="number"  formControlName="amount" placeholder="Amount"
+                      spellcheck="true" required>
+                    <mat-error
+                      *ngIf="ownerFormGroup.get('amount')?.touched && ownerFormGroup.get('amount')?.hasError('required')">required</mat-error>
+                    <mat-error
+                      *ngIf="ownerFormGroup.get('amount')?.touched && ownerFormGroup.get('amount')?.hasError('min')">must greater than 10</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100 position-relative">
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="desc" placeholder="Description " >
+                </mat-form-field>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>

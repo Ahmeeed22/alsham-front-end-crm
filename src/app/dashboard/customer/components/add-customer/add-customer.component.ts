@@ -20,6 +20,9 @@ export class AddCustomerComponent implements OnInit {
   @ViewChild('status') status !: DdlSearchableComponent;
   newServiceForm :any;
   formValues:any ;
+  increaseValue: number=0; // Variable for Increase Deposite By
+  decreaseValue: number=0; // Variable for Decrease Deposite By
+
   constructor(
     private _CustomersService:CustomersService,
     private fb:FormBuilder ,
@@ -36,20 +39,27 @@ export class AddCustomerComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.gatheringData()
+    this.gatheringData() ;
+    console.log(this.data);
+    if (this.data ) {
+      // this.disableDeposite()
+    }
+    
   }
 
   createForm() {
     this.newServiceForm = this.fb.group({
       name : [this.data?.name || '' , Validators.required],
-      email : [this.data?.email || '' ,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
-      phoneNo : [this.data?.phoneNo || '' ],
+      email : [this.data?.email || 'test@gmail.com' ,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+      phoneNo : [this.data?.phoneNo || '5414658854' ],
       deposite : [this.data?.deposite || 0 ,Validators.min(0) ],
     })
 
     this.formValues = {...this.newServiceForm.value}
   }
-
+  disableDeposite() {
+    this.newServiceForm.get('deposite')?.disable();
+  }
   getStatus(){
       let oldSelected=(this?.data?.active && this.data)? {id:1,name:' Active'}:{id:0,name:'Dis active'}
        this.statusObj= { staticArray:[{id:1,name:' Active'},{id:0,name:'Dis active'}], placeholder: 'الحالة ', placeholderEn: 'Status', required: true, searachable: false, multiSelect: false, oldSelectedItems: this.data? oldSelected : null
@@ -92,34 +102,40 @@ export class AddCustomerComponent implements OnInit {
     
     if (this.testChange() && this.newServiceForm.valid) { 
       let data=this.gatheringData()? this.gatheringData() : null
-      if (data.deposite) {
-        this._TransactionsService.getAllTransactions({customer_id:this.data.id , balanceDue:1}).subscribe({
-          next : (res)=>{
-            console.log(res);
-            console.log(res.allProfite[0].balanceDue);
-            if(res.allProfite[0].balanceDue ){
-              this.toaster.warning(`failed update Customer because he have balance = ${res.allProfite[0].balanceDue} at ${res.result.count} transactions`,"success")
-            }else{
-              this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
-                next: res=>{
-                  console.log(res);
+
+
+//
+      // if (data.deposite) {
+      //   this._TransactionsService.getAllTransactions({customer_id:this.data.id , balanceDue:1}).subscribe({
+      //     next : (res)=>{
+      //       console.log(res);
+      //       console.log(res.allProfite[0].balanceDue);
+      //       if(res.allProfite[0].balanceDue ){
+      //         this.toaster.warning(`failed update Customer because he have balance = ${res.allProfite[0].balanceDue} at ${res.result.count} transactions`,"success")
+      //       }else{
+      //         this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
+      //           next: res=>{
+      //             console.log(res);
                   
-                  this.toaster.success("success update Customer","success")
-                  this.dialog.close(true)
-                },
-                error:(err)=>{
-                  console.log(err);
+      //             this.toaster.success("success update Customer","success")
+      //             this.dialog.close(true)
+      //           },
+      //           error:(err)=>{
+      //             console.log(err);
                   
-                }
-              })
-            }
-          },
-          error:(err)=>{
-            console.log(err);
+      //           }
+      //         })
+      //       }
+      //     },
+      //     error:(err)=>{
+      //       console.log(err);
             
-          }
-        }) 
-      }else{
+      //     }
+      //   }) 
+      // }else{
+
+
+
         this._CustomersService.updateCustomer(this.data.id  ,data).subscribe({
           next: res=>{
             console.log(res);
@@ -132,7 +148,9 @@ export class AddCustomerComponent implements OnInit {
             
           }
         })
-      }
+//
+      // }
+      
     }else{
       this.newServiceForm.markAllAsTouched() ;
       this.status.validate();
@@ -169,6 +187,20 @@ export class AddCustomerComponent implements OnInit {
       hasChanges= true ;
     }
     return hasChanges
+  }
+
+  onInputChange(type:string) {
+    // Handle changes in both input fields
+    if (type=='Increase') {
+      this.decreaseValue = 0 ;
+      this.newServiceForm.get('deposite').patchValue(this.increaseValue+this.data?.deposite)
+    } else if (type =='Decrease') {
+      this.increaseValue=0 ;
+      this.newServiceForm.get('deposite').patchValue(this.data?.deposite-this.decreaseValue)
+    } else {
+    }{
+      console.log("error");
+    }
   }
 
 }

@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="top mt-5 mb-3 w-100  d-flex justify-content-end align-items-end">
+            <div class="addStatement" >
+                <button class="addTask" [disabled]="role!==3"  mat-raised-button (click)="addownerstatement()" >Add Owners Statement</button>
+
+            </div>
+        </div>
+        <!-- <div class="balance" *ngIf="selectedBank?.name">
+            <h2>{{selectedBank.name +' Balance = '}} <span style="color: blue;">{{selectedBank.balance}}</span></h2>
+        </div> -->
+        <div class="table">
+            <table class="table table-hover ">
+                <thead>
+
+                    <tr class="text-center text-white text-light">
+                        <th>Index</th>
+                        <!-- <th>Employee Name</th> -->
+                        <th>Description</th>
+                        <th>DR</th>
+                        <th>CR</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <!-- <tfoot class="text-center">
+                  <tr >
+                      <th >Sum</th>
+                      <th *ngIf="colDisplay.empName">--</th>
+                      <th *ngIf="colDisplay.cusName">--</th>
+                      <th>--</th>
+                      <th >--</th>
+                      <th class="table-info sumInfo">{{sumCols?.quantity}}</th>
+                      <th *ngIf="colDisplay.ppu">--</th>
+                      <th *ngIf="colDisplay.tp" class="table-info sumInfo">{{sumCols?.total_price}}</th>
+                      <th *ngIf="colDisplay.pm" class="table-info sumInfo">{{sumCols?.paymentAmount}}</th>
+                      <th>--</th>
+                  </tr>
+                  </tfoot> -->
+                <tbody>
+                    <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover"
+                        style="text-align: center;">
+                        <td style="text-align: center;">{{(1+index)}}</td>
+                        <!-- <td style="text-align: center;">{{transaction.empName|| '--'}}</td> -->
+                        <td style="text-align: center;">{{transaction.desc|| '--'}}</td>
+                        <td style="text-align: center;">{{transaction.type=='drowing'? transaction.amount:'--'}}</td>
+                        <td style="text-align: center;">{{transaction.type=='invest'? transaction.amount:'--'}}</td>
+                        <td style="text-align: center;"> {{transaction.createdAt | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

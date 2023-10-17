@@ -160,7 +160,10 @@ export class AddTransactionComponent implements OnInit {
             // update here customer deposite
             this._CustomersService.updateCustomer(this.customerSelected.id,{deposite :this.customerSelected.deposite-totalPrice}).subscribe({
               next :(res)=>{
-                this.toaster.success("customer deposite updated","success")
+                console.log(res);
+                
+                this.toaster.success("customer deposite updated","success") ;
+                // add deposit history 
               }
             })
           } else {
@@ -180,9 +183,15 @@ export class AddTransactionComponent implements OnInit {
 
         this._TransactionsService.addTransaction({...this.newTransactionForm.value ,customer_id,service_id,company_id , admin_id,visa,accountId,supplierId}).subscribe({
           next :(res)=>{
-            console.log(res);
-            
             this.toaster.success("success add transaction","success")
+            console.log(res.result.id);
+
+            // add deposite history
+            this._TransactionsService.addDipostHistory({type: 'withdraw' , details : this.newTransactionForm.get('sponsoredName').value ,customerId :this.customerSelected.id , amount:+this.newTransactionForm.get('paymentAmount').value }).subscribe((res)=>{
+              console.log(res);
+              this.toaster.success("success add Deposit History","success")
+              
+            })
             this.dialog.close(true)
           }
         })

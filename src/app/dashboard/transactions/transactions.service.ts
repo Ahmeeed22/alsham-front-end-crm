@@ -38,4 +38,8 @@ export class TransactionsService {
    }
    
 
+   addDipostHistory(data:any):Observable<any> {
+    return this.http.post(`${environment.baseApi}addDepositHistory`,data)
+   }
+
 }
