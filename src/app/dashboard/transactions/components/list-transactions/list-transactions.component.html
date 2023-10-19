@@ -1,170 +1,201 @@
-
-<div class="d-flex justify-content-end align-items-center   my-3 atPrint" >
-  <button class="addTask" mat-raised-button (click)="addTask()" >Add Transaction</button>
+<div class="d-flex justify-content-end align-items-center   my-3 atPrint">
+  <button class="addTask" mat-raised-button (click)="addTask()">Add Transaction</button>
 </div>
-<form class=" my-1 mx-lg-3 search  shadow atPrint" style="background-color: rgb(255, 254, 254); border-radius: 30px;" >
+<form class=" my-1 mx-lg-3 search  shadow atPrint" style="background-color: rgb(255, 254, 254); border-radius: 30px;">
   <h3 style="font-size: 22px; padding-left: 20px;" class="text-info font-weight-bolder pt-2">Search</h3>
-    <div class="row  m-md-2 px-4 py-2 rounded"style="">
-          <div class="col-md-6 ddl"  >
-            <app-ddl-searchable *ngIf="usersObj" [objData]="usersObj"
-            #users></app-ddl-searchable>
-          </div>
-            <div class="col-md-6 ddl " >
-              <app-ddl-searchable *ngIf="customersObj" [objData]="customersObj"
-               #customers></app-ddl-searchable>
-            </div> 
-            <div class="col-md-6 mt-lg-2">
-              <mat-form-field appearance="outline" class="w-100 p-0 m-0"  >
-                <mat-label>Choose a Start date</mat-label>
-                <div class="d-flex w-100 " >
-                  <input matInput  (dateChange)="makeValidationMax(start.value)" [matDatepicker]="pickerstart" #start>
-                  <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
-                </div>
-                <mat-datepicker #pickerstart></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6 mt-lg-2" >
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Choose a End date</mat-label>
-                <div class="d-flex">
-                  <input matInput [min]="minDate" [matDatepicker]="pickerEnd"  #end>
-                  <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                </div>
-                <mat-datepicker #pickerEnd></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-12 mt-lg-2">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Choose a start balanceDue</mat-label>
-                <!-- <div class="d-flex"> -->
-                  <input matInput type="number" min="0" class="col-12" #balanceDues>
-                <!-- </div> -->
-              </mat-form-field>
-            </div>
-            
-            <div class="col-12">
-              <div class="btns d-flex justify-content-end">
-                <button class="btn "style="background:#1746A2" (click)="search($event,start.value,end.value,balanceDues.value)">Search</button>
-                <button class="btn " style="background-color: #ffb64d;" (click)="resetSearch(start.value,end)">Reset</button>
-              </div>
-            </div>
-
+  <div class="row  m-md-2 px-4 py-2 rounded" style="">
+    <div class="col-md-6 mt-lg-1">
+      <mat-form-field appearance="outline" class="w-100 rounded" style="border-radius: 20px !important">
+        <mat-label>Sponsored Name</mat-label>
+        <input matInput currencyMask type="text" #name placeholder="Sponsored Name">
+      </mat-form-field>
     </div>
-</form>
-  <div class="filter my-1 mx-4 atPrint d-flex justify-content-between">
-    <form [formGroup]="form" style="max-width: 250px;">
+    <div class="col-md-6 ddl mt-lg-2">
+      <app-ddl-searchable *ngIf="usersObj" [objData]="usersObj" #users></app-ddl-searchable>
+    </div>
+    <div class="col-md-6 ddl mt-1 ">
+      <app-ddl-searchable *ngIf="customersObj" [objData]="customersObj" #customers></app-ddl-searchable>
+    </div>
+    
+    <!-- <div class="col-md-6 mt-lg-2">
+      <mat-form-field appearance="outline" class="w-100 p-0 m-0">
+        <mat-label>Choose a Start date</mat-label>
+        <div class="d-flex w-100 ">
+          <input matInput (dateChange)="makeValidationMax(start.value)" [matDatepicker]="pickerstart" #start>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
+        </div>
+        <mat-datepicker #pickerstart></mat-datepicker>
+      </mat-form-field>
+    </div> -->
+    <div class="col-md-6 ">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Choose a start balanceDue</mat-label>
+        <!-- <div class="d-flex"> -->
+        <input matInput type="number" min="0" class="col-12" #balanceDues>
+        <!-- </div> -->
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 mt-lg-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Choose a End date</mat-label>
+        <div class="d-flex">
+          <input matInput [min]="minDate" [matDatepicker]="pickerEnd" #end>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        </div>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+    </div>
 
-      <p-multiSelect [options]="cities" formControlName="selectedCities" 
-      defaultLabel="Select a City" optionLabel="name">
-      </p-multiSelect>
-    </form>
-    <button class="btn btn-primary  px-4  "(click)="printTest({ printable: 'print-section', type: 'html',style: '.parentt{width:95% ; margin:auto;}table tfoot tr ,table thead tr{background:#ccc;}table tfoot tr .sumInfo{border: 2px solid black !important;}tbody{text-align:center; border: 2px solid black;}table{background-image: url(https://ik.imagekit.io/2cvha6t2l9/bg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677596175916); background-repeat: repeat;background-position: center center;width: 60%;height: 60%;color:#000, border:none !important;}tr{text-align:center;}td{text-align:center; border-top: 2px solid black;font-size: larger;}.headinvoice{display:flex ;justify-content: space-between;}h2{padding:10px ; text-align:center;}.pparrent{display:flex ;justify-content: space-between; }.bgleft{margin-top: 0px; background-image: url(https://ik.imagekit.io/2cvha6t2l9/old2.png?updatedAt=1682950791120);background-position: center center;background-size: contain; }' },immg)">print</button>
+    <div class="col-md-6 mt-lg-2">
+      <mat-form-field appearance="outline" class="w-100 p-0 m-0">
+        <mat-label>Choose a Start date</mat-label>
+        <div class="d-flex w-100 ">
+          <input matInput (dateChange)="makeValidationMax(start.value)" [matDatepicker]="pickerstart" #start>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerstart"></mat-datepicker-toggle>
+        </div>
+        <mat-datepicker #pickerstart></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-12">
+      <div class="btns d-flex justify-content-end">
+        <button class="btn " style="background:#1746A2"
+          (click)="search($event,start.value,end.value,balanceDues.value,name.value)">Search</button>
+        <button class="btn " style="background-color: #ffb64d;" (click)="resetSearch(start.value,end)">Reset</button>
+      </div>
+    </div>
+
   </div>
-<div class="my-2 mx-4 pb-2 mat-elevation-z8" >
+</form>
+<div class="filter my-1 mx-4 atPrint d-flex justify-content-between">
+  <form [formGroup]="form" style="max-width: 250px;">
 
-    <div class="listBox" >
-      <div class="table-responsive"  id="print-section">
-        <div class="parentt" >
-          <img #immg style="height: 120px;"   src="https://ik.imagekit.io/2cvha6t2l9/headeriv.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1677688005636" class="w-100 headerInvoiceImg  headinvoice d-none" alt="header of invoice" srcset="">
-          <div #infoo class=" d-none headinvoice">
-            <div class="pparrent d-flex justify-content-between">
-              <div class="leftSideHeader">
-                <h3 *ngIf="customersObj">Invoice To :  <span>{{ customerName ? customerName : 'Customer Name'}}</span> </h3>
-                <h3 *ngIf="customersObj">Date :  <span>{{ myDate|date :'medium'}}</span> </h3>
-              </div>
-              <div >
-                <h3 *ngIf="invoiceNo" style="text-align: right;">Invoice Number :  <span>{{invoiceNo}}</span> </h3>
-              </div>
+    <p-multiSelect [options]="cities" formControlName="selectedCities" defaultLabel="Select a City" optionLabel="name">
+    </p-multiSelect>
+  </form>
+  <button class="btn btn-primary  px-4  "
+    (click)="printTest({ printable: 'print-section', type: 'html',style: '.parentt{width:95% ; margin:auto;}table tfoot tr ,table thead tr{background:#ccc;}table tfoot tr .sumInfo{border: 2px solid black !important;}tbody{text-align:center; border: 2px solid black;}table{background-image: url(https://ik.imagekit.io/2cvha6t2l9/bg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677596175916); background-repeat: repeat;background-position: center center;width: 60%;height: 60%;color:#000, border:none !important;}tr{text-align:center;}td{text-align:center; border-top: 2px solid black;font-size: larger;}.headinvoice{display:flex ;justify-content: space-between;}h2{padding:10px ; text-align:center;}.pparrent{display:flex ;justify-content: space-between; }.bgleft{margin-top: 0px; background-image: url(https://ik.imagekit.io/2cvha6t2l9/old2.png?updatedAt=1682950791120);background-position: center center;background-size: contain; }' },immg)">print</button>
+</div>
+<div class="my-2 mx-4 pb-2 mat-elevation-z8">
+
+  <div class="listBox">
+    <div class="table-responsive" id="print-section">
+      <div class="parentt">
+        <img #immg style="height: 120px;"
+          src="https://ik.imagekit.io/2cvha6t2l9/headeriv.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1677688005636"
+          class="w-100 headerInvoiceImg  headinvoice d-none" alt="header of invoice" srcset="">
+        <div #infoo class=" d-none headinvoice">
+          <div class="pparrent d-flex justify-content-between">
+            <div class="leftSideHeader">
+              <h3 *ngIf="customersObj">Invoice To : <span>{{ customerName ? customerName : 'Customer Name'}}</span>
+              </h3>
+              <h3 *ngIf="customersObj">Date : <span>{{ myDate|date :'medium'}}</span> </h3>
+            </div>
+            <div>
+              <h3 *ngIf="invoiceNo" style="text-align: right;">Invoice Number : <span>{{invoiceNo}}</span> </h3>
             </div>
           </div>
-          <table class="table table-hover " >
-              <thead>
-              
-                <tr class="text-center text-white text-light" >
-                  <th >Index</th>
-                  <th *ngIf="colDisplay.empName">Employee Name</th>
-                  <th *ngIf="colDisplay.cusName">Customer Name</th>
-                  <th *ngIf="colDisplay.sponsored">Sponsored</th>
-                  <th *ngIf="colDisplay.serName">Service Name</th>
-                  <th *ngIf="colDisplay.qu">Quantity</th>
-                  <th *ngIf="colDisplay.ppu">Price per unit</th>
-                  <th *ngIf="colDisplay.tp">Total Price</th>
-                  <th *ngIf="colDisplay.pm">Payment Amount</th>
-                  <th *ngIf="colDisplay.bd">Balance Due</th>
-                  <th *ngIf="colDisplay.p">Profite</th>
-                  <th *ngIf="colDisplay.com">Commission</th>
-                  <th *ngIf="colDisplay.date">Date</th>
-                  <th *ngIf="colDisplay.acts" colspan="1">Actions</th>
-                </tr>
-              </thead>
-              <tfoot class="text-center">
-                <tr >
-                    <th >Sum</th>
-                    <th *ngIf="colDisplay.empName">--</th>
-                    <th *ngIf="colDisplay.cusName">--</th>
-                    <th *ngIf="colDisplay.sponsored">--</th>
-                    <th *ngIf="colDisplay.serName">--</th>
-                    <th *ngIf="colDisplay.qu" class="table-info sumInfo">{{sumCols?.quantity}}</th>
-                    <th *ngIf="colDisplay.ppu">{{sumCols?.total_price_without_profite}}</th>
-                    <th *ngIf="colDisplay.tp" class="table-info sumInfo">{{sumCols?.total_price}}</th>
-                    <th *ngIf="colDisplay.pm" class="table-info sumInfo">{{sumCols?.paymentAmount}}</th>
-                    <th *ngIf="colDisplay.bd" class="table-info sumInfo">{{sumCols?.balanceDue}}</th>
-                    <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCols?.total_profite}}</th>
-                    <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCommissionUNpaid +' / '+ sumCols?.SumCommission}}</th>
-                    <th *ngIf="colDisplay.date">--</th>
-                    <th *ngIf="colDisplay.acts" colspan="1">--</th>
-                </tr>
-                </tfoot>
-              <tbody>
-                <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover" style="text-align: center;">
-                  <td style="text-align: center;" >{{((1+index)+(filteration.limit*(filteration.offset-1))+filteration.limit) }}<span class="text-info font-weight-bolder">{{ role == 3 ?' -- '+ ( 7200-transaction.id + 271) : '' }}</span></td>
-                  <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.sponsored">{{transaction.sponsoredName||'--'}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.serName">{{transaction.service.name}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.qu">{{transaction.quantity}}</td>
-                  <td style="text-align: center;"  *ngIf="colDisplay.ppu">{{transaction.price}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.tp">{{transaction.totalPrice}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.pm">{{transaction.paymentAmount}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.bd">{{transaction.balanceDue}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.p">{{transaction.profite}}</td>
-                  <td style="text-align: center;" *ngIf="colDisplay.com"><span class="font-weight-bolder">{{transaction.commission}}</span>
-                    <div class="custom-control custom-checkbox pt-2" >
-                      <input type="checkbox" [disabled]="transaction.comIsDone || !transaction.commission" class="custom-control-input" [id]="transaction.id" [checked]="transaction.comIsDone"  (change)="onCheckboxChange($event,transaction.id,transaction.commission,transaction.comIsDone)">
-                      <label class="custom-control-label" [for]="transaction.id">{{transaction.comIsDone||!transaction.commission? 'Paid': 'UnPaid'}} </label>
-                    </div>
-                  </td>
-                  <td style="text-align: center;" *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
-                  <td style="text-align: center;"  *ngIf="colDisplay.acts" colspan="1"><button (click)="updateTask($event,transaction)" class="btn btn-info"  [disabled]="role!==3" >Update</button>
-                 <button *ngIf="false" (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button>
-                 <button (click)="showDetails($event,transaction)" class="btn btn-outline-secondary text-secondary hhover">Details</button></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="headinvoice  d-none" style="display: flex; justify-content: space-between; padding: 10px;" #footerInvoice>
-              <div class="left">
-                <h2 style="text-align: center;">
-                  توقيع المستلم
-                  <br/>
-                  Receiver Sign
-                  <br/>
-                  <br/>
-                  <span style="padding: 10px;">........</span>
-                </h2>
-              </div>
-              <div class="right">
-                <h2 style="text-align: center;">
-                  توقيع العميل
-                  <br/>
-                  Customer Sign
-                  <br/>
-                  <br/>
-                  <span style="padding: 10px;">........</span>
-                </h2>
-              </div>
-            </div>
-            <div class="headinvoice  d-none" style="display: flex; justify-content: space-between; padding:0px 10px; margin-top: -20px;" #footerInvoice2>
-              <!-- <div class="left">
+        </div>
+        <table class="table table-hover ">
+          <thead>
+
+            <tr class="text-center text-white text-light">
+              <th>Index</th>
+              <th *ngIf="colDisplay.empName">Employee Name</th>
+              <th *ngIf="colDisplay.cusName">Customer Name</th>
+              <th *ngIf="colDisplay.sponsored">Sponsored</th>
+              <th *ngIf="colDisplay.serName">Service Name</th>
+              <th *ngIf="colDisplay.qu">Quantity</th>
+              <th *ngIf="colDisplay.ppu">Price per unit</th>
+              <th *ngIf="colDisplay.tp">Total Price</th>
+              <th *ngIf="colDisplay.pm">Payment Amount</th>
+              <th *ngIf="colDisplay.bd">Balance Due</th>
+              <th *ngIf="colDisplay.p">Profite</th>
+              <th *ngIf="colDisplay.com">Commission</th>
+              <th *ngIf="colDisplay.date">Date</th>
+              <th *ngIf="colDisplay.acts" colspan="1">Actions</th>
+            </tr>
+          </thead>
+          <tfoot class="text-center">
+            <tr>
+              <th>Sum</th>
+              <th *ngIf="colDisplay.empName">--</th>
+              <th *ngIf="colDisplay.cusName">--</th>
+              <th *ngIf="colDisplay.sponsored">--</th>
+              <th *ngIf="colDisplay.serName">--</th>
+              <th *ngIf="colDisplay.qu" class="table-info sumInfo">{{sumCols?.quantity}}</th>
+              <th *ngIf="colDisplay.ppu">{{sumCols?.total_price_without_profite}}</th>
+              <th *ngIf="colDisplay.tp" class="table-info sumInfo">{{sumCols?.total_price}}</th>
+              <th *ngIf="colDisplay.pm" class="table-info sumInfo">{{sumCols?.paymentAmount}}</th>
+              <th *ngIf="colDisplay.bd" class="table-info sumInfo">{{sumCols?.balanceDue}}</th>
+              <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCols?.total_profite}}</th>
+              <th *ngIf="colDisplay.p" class="table-info sumInfo">{{sumCommissionUNpaid +' / '+ sumCols?.SumCommission}}
+              </th>
+              <th *ngIf="colDisplay.date">--</th>
+              <th *ngIf="colDisplay.acts" colspan="1">--</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr *ngFor="let transaction of dataSource  ;let index=index" class="text-center hover"
+              style="text-align: center;">
+              <td style="text-align: center;">{{((1+index)+(filteration.limit*(filteration.offset-1))+filteration.limit)
+                }}<span class="text-info font-weight-bolder">{{ role == 3 ?' -- '+ ( 7200-transaction.id + 271) : ''
+                  }}</span></td>
+              <td style="text-align: center;" *ngIf="colDisplay.empName">{{transaction.user.name}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.cusName">{{transaction.customer.name}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.sponsored">{{transaction.sponsoredName||'--'}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.serName">{{transaction.service.name}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.qu">{{transaction.quantity}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.ppu">{{transaction.price}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.tp">{{transaction.totalPrice}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.pm">{{transaction.paymentAmount}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.bd">{{transaction.balanceDue}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.p">{{transaction.profite}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.com"><span
+                  class="font-weight-bolder">{{transaction.commission}}</span>
+                <div class="custom-control custom-checkbox pt-2">
+                  <input type="checkbox" [disabled]="transaction.comIsDone || !transaction.commission"
+                    class="custom-control-input" [id]="transaction.id" [checked]="transaction.comIsDone"
+                    (change)="onCheckboxChange($event,transaction.id,transaction.commission,transaction.comIsDone)">
+                  <label class="custom-control-label"
+                    [for]="transaction.id">{{transaction.comIsDone||!transaction.commission? 'Paid': 'UnPaid'}} </label>
+                </div>
+              </td>
+              <td style="text-align: center;" *ngIf="colDisplay.date"> {{transaction.createdAt | date}}</td>
+              <td style="text-align: center;" *ngIf="colDisplay.acts" colspan="1"><button
+                  (click)="updateTask($event,transaction)" class="btn btn-info" [disabled]="role!==3">Update</button>
+                <button *ngIf="false" (click)="deleteTask(transaction.id)" class="btn btn-danger">Delete</button>
+                <button (click)="showDetails($event,transaction)"
+                  class="btn btn-outline-secondary text-secondary hhover">Details</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="headinvoice  d-none" style="display: flex; justify-content: space-between; padding: 10px;"
+          #footerInvoice>
+          <div class="left">
+            <h2 style="text-align: center;">
+              توقيع المستلم
+              <br />
+              Receiver Sign
+              <br />
+              <br />
+              <span style="padding: 10px;">........</span>
+            </h2>
+          </div>
+          <div class="right">
+            <h2 style="text-align: center;">
+              توقيع العميل
+              <br />
+              Customer Sign
+              <br />
+              <br />
+              <span style="padding: 10px;">........</span>
+            </h2>
+          </div>
+        </div>
+        <div class="headinvoice  d-none"
+          style="display: flex; justify-content: space-between; padding:0px 10px; margin-top: -20px;" #footerInvoice2>
+          <!-- <div class="left">
                 <h2 style="text-align: center;">
                   توقيع المستلم
                   <br/>
@@ -175,9 +206,9 @@
                 </h2>
                 <img src="https://ik.imagekit.io/2cvha6t2l9/logoalsham.PNG?updatedAt=1682924596117" >
               </div> -->
-              <div class="left bgleft" style="width: 307px; height: 180px;">
-                
-                <!-- <h2 style="text-align: center;">
+          <div class="left bgleft" style="width: 307px; height: 180px;">
+
+            <!-- <h2 style="text-align: center;">
                   توقيع العميل
                   <br/>
                   Customer Sign
@@ -185,24 +216,17 @@
                   <br/>
                   <span style="padding: 10px;">........</span>
                 </h2> -->
-                <!-- <img  src="https://ik.imagekit.io/2cvha6t2l9/signature2.png?updatedAt=1682949139987" > -->
-              </div>
-            </div>
+            <!-- <img  src="https://ik.imagekit.io/2cvha6t2l9/signature2.png?updatedAt=1682949139987" > -->
+          </div>
         </div>
       </div>
-          <div class="d-flex justify-content-center atPrint">
-            <mat-paginator #paginator
-                 class="demo-paginator font-weight-light border rounded"
-                 (page)="handlePageEvent($event)"
-                 [length]="length"
-                 [pageSize]="pageSize"
-                 [disabled]="disabled"
-                 [showFirstLastButtons]="showFirstLastButtons"
-                 [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
-                 [hidePageSize]="hidePageSize"
-                 [pageIndex]="pageIndex"
-                 aria-label="Select page">
-            </mat-paginator>
-          </div>
     </div>
+    <div class="d-flex justify-content-center atPrint">
+      <mat-paginator #paginator class="demo-paginator font-weight-light border rounded" (page)="handlePageEvent($event)"
+        [length]="length" [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+        [pageIndex]="pageIndex" aria-label="Select page">
+      </mat-paginator>
+    </div>
+  </div>
 </div>

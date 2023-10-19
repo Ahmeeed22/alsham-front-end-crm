@@ -19,6 +19,14 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+                <mat-form-field  appearance="outline" class="w-100 " *ngIf="banks.length">
+                    <mat-label>Select Banks</mat-label>
+                    <mat-select formControlName="accountId" placeholder="Bank" >
+                        <mat-option [value]="bank.id" *ngFor="let bank of banks ; let index=index">
+                            {{bank.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <mat-form-field appearance="outline" class="w-100 position-relative">
                     <mat-label>Amount</mat-label>
                     <input matInput type="number"  formControlName="amount" placeholder="Amount"

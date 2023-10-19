@@ -8,6 +8,7 @@ import { DdlSearchableComponent } from 'src/app/shared/ddl-searcheble/ddl-search
 import { Item } from 'src/app/shared/ddl-searcheble/models/item';
 import { CustomersService } from '../../customers.service';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
+import { DepositHistoryComponent } from '../deposit-history/deposit-history.component';
 
 @Component({
   selector: 'app-list-customer',
@@ -65,6 +66,14 @@ addCustomer(): void {
   dialogRef.afterClosed().subscribe(result => {
     this.getAllCustomers()
   });
+}
+
+getCustomerDepositHistory(data :any){
+  const dialogRef = this.dialog.open(DepositHistoryComponent , {
+    width : "70%",
+    disableClose : false ,
+    data 
+    })
 }
 
 deleteCustomer(id:any){

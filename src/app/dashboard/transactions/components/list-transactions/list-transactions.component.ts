@@ -64,7 +64,7 @@ export class ListTransactionsComponent implements OnInit {
   minDate:any;
   sumCommissionUNpaid:any ;
   role:any ;
-
+  @ViewChild('name') name !: ElementRef;
   constructor(
     private _TransactionsService:TransactionsService  
     ,private toaster:ToastrService
@@ -245,10 +245,11 @@ export class ListTransactionsComponent implements OnInit {
   }
 
 
-  search(e:any,start:any,end:any,balanceDue:any){ 
+  search(e:any,start:any,end:any,balanceDue:any,name:string){ 
     start?this.filteration.startedDate= new Date(start.split('-').reverse().join('-')).toISOString():'' ;
     end?this.filteration.endDate=new Date(end.split('-').reverse().join('-')).toISOString():'' ;
-    this.filteration.balanceDue=balanceDue||0
+    this.filteration.balanceDue=balanceDue||0 ;
+    name? this.filteration.sponsoredName = name : ''
     // this.resetPagination()
     this.customerName = (this.customers.gettingResult()?.name )? this.customers?.gettingResult()?.name: '';
     (this.customers.gettingResult()?.id) ? this.filteration.customer_id= this.customers.gettingResult()?.id:'';
@@ -271,6 +272,7 @@ export class ListTransactionsComponent implements OnInit {
     this.users.resetList();
    this.start.nativeElement.value=null
    this.end.nativeElement.value=null
+   this.name.nativeElement.value=null
    this.balanceDues.nativeElement.value=null
    
   }

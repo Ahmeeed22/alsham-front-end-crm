@@ -146,7 +146,7 @@ export class AddTransactionComponent implements OnInit {
     let accountId=this.banks?.gettingResult()?.id || null ;
     let visa=true
     let userLogged= this._AuthService.currentUser.getValue()
-    if (userLogged) {
+    if (userLogged && (supplierId||accountId)) {
       const {company_id , id:admin_id}=userLogged ;
       if (this.newTransactionForm.valid && customer_id && service_id) {
         if (this.customerDeposite>0) {
@@ -203,6 +203,9 @@ export class AddTransactionComponent implements OnInit {
        
         ;
       }
+    } 
+    else{
+      this.toaster.warning("please select bank account or supplier ") ;
     }
   }
 

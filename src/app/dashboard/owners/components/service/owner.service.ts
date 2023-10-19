@@ -13,4 +13,8 @@ export class OwnerService {
   getAllOwners(filterObj:any={}):Observable<any>{
     return this.http.post(`${environment.baseApi}getAllOwners`,filterObj)
   }
+
+  createOwner(data:any):Observable<any>{
+    return this.http.post(`${environment.baseApi}addOwners`,data)
+  }
 }
