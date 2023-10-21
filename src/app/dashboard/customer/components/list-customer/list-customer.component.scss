@@ -67,3 +67,7 @@ th{
   .mat-row:hover .mat-cell{
     background-color: #fff5a2;
 }
+.scrollable-dialog {
+  max-height: 400px; /* Adjust the height according to your needs */
+  overflow-y: auto;
+}

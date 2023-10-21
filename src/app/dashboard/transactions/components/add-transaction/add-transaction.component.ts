@@ -158,7 +158,7 @@ export class AddTransactionComponent implements OnInit {
               return ;
             }
             // update here customer deposite
-            this._CustomersService.updateCustomer(this.customerSelected.id,{deposite :this.customerSelected.deposite-totalPrice}).subscribe({
+            this._CustomersService.updateCustomer(this.customerSelected.id,{deposite :this.customerSelected.deposite-totalPrice ,transactionEndPoint:true}).subscribe({
               next :(res)=>{
                 console.log(res);
                 
@@ -166,6 +166,7 @@ export class AddTransactionComponent implements OnInit {
                 // add deposit history 
               }
             })
+
           } else {
             // update here customer deposite
             if (this.newTransactionForm.get('paymentAmount').value < this.customerSelected.deposite) {
@@ -178,6 +179,8 @@ export class AddTransactionComponent implements OnInit {
                 this.toaster.success("customer deposite updated","success")
               }
             })
+
+
           }
         }
 
@@ -187,11 +190,16 @@ export class AddTransactionComponent implements OnInit {
             console.log(res.result.id);
 
             // add deposite history
-            this._TransactionsService.addDipostHistory({type: 'withdraw' , details : this.newTransactionForm.get('sponsoredName').value ,customerId :this.customerSelected.id , amount:+this.newTransactionForm.get('paymentAmount').value }).subscribe((res)=>{
-              console.log(res);
-              this.toaster.success("success add Deposit History","success")
-              
-            })
+            if (this.customerDeposite>0) {
+              this._TransactionsService.addDipostHistory({type: 'withdraw' , details : `${this.newTransactionForm.get('sponsoredName').value} ` ,customerId :this.customerSelected.id , amount:+this.newTransactionForm.get('paymentAmount').value ,deposite :
+              this.customerDeposite >= totalPrice ? this.customerSelected.deposite-totalPrice : 0
+             }).subscribe((res)=>{
+                console.log(res);
+                this.toaster.success("success add Deposit History","success")
+                
+              })
+            }
+
             this.dialog.close(true)
           }
         })

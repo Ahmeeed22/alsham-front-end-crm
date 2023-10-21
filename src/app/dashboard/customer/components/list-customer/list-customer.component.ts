@@ -72,7 +72,8 @@ getCustomerDepositHistory(data :any){
   const dialogRef = this.dialog.open(DepositHistoryComponent , {
     width : "70%",
     disableClose : false ,
-    data 
+    data ,
+    panelClass: 'scrollable-dialog' // Add the custom CSS class here
     })
 }
 

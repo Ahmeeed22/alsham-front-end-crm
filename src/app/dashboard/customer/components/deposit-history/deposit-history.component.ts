@@ -23,6 +23,6 @@ export class DepositHistoryComponent implements OnInit {
 
 
   close(){
-    
+    this._MatDialogRef.close()
   }
 }

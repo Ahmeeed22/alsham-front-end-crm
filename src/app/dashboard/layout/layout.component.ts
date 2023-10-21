@@ -16,6 +16,8 @@ export class LayoutComponent{
   user:any;
   isReminder:boolean=false ;
   isReminderUrgent:boolean=false ;
+  isAccountantSubMenuOpen: boolean = false;
+
   constructor(private authService:AuthService , private router:Router, private toaster:ToastrService,private _ReminderService: ReminderService) { 
    this.authService.currentUser.subscribe(res=> {
       this.isLogged = this.authService.currentUser.getValue()!==null ? true : false ;
@@ -85,4 +87,10 @@ export class LayoutComponent{
       })
       
     }
+    toggleAccountantSubMenu() {
+      console.log("test");
+      
+      this.isAccountantSubMenuOpen = !this.isAccountantSubMenuOpen;
+    }
+    
 }
