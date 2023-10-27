@@ -1,0 +1,98 @@
+button {
+    color: #FFF;
+    margin: 0 5px;
+    &.addTask {
+        background-color: #63e38a!important;
+        // rgb(28, 146, 28)!important;
+        color: #fff;
+        padding: 2px 23px;
+        font-size: 20px;
+    }
+}
+
+
+:host ::ng-deep {
+    table {
+        thead {
+            // #10bca5
+            background-color: rgb(126, 128, 126)!important;
+
+            .mat-header-cell {
+                color: #FFF;
+            }
+        }
+    }
+}
+button{
+    transition: all .4s;
+    border-radius: 13px;
+}
+button:hover{
+    border-radius: 30px;
+}
+.hhover:hover{
+    color: #FFF !important;
+}
+th{
+    font-size: 16px;
+    font-weight: 500;
+}
+.mat-elevation-z8{
+    box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+  }
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important; 
+}
+:host {
+    ::ng-deep .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 141px;
+    }
+    ::ng-deep .mat-form-field-label-wrapper {
+        position: absolute;
+        left: 12px;
+        z-index: 1000;
+        box-sizing: content-box;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    
+    ::ng-deep input.mat-input-element {
+        margin-top: -0.0625em;
+        height: 38px;
+    }
+    
+    
+    // [_nghost-pyp-c255] .mat-form-field-infix {
+    //     padding: 12px !important;
+    // }
+    ::ng-deep .mat-form-field-infix {
+        padding: 0 !important; 
+    }
+    ::ng-deep  .mat-form-field-appearance-outline .mat-form-field-outline {
+        display: flex;
+        position: absolute;
+        top: 0.25em;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        height: 53px;
+    }
+}
+
+.table th, .table td {
+    padding: 0.45rem;
+    vertical-align: top;
+    // border-top: 1px solid #dee2e6;
+}
+
+table  {
+    padding: 0.15rem;
+    vertical-align: top;
+}

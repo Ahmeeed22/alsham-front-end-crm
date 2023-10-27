@@ -36,4 +36,12 @@ export class AuthService {
     return this._HttpClient.get(`${environment.baseApi}allUsers`)
   }
 
+  getSumDeposit():Observable<any>{
+    return this._HttpClient.get(`${environment.baseApi}getSumDeposit`)
+  }
+
+  getSumBalance():Observable<any>{
+    return this._HttpClient.get(`${environment.baseApi}getAllSumBalanceCustomers`)
+  }
+
 }

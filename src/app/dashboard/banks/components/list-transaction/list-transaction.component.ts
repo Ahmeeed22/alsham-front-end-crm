@@ -34,6 +34,8 @@ export class ListTransactionComponent implements OnInit {
     this._BanksService.getAllBanks().subscribe({
       next:(res)=>{
         this.banks=res.result.rows ;
+        console.log(this.banks);
+        
         this.selectedBank=this.banks[0]
         this.getAllbanksStatement()
         

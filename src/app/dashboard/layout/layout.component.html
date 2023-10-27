@@ -26,7 +26,7 @@
         <a *ngIf="isLogged" mat-list-item routerLinkActive="list-item-active" routerLink="/main/owners/List"> <i class="fa-solid fa-building fa-lg pr-4"></i>
           Owners </a>  
         <a *ngIf="isLogged " mat-list-item routerLinkActive="list-item-active" routerLink="/main/transactionAccount/List"> <i class="fa-regular fa-money-check-dollar  fa-xl pr-4"></i>Expenses / Supply </a>  
-        <a *ngIf="isLogged " mat-list-item routerLinkActive="list-item-active" routerLink="/main/accountant" (click)="toggleAccountantSubMenu()"> <i class="fa fa-calculator  fa-xl pr-4"></i>Accountant</a> 
+        <a *ngIf="isLogged " mat-list-item  routerLink="/main/accountant" (click)="toggleAccountantSubMenu()"> <i class="fa fa-calculator  fa-xl pr-4"></i>Accountant</a> 
         <!-- sub list accontant  -->
         <!-- Sub-list for Accountant -->
         <div *ngIf="isAccountantSubMenuOpen" class="pl-5">

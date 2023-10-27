@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row">
+        <table class="table table-bordered " style="min-width: 670px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center" colspan="2">Assets</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bank of banks ">
+                    <td scope="row" class="w-50">{{bank.name}}</td>
+                    <td>{{bank.balance | currency:' AED '}}</td>
+                </tr>
+                <!-- <tr>
+                    <td scope="row">Cash Reserve</td>
+                    <td>{{ 2154 | currency:' AED '}}</td>
+                </tr> -->
+                <tr *ngFor="let supplier of suppliers">
+                    <td scope="row">{{supplier.name}}</td>
+                    <td>{{supplier.balance | currency:' AED '}}</td>
+                </tr>
+
+                <tr>
+                    <td scope="row">Debtors</td>
+                    <td>
+                        <table class="table-borderless w-100">
+                            <tr class="d-flex justify-content-between ">
+                                <td style="padding-left: 0px !important;" >{{sumBalance | currency:' AED '}}</td>
+                                <div class="bg-dark font-weight-bolder text-info">
+                                    <td style="border-right: 2px solid #fff;">Total</td>
+                                    <td  >58151 AED</td>
+                                </div>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <th scope="col" class="text-center bg-dark text-white" colspan="2">Liabilities</th>
+                <tr>
+                    <td scope="row">Creditors</td>
+                    <td>{{sumDeposit | currency:' AED '}}</td>
+                </tr>
+                <tr>
+                    <td scope="row">Commission </td>
+                    <td>
+                        <table class="table-borderless w-100">
+                            <tr class="d-flex justify-content-between ">
+                                <td style="padding-left: 0px !important;" >{{sumCommission | currency:' AED '}}</td>
+                                <div class="bg-dark font-weight-bolder text-info">
+                                    <td style="border-right: 2px solid #fff;">Total</td>
+                                    <td>58151 AED</td>
+                                </div>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <th scope="col" class="text-center bg-dark text-white" colspan="2">Owner Equity</th>
+                <tr>
+                    <td scope="row">Capital</td>
+                    <td>{{sumCapital | currency: ' AED '}}</td>
+                </tr>
+                <tr>
+                    <td scope="row">Owner Drawings </td>
+                    <td>{{sumDrawing | currency:' AED '}}</td>
+                </tr>
+                <tr>
+                    <td scope="row">Net Profite</td>
+                    <td>
+                        <table class="table-borderless w-100">
+                            <tr class="d-flex justify-content-between ">
+                                <td style="padding-left: 0px !important;" >{{totalProfie | currency: ' AED '}}</td>
+                                <div class="bg-dark font-weight-bolder text-info">
+                                    <td style="border-right: 2px solid #fff;">Total</td>
+                                    <td>58151 AED</td>
+                                </div>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <th scope="col" class="text-center bg-dark text-white" colspan="2">Basic Account Equations</th>
+                <tr >
+                    <td scope="row" class="co">Equal Accounts</td>
+                    <td>
+                        <table class="table table-borderless text-center">
+                            <tr style="border-bottom:2px solid #000; font-weight: 600;">
+                                <td>Assets</td>
+                                <td>Sum( Liabilities&&Owner Equity ) </td>
+                            </tr>
+                            <tr class="">
+                                <td>27900 AED </td>
+                                <td>27900 AED </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <th scope="col" class="text-center bg-dark text-white" colspan="2">Correct Mistakes</th>
+                <tr>
+                    <td scope="row" colspan="2" class="text-center font-weight-bolder" style="font-size: 24px;">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

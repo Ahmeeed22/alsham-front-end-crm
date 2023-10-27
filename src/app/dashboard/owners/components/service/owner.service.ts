@@ -17,4 +17,8 @@ export class OwnerService {
   createOwner(data:any):Observable<any>{
     return this.http.post(`${environment.baseApi}addOwners`,data)
   }
+
+  getCapitalAndOwnerDrawing():Observable<any>{
+    return this.http.get(`${environment.baseApi}getCapitalAndOwnerDrawing`)
+  }
 }
