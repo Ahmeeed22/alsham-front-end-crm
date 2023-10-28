@@ -42,4 +42,8 @@ export class TransactionsService {
     return this.http.post(`${environment.baseApi}addDepositHistory`,data)
    }
 
+   getExpensesSum():Observable<any>{
+    return this.http.get(`${environment.baseApi}getExpensesSum`)
+   }
+
 }
