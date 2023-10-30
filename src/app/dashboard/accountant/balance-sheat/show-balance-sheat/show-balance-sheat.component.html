@@ -11,10 +11,10 @@
                     <td scope="row" class="w-50">{{bank.name}}</td>
                     <td>{{bank.balance | currency:' AED '}}</td>
                 </tr>
-                <!-- <tr>
-                    <td scope="row">Cash Reserve</td>
+                <tr>
+                    <td scope="row">Cash</td>
                     <td>{{ 2154 | currency:' AED '}}</td>
-                </tr> -->
+                </tr>
                 <tr *ngFor="let supplier of suppliers">
                     <td scope="row">{{supplier.name}}</td>
                     <td>{{supplier.balance | currency:' AED '}}</td>
